@@ -5,7 +5,7 @@ namespace App\Model;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Active extends Model
+class Course extends Model
 {
     protected $guarded = ['_token','_method'];
 
@@ -16,7 +16,6 @@ class Active extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'active_applies')->withTimestamps();
+        return $this->belongsToMany(User::class, 'course_groups')->withTimestamps();
     }
-
 }

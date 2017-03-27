@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActiveAppliesTable extends Migration
+class CreateAnnouncementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateActiveAppliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('active_applies', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->comment('用户id，外键');
-            $table->unsignedInteger('active_id')->comment('活动id，外键');
-            $table->unsignedTinyInteger('status')->nullable()->default(0)->comment('申请状态');
+            $table->string('title')->comment('公告标题');
+            $table->text('content')->comment('公告内容');
+            $table->morphs('announcement');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateActiveAppliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('active_applies');
+        Schema::dropIfExists('announcements');
     }
 }

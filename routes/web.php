@@ -12,5 +12,32 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'successful!';
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'], function () {
+    Route::group(['middleware' => [], 'prefix' => 'active'], function () {
+        Route::get('getList', 'ActiveController@getActiveList');
+        Route::get('getActive/{id?}', 'ActiveController@getActive');
+        Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
+        Route::post('storeActive', 'ActiveController@storeActive');
+        Route::post('update/{active}', 'ActiveController@updateActive');
+    });
+
+    Route::group(['middleware' => [], 'prefix' => 'user'], function () {
+        Route::get('getUserInfo/{user}', 'UserController@getUserInfo');
+        Route::get('getAuthUserId', 'UserController@getAuthUserId');
+    });
+
+    Route::group(['middleware' => [], 'prefix' => 'course'], function () {
+        Route::get('list', 'CourseController@getCourseList');
+        Route::get('detail/{course}', 'CourseController@getCourseDetail');
+        Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
+        Route::post('storeCourse', 'CourseController@storeCourse');
+        Route::post('update/{course}', 'CourseController@updateCourse');
+    });
 });

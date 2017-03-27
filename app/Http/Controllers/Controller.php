@@ -10,4 +10,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function ajaxResponse($errcode = 0, $errmsg = '', $data = [])
+    {
+        return response()->json([
+            'errcode' => $errcode,
+            'errmsg'  => $errmsg,
+            'data'    => $data
+        ]);
+    }
 }

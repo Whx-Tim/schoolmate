@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActiveAppliesTable extends Migration
+class CreateReceiptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateActiveAppliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('active_applies', function (Blueprint $table) {
+        Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('consignee', 20)->comment('收货人');
+            $table->string('address')->comment('收货地址');
+            $table->string('phone', 30)->comment('收货人电话');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
-            $table->unsignedInteger('active_id')->comment('活动id，外键');
-            $table->unsignedTinyInteger('status')->nullable()->default(0)->comment('申请状态');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateActiveAppliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('active_applies');
+        Schema::dropIfExists('receipts');
     }
 }

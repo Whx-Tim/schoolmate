@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActiveAppliesTable extends Migration
+class CreateLeaguesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateActiveAppliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('active_applies', function (Blueprint $table) {
+        Schema::create('leagues', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name', 100)->comment('社团名称');
+            $table->unsignedInteger('amount')->comment('限制人数');
+            $table->text('introduction')->comment('社团介绍');
+            $table->unsignedTinyInteger('type')->nullable()->default(0)->comment('社团类型');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
-            $table->unsignedInteger('active_id')->comment('活动id，外键');
-            $table->unsignedTinyInteger('status')->nullable()->default(0)->comment('申请状态');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateActiveAppliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('active_applies');
+        Schema::dropIfExists('leagues');
     }
 }

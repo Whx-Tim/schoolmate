@@ -22,10 +22,11 @@ class CreateUserInfosTable extends Migration
             $table->string('grade', 10)->comment('年级');
             $table->unsignedTinyInteger('gender')->comment('性别');
             $table->string('phone', 20)->comment('联系电话');
-            $table->string('wx_openid')->comment('微信openid');
-            $table->string('wx_head_img')->comment('微信头像路径');
-            $table->string('wx_nickname')->comment('微信昵称');
-            $table->string('birthday', 10)->comment('生日');
+            $table->string('wx_openid')->nullable()->comment('微信openid');
+            $table->string('wx_head_img')->nullable()->comment('微信头像路径');
+            $table->string('wx_nickname')->nullable()->comment('微信昵称');
+            $table->string('birthday', 10)->nullable()->comment('生日');
+            $table->unsignedInteger('user_id')->comment('用户外键');
             $table->unsignedTinyInteger('is_certified')->default(0)->comment('认证状态');
             $table->unsignedTinyInteger('adminset')->default(0)->comment('管理员标识');
             $table->timestamps();
