@@ -61,3 +61,19 @@ $factory->define(App\Model\ActiveApply::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Model\Course::class, function (Faker\Generator $faker) {
+    return [
+        'number' => $faker->numberBetween(10000000,200000000),
+        'name'   => $faker->name,
+        'teacher' => '某某某',
+        'user_id' => $faker->numberBetween(1,10)
+    ];
+});
+
+$factory->define(App\Model\CourseGroup::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1,40),
+        'course_id' => $faker->numberBetween(1,10)
+    ];
+});
+
