@@ -31,6 +31,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
     Route::group(['middleware' => [], 'prefix' => 'user'], function () {
         Route::get('getUserInfo/{user}', 'UserController@getUserInfo');
         Route::get('getAuthUserId', 'UserController@getAuthUserId');
+        Route::post('updateUserInfo', 'UserController@updateUserInfo');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'course'], function () {

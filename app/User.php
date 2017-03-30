@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Active;
 use App\Model\Course;
+use App\Model\League;
 use App\Model\UserInfo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,6 +41,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class, 'course_groups')->withTimestamps();
     }
 
+    public function applyLeagues()
+    {
+        return $this->belongsToMany(League::class, 'league_groups')->withTimestamps();
+    }
+
+    public function leagues()
+    {
+        return $this->hasMany(League::class);
+    }
+
     public function courses()
     {
         return $this->hasMany(Course::class);
@@ -54,4 +65,6 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserInfo::class);
     }
+
+
 }

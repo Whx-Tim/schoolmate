@@ -23,6 +23,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+/**
+ * 用户信息工厂
+ */
 $factory->define(App\Model\UserInfo::class, function (Faker\Generator $faker) {
     return [
         'name'       => $faker->name,
@@ -38,6 +41,9 @@ $factory->define(App\Model\UserInfo::class, function (Faker\Generator $faker) {
     ];
 });
 
+/**
+ * 活动数据工厂
+ */
 $factory->define(App\Model\Active::class, function (Faker\Generator $faker) {
     return [
         'name' => '某某某活动',
@@ -53,7 +59,6 @@ $factory->define(App\Model\Active::class, function (Faker\Generator $faker) {
         'user_id'  => $faker->numberBetween(1,10)
     ];
 });
-
 $factory->define(App\Model\ActiveApply::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->numberBetween(1,40),
@@ -61,6 +66,9 @@ $factory->define(App\Model\ActiveApply::class, function (Faker\Generator $faker)
     ];
 });
 
+/**
+ * 课程数据工厂
+ */
 $factory->define(App\Model\Course::class, function (Faker\Generator $faker) {
     return [
         'number' => $faker->numberBetween(10000000,200000000),
@@ -69,11 +77,16 @@ $factory->define(App\Model\Course::class, function (Faker\Generator $faker) {
         'user_id' => $faker->numberBetween(1,10)
     ];
 });
-
 $factory->define(App\Model\CourseGroup::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->numberBetween(1,40),
         'course_id' => $faker->numberBetween(1,10)
+    ];
+});
+
+$factory->define(App\Model\League::class, function (Faker\Generator $faker) {
+    return [
+
     ];
 });
 
