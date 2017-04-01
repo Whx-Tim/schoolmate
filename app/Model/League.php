@@ -3,11 +3,13 @@
 namespace App\Model;
 
 use App\User;
-use Illuminate\Database\Eloquent\Model;
+use App\ExtendModel as Model;
 
 class League extends Model
 {
     protected $guarded = ['_method', '_token', 'id'];
+
+    protected $condition_array = ['created_at', 'updated_at', 'amount'];
 
     public function user()
     {

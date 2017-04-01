@@ -11,6 +11,7 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CoursesTableSeeder::class);
+        factory(App\Model\Course::class, 20)->create();
+        factory(App\Model\CourseGroup::class, 20)->create();
     }
 }

@@ -41,4 +41,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::post('storeCourse', 'CourseController@storeCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
     });
+
+    Route::group(['middleware' => [], 'prefix' => 'league'], function () {
+        Route::get('list', 'LeagueController@getList');
+    });
 });

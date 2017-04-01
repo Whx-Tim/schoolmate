@@ -16,9 +16,9 @@ class ActiveController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getActiveList()
+    public function getActiveList(Request $request)
     {
-        $actives = Active::all()->toArray();
+        $actives = $this->getListOrderByDesc(new Active(), $request);
 
         return $this->ajaxResponse(0, '初始化数据成功!', compact('actives'));
     }

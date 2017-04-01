@@ -84,9 +84,22 @@ $factory->define(App\Model\CourseGroup::class, function (Faker\Generator $faker)
     ];
 });
 
+/**
+ * 社团数据工厂
+ */
 $factory->define(App\Model\League::class, function (Faker\Generator $faker) {
     return [
-
+        'name' => '某某社团',
+        'amount' => $faker->numberBetween(50,100),
+        'introduction' => $faker->paragraph,
+        'type'         => 1,
+        'user_id'      => $faker->numberBetween(1,10)
+    ];
+});
+$factory->define(App\Model\LeagueGroup::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1,40),
+        'league_id' => $faker->numberBetween(1,10)
     ];
 });
 

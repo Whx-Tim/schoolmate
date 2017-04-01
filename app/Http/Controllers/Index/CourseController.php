@@ -16,9 +16,9 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCourseList()
+    public function getCourseList(Request $request)
     {
-        $courses = Course::all();
+        $courses = $this->getListOrderByDesc(new Course(), $request);
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
