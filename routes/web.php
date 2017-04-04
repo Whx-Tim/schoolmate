@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'], function () {
     Route::group(['middleware' => [], 'prefix' => 'active'], function () {
-        Route::get('getList', 'ActiveController@getActiveList');
+        Route::get('list', 'ActiveController@getActiveList');
         Route::get('getActive/{id?}', 'ActiveController@getActive');
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
         Route::post('storeActive', 'ActiveController@storeActive');
