@@ -7,14 +7,35 @@ use App\Model\Course;
 use App\Model\CourseGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
     /**
-     * 获取课程列表
+     * @api {get} course/list 获取课程列表
+     * @apiName getCourseList
+     * @apiGroup Course
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @apiParam {Number=0} page 当前页码
+     *
+     * @apiSuccess {Number} id 课程id
+     * @apiSuccess {Number} number 课程号
+     * @apiSuccess {String} name 课程名称
+     * @apiSuccess {String} teacher 主讲教师
+     * @apiSuccess {Date}   created_at 创建时间
+     * @apiSuccess {Date}   updated_at 更新时间
+     * @apiSuccess {Date}   deleted_at 删除时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "更新成功",
+     *         "data": {
+     *         }
+     *     }
+     *
      */
     public function getCourseList(Request $request)
     {
@@ -24,10 +45,26 @@ class CourseController extends Controller
     }
 
     /**
-     * 获取课程详情
+     * @api {get} course/detail/{course_id} 获取课程详情
+     * @apiName getCourseDetail
+     * @apiGroup Course
      *
-     * @param Course $course
-     * @return \Illuminate\Http\JsonResponse
+     * @apiSuccess {Number} id 课程id
+     * @apiSuccess {Number} number 课程号
+     * @apiSuccess {String} name 课程名称
+     * @apiSuccess {String} teacher 主讲教师
+     * @apiSuccess {Date}   created_at 创建时间
+     * @apiSuccess {Date}   updated_at 更新时间
+     * @apiSuccess {Date}   deleted_at 删除时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "更新成功",
+     *         "data": {
+     *         }
+     *     }
      */
     public function getCourseDetail(Course $course)
     {
@@ -35,28 +72,71 @@ class CourseController extends Controller
     }
 
     /**
-     * 获取参与课程用户
+     * @api {get} active/applyCourseUsers/{course_id} 获取参与active_id活动的用户信息
+     * @apiName getApplyCourseUsers
+     * @apiGroup Course
      *
-     * @param Course $course
-     * @return \Illuminate\Http\JsonResponse
+     * @apiSuccess {Number} id 用户id
+     * @apiSuccess {String} name 昵称
+     * @apiSuccess {String} realname 真实姓名
+     * @apiSuccess {Number} student_id 学号
+     * @apiSuccess {String} college 学院
+     * @apiSuccess {String} grade 年级
+     * @apiSuccess {Number=1,2} gender 性别，1：男，2：女
+     * @apiSuccess {String} phone 手机
+     * @apiSuccess {String} wx_openid 微信openid
+     * @apiSuccess {String} wx_head_img 微信头像Url
+     * @apiSuccess {String} wx_nickname 微信昵称
+     * @apiSuccess {String} birthday 生日
+     * @apiSuccess {Number} user_id 用户id
+     * @apiSuccess {Number} is_certified 是否认证，默认0，1：已认证
+     * @apiSuccess {Number} adminset 管理员权限
+     * @apiSuccess {Date}   created_at 创建时间
+     * @apiSuccess {Date}   updated_at 更新时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
      */
     public function getApplyUsers(Course $course)
     {
         $users = $course->users;
+        $users = $users->map(function ($item, $key) {
+            return $item->info;
+        });
 
         return $this->ajaxResponse(0, '操作成功', compact('users'));
     }
 
     /**
-     * 创建课程
+     * @api {post} course/store 创建课程
+     * @apiName storeCourse
+     * @apiGroup Course
      *
-     * @param StoreCourseRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @apiParam {Number} number 课程号
+     * @apiParam {String} name 课程名称
+     * @apiParam {String} teacher 主讲教师
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
      */
     public function storeCourse(StoreCourseRequest $request)
     {
         try {
-            $course = Course::create($request->except(['_method','_token']));
+            $request = $request->except(['_method', '_token']);
+            $request['user_id'] = Auth::user()->id;
+            $course = Course::create($request);
         } catch (\Exception $e) {
             Log::info('创建课程异常：'.$e);
 
@@ -67,23 +147,33 @@ class CourseController extends Controller
     }
 
     /**
-     * 参与课程
+     * @api {get} course/apply/{course_id}
+     * @apiName applyCourse
+     * @apiGroup Course
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
      */
     public function applyCourse(Request $request)
     {
         $this->validate($request, [
-            'user_id' => 'required',
+//            'user_id' => 'required',
             'course_id' => 'required'
         ], [
-            'user_id.required' => '用户id不存在',
+//            'user_id.required' => '用户id不存在',
             'course_id.required' => '课程id不存在'
         ]);
 
         try {
-            CourseGroup::create($request->only(['user_id','course_id']));
+            $data['user_id'] = Auth::user()->id;
+            $data['course_id'] = $request->input('course_id');
+            CourseGroup::create($data);
         } catch (\Exception $e) {
             Log::info('参与课程异常：'. $e);
 

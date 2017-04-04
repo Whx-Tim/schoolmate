@@ -29,16 +29,18 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
     });
 
     Route::group(['middleware' => [], 'prefix' => 'user'], function () {
-        Route::get('getUserInfo/{user}', 'UserController@getUserInfo');
-        Route::get('getAuthUserId', 'UserController@getAuthUserId');
-        Route::post('updateUserInfo', 'UserController@updateUserInfo');
+        Route::get('info/{user}', 'UserController@getUserInfo');
+        Route::get('auth/id', 'UserController@getAuthUserId');
+        Route::get('auth/info', 'UserController@getAuthUserInfo');
+        Route::post('update', 'UserController@updateUserInfo');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'course'], function () {
         Route::get('list', 'CourseController@getCourseList');
         Route::get('detail/{course}', 'CourseController@getCourseDetail');
         Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
-        Route::post('storeCourse', 'CourseController@storeCourse');
+        Route::post('store', 'CourseController@storeCourse');
+        Route::post('apply/course_id', 'CourseController@applyCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
     });
 

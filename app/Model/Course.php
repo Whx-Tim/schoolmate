@@ -9,6 +9,8 @@ class Course extends Model
 {
     protected $guarded = ['_token','_method'];
 
+    protected $condition_array = ['created_at', 'updated_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
