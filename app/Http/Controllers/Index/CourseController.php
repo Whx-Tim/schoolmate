@@ -53,6 +53,7 @@ class CourseController extends Controller
      * @apiSuccess {Number} number 课程号
      * @apiSuccess {String} name 课程名称
      * @apiSuccess {String} teacher 主讲教师
+     * @apiSuccess {Number} user_id 创建用户id
      * @apiSuccess {Date}   created_at 创建时间
      * @apiSuccess {Date}   updated_at 更新时间
      * @apiSuccess {Date}   deleted_at 删除时间

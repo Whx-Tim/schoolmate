@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+//    Mail::raw('test email', function ($message) {
+//        $message->from('whx@lewitech.cn', '微捐平台');
+//        $message->to('598357301@qq.com')->subject('测试邮件');
+//    });
     return 'successful!';
 });
 
