@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExtendModel extends Model
 {
+    protected $guarded = ['_token', '_method'];
+
     protected $condition_array = [];
 
     protected $condition_default = 'created_at';

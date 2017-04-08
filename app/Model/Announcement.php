@@ -2,9 +2,11 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ExtendModel as Model;
 
 class Announcement extends Model
 {
-    //
+    protected $condition_array = ['created_at', 'updated_at'];
+
+
 }

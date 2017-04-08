@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Requests\StoreLeagueRequest;
 use App\Model\League;
+use App\Model\LeagueGroup;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -44,7 +46,7 @@ class LeagueController extends Controller
     }
 
     /**
-     * @api {get} league/detail/{league_id}
+     * @api {get} league/detail/{league_id} 获取社团详情
      * @apiName getLeagueDetail
      * @apiGroup League
      *
@@ -134,5 +136,35 @@ class LeagueController extends Controller
         }
 
         return $this->ajaxResponse(0, '更新成功');
+    }
+
+    /**
+     * @api {get} league/apply/{league_id} 参与社团
+     * @apiName applyLeague
+     * @apiGroup League
+     *
+     * @apiSuccessExample Success-Response:
+     *      Http/1.1 200 OK
+     *      {
+     *          "errcode": 0,
+     *          "errmsg": "操作成功",
+     *          "data": {
+     *          }
+     *      }
+     */
+    public function applyLeague($league)
+    {
+        try {
+            LeagueGroup::create([
+                'user_id' => Auth::user()->id,
+                'league_id' => $league
+            ]);
+        } catch (\Exception $exception) {
+            Log::info('参与社团异常:'. $exception);
+
+            return $this->ajaxResponse(1, '参与社团失败');
+        }
+
+        return $this->ajaxResponse(0, '参与成功');
     }
 }

@@ -2,9 +2,17 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ExtendModel as Model;
+use App\User;
 
 class Partime extends Model
 {
-    //
+    protected $guarded = ['_token', '_method'];
+
+    protected $condition_array = ['created_at', 'updated_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -18,6 +18,7 @@ class CourseController extends Controller
      * @apiGroup Course
      *
      * @apiParam {Number=0} page 当前页码
+     * @apiParam {Number=10} per_page
      *
      * @apiSuccess {Number} id 课程id
      * @apiSuccess {Number} number 课程号
@@ -161,19 +162,11 @@ class CourseController extends Controller
      *         }
      *     }
      */
-    public function applyCourse(Request $request)
+    public function applyCourse($course)
     {
-        $this->validate($request, [
-//            'user_id' => 'required',
-            'course_id' => 'required'
-        ], [
-//            'user_id.required' => '用户id不存在',
-            'course_id.required' => '课程id不存在'
-        ]);
-
         try {
             $data['user_id'] = Auth::user()->id;
-            $data['course_id'] = $request->input('course_id');
+            $data['course_id'] = $course;
             CourseGroup::create($data);
         } catch (\Exception $e) {
             Log::info('参与课程异常：'. $e);

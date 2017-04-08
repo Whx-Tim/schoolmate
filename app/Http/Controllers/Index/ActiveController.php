@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Index;
 
 use App\Http\Requests\StoreActiveRequest;
 use App\Model\Active;
+use App\Model\ActiveApply;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -227,5 +229,35 @@ class ActiveController extends Controller
         }
 
         return $this->ajaxResponse(0, '更新成功');
+    }
+
+    /**
+     * @api {get} active/apply/{active_id} 参与活动
+     * @apiName applyActive
+     * @apiGroup Active
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "更新成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function applyActive($active)
+    {
+        try {
+            ActiveApply::create([
+                'user_id' => Auth::user()->id,
+                'active_id' => $active
+            ]);
+        } catch (\Exception $exception) {
+            Log::info('参与活动异常：'.$exception);
+
+            return $this->ajaxResponse(1, '参与活动失败');
+        }
+
+        return $this->ajaxResponse(0, '参与成功');
     }
 }

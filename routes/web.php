@@ -43,12 +43,16 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('list', 'CourseController@getCourseList');
         Route::get('detail/{course}', 'CourseController@getCourseDetail');
         Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
+        Route::get('apply/{course}', 'CourseController@applyCourse')->where('course', '[0-9]+');
         Route::post('store', 'CourseController@storeCourse');
-        Route::post('apply/course_id', 'CourseController@applyCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'league'], function () {
         Route::get('list', 'LeagueController@getList');
+        Route::get('detail/{league}', 'LeagueController@getLeague');
+        Route::get('apply/{league}', 'LeagueController@applyLeague')->where('league', '[0-9]+');
+        Route::post('store', 'LeagueController@storeLeague');
+        Route::post('update/{league}', 'LeagueController@updateLeague');
     });
 });
