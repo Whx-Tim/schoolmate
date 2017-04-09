@@ -249,7 +249,7 @@ class ActiveController extends Controller
     {
         try {
             ActiveApply::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::id(),
                 'active_id' => $active
             ]);
         } catch (\Exception $exception) {

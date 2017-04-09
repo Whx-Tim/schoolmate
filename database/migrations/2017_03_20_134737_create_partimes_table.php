@@ -20,6 +20,7 @@ class CreatePartimesTable extends Migration
             $table->string('phone', 30)->comment('公司电话');
             $table->string('email')->comment('公司邮箱');
             $table->string('salary', 100)->comment('薪资');
+            $table->string('position', 50)->comment('招聘职位');
             $table->unsignedTinyInteger('job_time')->nullable()->default(5)->comment('工作时间');
             $table->string('company_type', 100)->comment('公司类型');
             $table->longText('description')->comment('兼职招聘描述');

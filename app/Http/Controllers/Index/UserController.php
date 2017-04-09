@@ -127,7 +127,7 @@ class UserController extends Controller
     public function updateUserInfo(Request $request)
     {
         try {
-            User::where('id',Auth::user()->id)->update($request->except(['_token','_method','_id']));
+            User::where('id',Auth::id())->update($request->except(['_token','_method','_id']));
         } catch (\Exception $e) {
             Log::info('更新用户信息异常： '. $e);
 

@@ -55,4 +55,10 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::post('store', 'LeagueController@storeLeague');
         Route::post('update/{league}', 'LeagueController@updateLeague');
     });
+
+    Route::group(['middleware' => [], 'prefix' => 'info'], function () {
+        Route::get('list', 'InfoController@getAllList');
+        Route::get('partimeList', 'InfoController@getPartimeList');
+        Route::get('announcementList', 'InfoController@getAnnouncementList');
+    });
 });

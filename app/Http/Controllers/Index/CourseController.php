@@ -137,7 +137,7 @@ class CourseController extends Controller
     {
         try {
             $request = $request->except(['_method', '_token']);
-            $request['user_id'] = Auth::user()->id;
+            $request['user_id'] = Auth::id();
             $course = Course::create($request);
         } catch (\Exception $e) {
             Log::info('创建课程异常：'.$e);
@@ -165,7 +165,7 @@ class CourseController extends Controller
     public function applyCourse($course)
     {
         try {
-            $data['user_id'] = Auth::user()->id;
+            $data['user_id'] = Auth::id();
             $data['course_id'] = $course;
             CourseGroup::create($data);
         } catch (\Exception $e) {

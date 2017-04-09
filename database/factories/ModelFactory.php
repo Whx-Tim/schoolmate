@@ -103,3 +103,22 @@ $factory->define(App\Model\LeagueGroup::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Model\Partime::class, function (Faker\Generator $faker) {
+    return [
+        'company_name' => '某某有限公司',
+        'address'      => '深圳市南海大道深圳大学',
+        'phone'        => '13418866733',
+        'email'        => $faker->safeEmail,
+        'salary'       => '3k-20k',
+        'job_time'     => $faker->numberBetween(1,7),
+        'company_type' => '互联网|电子商务|大数据',
+        'description'  => $faker->paragraph,
+        'duration'     => '三个月',
+        'education'    => $faker->randomElement(['大专','本科','硕士','博士']),
+        'amount'       => $faker->numberBetween(1,100),
+        'end_time'     => $faker->dateTime,
+        'position'     => $faker->randomElement(['技术','市场','工程师','建筑师','助理','某某实习生']),
+        'user_id'      => $faker->numberBetween(1,40)
+    ];
+});
+

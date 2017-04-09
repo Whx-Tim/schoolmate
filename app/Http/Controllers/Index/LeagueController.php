@@ -156,7 +156,7 @@ class LeagueController extends Controller
     {
         try {
             LeagueGroup::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::id(),
                 'league_id' => $league
             ]);
         } catch (\Exception $exception) {
