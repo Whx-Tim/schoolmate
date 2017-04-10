@@ -282,45 +282,4 @@ class UserController extends Controller
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
-
-    /**
-     * @api {get} user/publish/actives 获取用户发布的活动
-     * @apiName getUserPublishActives
-     * @apiGroup User
-     *
-     * @apiSuccess {Number} id 活动id
-     * @apiSuccess {String} name 活动名称
-     * @apiSuccess {String} time 活动时间
-     * @apiSuccess {String} address 活动地址
-     * @apiSuccess {String} lnt 经度
-     * @apiSuccess {String} lat 纬度
-     * @apiSuccess {String} poster 活动海报图片url
-     * @apiSuccess {String} images 活动图片Url
-     * @apiSuccess {Number} count 参与人数
-     * @apiSuccess {String} phone 联系电话
-     * @apiSuccess {Text}   description 活动描述
-     * @apiSuccess {Number} status 活动状态
-     * @apiSuccess {Number} person 人数限制
-     * @apiSuccess {Float}  money 报名金额
-     * @apiSuccess {Number} user_id 创建活动的用户id，外键
-     * @apiSuccess {Date}   created_at 创建时间
-     * @apiSuccess {Date}   updated_at 更新时间
-     * @apiSuccess {Date}   deleted_at 删除时间
-     * @apiSuccess {String} condition 选择条件
-     *
-     * @apiSuccessExample Success-Response:
-     *     HTTP/1.1 200 OK
-     *     {
-     *         "errcode": 0,
-     *         "errmsg": "操作成功",
-     *         "data": {
-     *         }
-     *     }
-     */
-    public function getUserPublishActives()
-    {
-        $actives = Auth::user()->actives;
-
-        return $this->ajaxResponse(0, '操作成功', compact('actives'));
-    }
 }

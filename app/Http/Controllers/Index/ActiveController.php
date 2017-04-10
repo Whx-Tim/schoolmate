@@ -59,7 +59,7 @@ class ActiveController extends Controller
     }
 
     /**
-     * @api {get} active/getActive/{id} 获取活动详情
+     * @api {get} active/detail/{active_id} 获取活动详情
      * @apiName getActiveDetail
      * @apiGroup Active
      *
@@ -92,16 +92,8 @@ class ActiveController extends Controller
      *         }
      *     }
      */
-    public function getActive($id, Request $request)
+    public function getActive(Active $active)
     {
-        if (empty($id)) {
-            $active_id = $request->get('id');
-        } else {
-            $active_id = $id;
-        }
-
-        $active = Active::where('id', $active_id)->first()->toArray();
-
         return $this->ajaxResponse(0, '操作成功', compact('active'));
     }
 

@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'], function () {
     Route::group(['middleware' => [], 'prefix' => 'active'], function () {
         Route::get('list', 'ActiveController@getActiveList');
-        Route::get('getActive/{id?}', 'ActiveController@getActive');
+        Route::get('detail/{active}', 'ActiveController@getActive');
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
         Route::post('storeActive', 'ActiveController@storeActive');
         Route::post('update/{active}', 'ActiveController@updateActive');
@@ -36,6 +36,10 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('info/{user}', 'UserController@getUserInfo');
         Route::get('auth/id', 'UserController@getAuthUserId');
         Route::get('auth/info', 'UserController@getAuthUserInfo');
+        Route::get('courses', 'UserController@getUserCourses');
+        Route::get('actives', 'UserController@getUserActives');
+        Route::get('apply/actives', 'UserController@getUserApplyActives');
+        Route::get('apply/courses', 'UserController@getUserAppplyCourses');
         Route::post('update', 'UserController@updateUserInfo');
     });
 

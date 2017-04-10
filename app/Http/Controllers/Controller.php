@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use App\ExtendModel as Model;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -25,5 +26,10 @@ class Controller extends BaseController
     public function getListOrderByDesc(Model $model, Request $request)
     {
         return empty($request->get('per_page')) ? $model->getListOrderByDesc($request->get('condition')) : $model->getListOrderByDesc($request->get('condition'), $request->get('per_page'));
+    }
+
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
     }
 }

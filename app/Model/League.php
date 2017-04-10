@@ -11,13 +11,33 @@ class League extends Model
 
     protected $condition_array = ['created_at', 'updated_at', 'amount'];
 
+    /**
+     * 获取创建社团的用户
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
+    /**
+     * 获取参与社团的用户
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
-        $this->belongsToMany(User::class, 'league_groups')->withTimestamps();
+        return $this->belongsToMany(User::class, 'league_groups')->withTimestamps();
+    }
+
+    /**
+     * 获取社团的公告
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function announcements()
+    {
+        return $this->morphMany('App\Model\Announcement', 'announcement');
     }
 }
