@@ -172,7 +172,9 @@ class ActiveController extends Controller
     public function storeActive(StoreActiveRequest $request)
     {
         try {
-            $active = Active::create($request->except(['_method','_token']));
+            $data = $request->except(['_token', '_method']);
+            $data['user_id'] = Auth::id();
+            $active = Active::create($data);
         } catch (\Exception $exception) {
             Log::info('活动保存失败:'.$exception);
             return $this->ajaxResponse(1, '保存失败', compact('exception'));

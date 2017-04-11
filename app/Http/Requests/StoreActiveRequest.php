@@ -18,7 +18,7 @@ class StoreActiveRequest extends FormRequest
             'name'    => 'required',
             'time'    => 'required',
             'address' => 'required',
-            'int'     => 'required',
+            'lnt'     => 'required',
             'lat'     => 'required',
             'poster'  => 'required',
             'person'   => 'required',

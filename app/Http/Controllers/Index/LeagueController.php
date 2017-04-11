@@ -95,7 +95,9 @@ class LeagueController extends Controller
     public function storeLeague(StoreLeagueRequest $request)
     {
         try {
-            $league = League::create($request->except('_token','_method','id'));
+            $data = $request->except('_token','_method','id');
+            $data['user_id'] = Auth::id();
+            $league = League::create($data);
         } catch (\Exception $exception) {
             Log::info('社团创建异常:'. $exception);
 
