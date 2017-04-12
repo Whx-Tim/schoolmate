@@ -18,7 +18,7 @@ class CreateActivesTable extends Migration
             $table->string('name', 100)->comment('活动名称');
             $table->string('time', 20)->comment('活动时间');
             $table->string('address', 100)->comment('活动地址');
-            $table->string('lnt', 50)->nullable()->default('')->comment('经度');
+            $table->string('lng', 50)->nullable()->default('')->comment('经度');
             $table->string('lat', 50)->nullable()->default('')->comment('纬度');
             $table->text('poster')->comment('活动海报图片');
             $table->longText('images')->nullable()->comment('活动图片');
