@@ -16,7 +16,7 @@ Route::get('/', function () {
 //        $message->from('whx@lewitech.cn', '微捐平台');
 //        $message->to('598357301@qq.com')->subject('测试邮件');
 //    });
-    return public_path('uploads/');
+    return view('welcome');
 });
 
 Auth::routes();
@@ -52,6 +52,9 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::post('store', 'CourseController@storeCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
         Route::post('info/publish/{course}', 'CourseController@publishAnnouncement');
+        Route::post('upload', 'CourseController@fileUpload');
+        Route::post('sign/{course}', 'CourseController@courseSign');
+        Route::post('initiate/sign/{course}', 'CourseController@initiateSign');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'league'], function () {
