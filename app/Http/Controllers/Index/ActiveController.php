@@ -94,6 +94,7 @@ class ActiveController extends Controller
      */
     public function getActive(Active $active)
     {
+        $active->view()->increment('count');
         return $this->ajaxResponse(0, '操作成功', compact('active'));
     }
 
@@ -253,5 +254,48 @@ class ActiveController extends Controller
         }
 
         return $this->ajaxResponse(0, '参与成功');
+    }
+
+    /**
+     * @api {post} active/upload/poster/{active_id} 活动上传图片
+     * @apiName activeUploadPoster
+     * @apiGroup Active
+     *
+     * @apiParam {File} image 上传的活动图片
+     *
+     * @apiSuccess {String} image 活动图片路径
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "更新成功",
+     *         "data": {
+     *         }
+     *     }
+     *
+     */
+    public function uploadPoster(Request $request, Active $active)
+    {
+        $this->validate($request, [
+            'image' => 'required|image'
+        ], [
+            'image.required' => '接受文件失败',
+            'image.image'    => '接受的文件不是图片'
+        ]);
+
+        try {
+            $file = $request->file('image');
+            $name = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('uploads/images/'), $name);
+            $image = 'uploads/images/'.$name;
+            $active->update(['poster' => $image]);
+        } catch (\Exception $exception) {
+            Log::info('活动图片上传异常：'. $exception);
+
+            return $this->ajaxResponse(1, '上传失败');
+        }
+
+        return $this->ajaxResponse(0, '上传成功', compact('image'));
     }
 }

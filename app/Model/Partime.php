@@ -15,4 +15,9 @@ class Partime extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function view()
+    {
+        return $this->morphOne('App\Model\View', 'View');
+    }
 }

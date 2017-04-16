@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\UserRegister;
+use App\Http\Requests\UserRegisterRequest;
 use App\Model\Active;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -282,4 +286,167 @@ class UserController extends Controller
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
+
+    /**
+     * @api {post} user/register 用户注册
+     * @apiName userRegister
+     * @apiGroup User
+     *
+     * @apiParam {String} username 用户名
+     * @apiParam {String} password 密码
+     * @apiParam {String} password_confirmation 确认密码
+     * @apiParam {String} email 邮箱
+     *
+     * @apiSuccess {Number} id 用户id
+     * @apiSuccess {String} username 用户名
+     * @apiSuccess {String} password 密码
+     * @apiSuccess {String} password_confirmation 确认密码
+     * @apiSuccess {String} email 邮箱
+     * @apiSuccess {Number=0，1} is_active 是否激活，0：未激活，1：已激活
+     * @apiSuccess {Date}   created_at 创建时间
+     * @apiSuccess {Date}   updated_at 更新时间
+     * @apiSuccess {Date}   deleted_at 删除时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "注册成功，请赶紧激活您的邮箱吧~~",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function register(UserRegisterRequest $request)
+    {
+        $user = User::create([
+            'username' => $request->input('username'),
+            'password' => bcrypt($request->input('password')),
+            'email'    => $request->input('email')
+        ]);
+        event(new UserRegister($user->id,$user->email));
+
+        return $this->ajaxResponse(0 , '注册成功，请赶紧激活您的邮箱吧~~', compact('user'));
+    }
+
+    /**
+     * @api {get} user/fire/{code} 激活用户
+     * @apiName fireUser
+     * @apiGroup User
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "激活成功",
+     *         "data": {
+     *         }
+     *     }
+     *
+     */
+    public function fireUser($code)
+    {
+        if (Cache::has($code)) {
+            $id = Cache::pull($code);
+            User::where('id', $id)->update(['is_active' => 1]);
+            return $this->ajaxResponse(0, '激活成功');
+        } else {
+            return $this->ajaxResponse(1, '激活码已过期');
+        }
+    }
+
+    /**
+     * @api {get} user/sendActivationCode 重新激活账号
+     * @apiName sendActivationCode
+     * @apiGroup User
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "发送成功，快去激活你的账号吧~",
+     *         "data": {
+     *         }
+     *     }
+     *
+     */
+    public function sendActivationCode()
+    {
+        $user = Auth::user();
+        event(new UserRegister($user->id, $user->email));
+
+        return $this->ajaxResponse(0, '发送成功，快去激活你的账号吧~');
+    }
+
+    /**
+     * @api {post} user/login 登录
+     * @apiName UserLogin
+     * @apiGroup User
+     *
+     * @apiParam {String} username 用户名或者邮箱
+     * @apiParam {String} password 密码
+     *
+     * @apiSuccess {Number} id 用户id
+     * @apiSuccess {String} username 用户名
+     * @apiSuccess {String} password 密码
+     * @apiSuccess {String} password_confirmation 确认密码
+     * @apiSuccess {String} email 邮箱
+     * @apiSuccess {Number=0，1} is_active 是否激活，0：未激活，1：已激活
+     * @apiSuccess {Date}   created_at 创建时间
+     * @apiSuccess {Date}   updated_at 更新时间
+     * @apiSuccess {Date}   deleted_at 删除时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "登录成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required'
+        ], [
+            'username.required' => '请输入用户名',
+            'password.required' => '请输入密码'
+        ]);
+
+        if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password'), 'is_active' => 1]) || Auth::attempt(['email' => $request->input('username'), 'password' => $request->input('password'), 'is_active' => 1])) {
+            $user = Auth::user();
+            return $this->ajaxResponse(0, '登录成功', compact('user'));
+        } else {
+            $user = User::where('username', $request->input('username'))->orWhere('email', $request->input('username'))->first();
+            if ($user) {
+                event(new UserRegister($user->id, $user->email));
+
+                return $this->ajaxResponse(1, '登录失败，请激活您的账号');
+            }
+            return $this->ajaxResponse(2, '该账号还未注册');
+        }
+    }
+
+    /**
+     * @api {get} user/logout 注销
+     * @apiName userLogout
+     * @apiGroup User
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "注销成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function logout()
+    {
+        Auth::logout();
+
+        return $this->ajaxResponse(0, '注销成功');
+    }
+
 }

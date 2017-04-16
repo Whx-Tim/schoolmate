@@ -40,4 +40,14 @@ class Active extends Model
     {
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
+
+    /**
+     * 获取活动的点击量
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function view()
+    {
+        return $this->morphOne('App\Model\View', 'view');
+    }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Active;
 use App\Model\Course;
+use App\Model\Good;
 use App\Model\League;
 use App\Model\UserInfo;
 use Illuminate\Notifications\Notifiable;
@@ -66,5 +67,39 @@ class User extends Authenticatable
         return $this->hasOne(UserInfo::class);
     }
 
+    /**
+     * 获取用户参与活动的公告信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function activeAnnouncements()
+    {
+        return $this->hasManyThrough('App\Model\Active', 'App\Model\Announcement');
+    }
+
+    /**
+     * 获取用户参与课程的公告信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function courseAnnouncements()
+    {
+        return $this->hasManyThrough('App\Model\Course', 'App\Model\Announcement');
+    }
+
+    /**
+     * 获取用户参与社团的公告信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function leagueAnnouncements()
+    {
+        return $this->hasManyThrough('App\Model\League', 'App\Model\Announcement');
+    }
+
+    public function goods()
+    {
+        return $this->hasMany(Good::class);
+    }
 
 }

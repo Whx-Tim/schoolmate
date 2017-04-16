@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class View extends Model
 {
-    //
+    public function view()
+    {
+        return $this->morphTo();
+    }
 }

@@ -132,6 +132,8 @@ class InfoController extends Controller
      */
     public function getPartimeDetail(Partime $partime)
     {
+        $partime->view()->increment();
+
         return $this->ajaxResponse(0, '操作成功', compact('partime'));
     }
 
@@ -143,6 +145,7 @@ class InfoController extends Controller
      * @apiSuccess {Number} id 信息id
      * @apiSuccess {String} title 信息标题
      * @apiSuccess {String} description 信息描述
+     * @apiSuccess {Number} view 访问量
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -155,18 +158,86 @@ class InfoController extends Controller
      */
     public function getAnnouncement(Announcement $announcement)
     {
-        return $this->ajaxResponse(0, '操作成功', compact('announcement'));
+        $announcement->view()->increment('count');
+        $view = $announcement->view;
+        return $this->ajaxResponse(0, '操作成功', compact('announcement', 'view'));
     }
 
+    /**
+     * @api {get} info/list/active 获取参与的活动的公告
+     * @apiName getUserActiveAnnouncement
+     * @apiGroup Info
+     *
+     * @apiSuccess {Number} id 公告id
+     * @apiSuccess {String} title 标题
+     * @apiSuccess {String} content 内容
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
     public function getUserActiveAnnouncements()
     {
-        $actives = Auth::user()->applyActives;
-        dd($actives);
-        $announcements = array();
-        foreach ($actives as $active) {
-            $announcements[] = $active->announcements;
-        }
+        $announcements = Auth::user()->activeAnnouncements;
+
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
     }
+
+    /**
+     * @api {get} info/list/course 获取参与的课程的公告
+     * @apiName getUserCourseAnnouncement
+     * @apiGroup Info
+     *
+     * @apiSuccess {Number} id 公告id
+     * @apiSuccess {String} title 标题
+     * @apiSuccess {String} content 内容
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function getUserCourseAnnouncements()
+    {
+        $announcements = Auth::user()->courseAnnouncements;
+
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
+    }
+
+    /**
+     * @api {get} info/list/league 获取参与的社团的公告
+     * @apiName getUserLeagueAnnouncement
+     * @apiGroup Info
+     *
+     * @apiSuccess {Number} id 公告id
+     * @apiSuccess {String} title 标题
+     * @apiSuccess {String} content 内容
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function getUserLeagueAnnouncements()
+    {
+        $announcements = Auth::user()->leagueAnnouncements;
+
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
+    }
+
 
 
     /**

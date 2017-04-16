@@ -71,6 +71,7 @@ class CourseController extends Controller
      */
     public function getCourseDetail(Course $course)
     {
+        $course->view()->increment('count');
         return $this->ajaxResponse(0, '操作成功', compact('course'));
     }
 
@@ -271,7 +272,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @api {post} course/upload 上传文件
+     * @api {post} course/upload/{course_id} 上传文件
      * @apiName uploadFile
      * @apiGroup Course
      *
@@ -288,7 +289,7 @@ class CourseController extends Controller
      *         }
      *     }
      */
-    public function fileUpload(Request $request)
+    public function fileUpload(Request $request,Course $course)
     {
         $this->validate($request, [
             'file' => 'required|file',
@@ -299,9 +300,9 @@ class CourseController extends Controller
 
         try {
             $file = $request->file('file');
-            $name = time() . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/'), $name);
-            $file_path = public_path('uploads/').$name;
+            $name = time().'_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/files/'), $name);
+            $file_path = 'uploads/files/'.$name;
         } catch (\Exception $exception) {
             Log::info('上传文件异常:' .$exception);
 

@@ -30,6 +30,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
         Route::post('storeActive', 'ActiveController@storeActive');
         Route::post('update/{active}', 'ActiveController@updateActive');
+        Route::post('upload/poster/{active}', 'ActiveController@uploadPoster');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'user'], function () {
@@ -68,6 +69,16 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
     Route::group(['middleware' => [], 'prefix' => 'info'], function () {
         Route::get('list', 'InfoController@getAllList');
         Route::get('partimeList', 'InfoController@getPartimeList');
+        Route::get('partime/detail/{partime}', 'InfoController@getPartimeDetail');
         Route::get('announcementList', 'InfoController@getAnnouncementList');
+        Route::get('userActiveList', 'InfoController@getUserActiveAnnouncements');
+        Route::get('list/active', 'InfoController@getUserActiveAnnouncements');
+        Route::get('list/course', 'InfoController@getUserCourseAnnouncements');
+        Route::get('list/league', 'InfoController@getUserLeagueAnnouncements');
+    });
+
+    Route::group(['middleware' => [], 'prefix' => 'good'], function () {
+        Route::get('list', 'GoodController@getGoodList');
+        Route::get('detail/{good}', 'GoodController@getGood');
     });
 });

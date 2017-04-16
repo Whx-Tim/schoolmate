@@ -69,6 +69,7 @@ class LeagueController extends Controller
      */
     public function getLeague(League $league)
     {
+        $league->view()->increment('count');
         return $this->ajaxResponse(0, '操作成功', compact('league'));
     }
 

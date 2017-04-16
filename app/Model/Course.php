@@ -40,4 +40,24 @@ class Course extends Model
     {
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
+
+    /**
+     * 获取课程的访问量
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function view()
+    {
+        return $this->morphOne('App\Model\View', 'view');
+    }
+
+    /**
+     * 获取该课程的文件
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files()
+    {
+        return $this->hasMany(CourseFile::class);
+    }
 }

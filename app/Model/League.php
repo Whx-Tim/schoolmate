@@ -40,4 +40,9 @@ class League extends Model
     {
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
+
+    public function view()
+    {
+        return $this->morphOne('App\Model\View', 'view');
+    }
 }

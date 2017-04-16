@@ -12,4 +12,9 @@ class Announcement extends Model
     {
         return $this->morphTo();
     }
+
+    public function view()
+    {
+        return $this->morphOne('App\Model\View', 'view');
+    }
 }
