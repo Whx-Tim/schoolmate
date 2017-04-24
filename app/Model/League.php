@@ -41,8 +41,23 @@ class League extends Model
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
 
+    /**
+     * 获取社团的访问量
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
     public function view()
     {
         return $this->morphOne('App\Model\View', 'view');
+    }
+
+    /**
+     * 获取社团的审核状态
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function check()
+    {
+        return $this->morphOne('App\Model\Check', 'checkable');
     }
 }

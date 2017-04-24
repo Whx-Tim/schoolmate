@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreCourseRequest;
 use App\Model\Course;
 use App\Model\CourseGroup;
@@ -59,6 +60,7 @@ class CourseController extends Controller
      * @apiSuccess {Date}   created_at 创建时间
      * @apiSuccess {Date}   updated_at 更新时间
      * @apiSuccess {Date}   deleted_at 删除时间
+     * @apiSuccess {Number=0,1} can_publish 是否可以发送课程公告 0：不可以，1：可以
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -72,7 +74,8 @@ class CourseController extends Controller
     public function getCourseDetail(Course $course)
     {
         $course->view()->increment('count');
-        return $this->ajaxResponse(0, '操作成功', compact('course'));
+        $can_publish = $this->canPublish($course);
+        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish'));
     }
 
     /**
@@ -253,16 +256,9 @@ class CourseController extends Controller
      *         }
      *     }
      */
-    public function publishAnnouncement(Course $course, Request $request)
+    public function publishAnnouncement(Course $course, StoreAnnouncementRequest $request)
     {
         if ($course->user->id == Auth::id()) {
-            $this->validate($request, [
-                'title' => 'required',
-                'content' => 'required'
-            ], [
-                'title.required' => '请输入标题',
-                'content.required' => '请输入公告内容'
-            ]);
             $announcement = $course->announcements()->create($request->except(['_token', '_method']));
         } else {
             return $this->ajaxResponse(2, '你没有权限发布该课程公告');

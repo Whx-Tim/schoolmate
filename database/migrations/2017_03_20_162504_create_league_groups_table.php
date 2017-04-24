@@ -17,6 +17,7 @@ class CreateLeagueGroupsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
             $table->unsignedInteger('league_id')->comment('社团id，外键');
+            $table->unsignedTinyInteger('status')->nullable()->default(0)->comment('申请状态');
             $table->softDeletes();
             $table->timestamps();
         });

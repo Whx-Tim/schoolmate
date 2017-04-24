@@ -49,7 +49,7 @@ $factory->define(App\Model\Active::class, function (Faker\Generator $faker) {
         'name' => '某某某活动',
         'time' => $faker->date(),
         'address' => $faker->address,
-        'lnt' => $faker->longitude,
+        'lng' => $faker->longitude,
         'lat' => $faker->latitude,
         'poster' => $faker->imageUrl(),
         'images' => $faker->imageUrl(),

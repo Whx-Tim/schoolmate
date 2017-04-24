@@ -28,6 +28,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('list', 'ActiveController@getActiveList');
         Route::get('detail/{active}', 'ActiveController@getActive');
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
+        Route::post('info/publish/{active}', 'ActiveController@publishAnnouncement');
         Route::post('storeActive', 'ActiveController@storeActive');
         Route::post('update/{active}', 'ActiveController@updateActive');
         Route::post('upload/poster/{active}', 'ActiveController@uploadPoster');
@@ -39,9 +40,19 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('auth/info', 'UserController@getAuthUserInfo');
         Route::get('courses', 'UserController@getUserCourses');
         Route::get('actives', 'UserController@getUserActives');
+        Route::get('leagues', 'UserController@getUserLeagues');
+        Route::get('goods', 'UserController@getUserGoods');
         Route::get('apply/actives', 'UserController@getUserApplyActives');
         Route::get('apply/courses', 'UserController@getUserAppplyCourses');
         Route::post('update', 'UserController@updateUserInfo');
+
+        Route::group(['middleware' => []], function () {
+            Route::get('fire/{code}', 'UserController@fireUser');
+            Route::get('sendActivationCode', 'UserController@sendActivationCode');
+            Route::get('logout', 'UserController@logout');
+            Route::post('login', 'UserController@login');
+            Route::post('register', 'UserController@register');
+        });
     });
 
     Route::group(['middleware' => [], 'prefix' => 'course'], function () {
@@ -80,5 +91,7 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
     Route::group(['middleware' => [], 'prefix' => 'good'], function () {
         Route::get('list', 'GoodController@getGoodList');
         Route::get('detail/{good}', 'GoodController@getGood');
+        Route::post('store', 'GoodController@storeGood');
+
     });
 });

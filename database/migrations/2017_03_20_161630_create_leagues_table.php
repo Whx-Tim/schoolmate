@@ -19,6 +19,7 @@ class CreateLeaguesTable extends Migration
             $table->unsignedInteger('amount')->comment('限制人数');
             $table->text('introduction')->comment('社团介绍');
             $table->unsignedTinyInteger('type')->nullable()->default(0)->comment('社团类型');
+            $table->unsignedTinyInteger('status')->default(0)->comment('社团状态');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
             $table->softDeletes();
             $table->timestamps();

@@ -13,8 +13,23 @@ class Announcement extends Model
         return $this->morphTo();
     }
 
+    /**
+     * 获取公告的访问量
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
     public function view()
     {
         return $this->morphOne('App\Model\View', 'view');
+    }
+
+    /**
+     * 获取公告的审核状态
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function check()
+    {
+        return $this->morphOne('App\Model\Check', 'checkable');
     }
 }

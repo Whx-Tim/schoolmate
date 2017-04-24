@@ -215,6 +215,68 @@ class UserController extends Controller
     }
 
     /**
+     * @api {get} user/goods 获取用户发布过的商品
+     * @apiName getUserGoods
+     * @apiGroup User
+     *
+     * @apiSuccess {Number} id 商品id
+     * @apiSuccess {String} shopName 商品名称
+     * @apiSuccess {String} shopType 商品类型
+     * @apiSuccess {Float}  shopPrice 商品价格
+     * @apiSuccess {Number} shopNumber 商品数量
+     * @apiSuccess {String} shopPicture 商品图片
+     * @apiSuccess {String} shopDescription 商品描述
+     * @apiSuccess {String} status 商品状态
+     * @apiSuccess {Number=1，0} authChoice 是否显示商家信息
+     * @apiSuccess {Number} user_id 用户id
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function getUserGoods()
+    {
+        $goods = Auth::user()->goods;
+
+        return $this->ajaxResponse(0, '操作成功', compact('goods'));
+    }
+
+    /**
+     * @api {get} user/leagues 获取用户创建过的社团
+     * @apiName getUserLeagues
+     * @apiGroup User
+     *
+     * @apiSuccess {Number} id 社团id
+     * @apiSuccess {String} name 社团名称
+     * @apiSuccess {Number} amount 限制人数
+     * @apiSuccess {Text}   introduction 社团介绍
+     * @apiSuccess {Number} type 社团类型,1:摄影,2:技术,3:社交,4:管理,5:艺术,6:其他
+     * @apiSuccess {Number} user_id 用户id，外键
+     * @apiSuccess {Date} created_at 创建时间
+     *
+     * @apiSuccessExample Success-Response:
+     *      Http/1.1 200 OK
+     *      {
+     *          "errcode": 0,
+     *          "errmsg": "操作成功",
+     *          "data": {
+     *          }
+     *      }
+     */
+    public function getUserLeagues()
+    {
+        $leagues = Auth::user()->leagues;
+
+        return $this->ajaxResponse(0, '操作成功', compact('leagues'));
+    }
+
+
+    /**
      * @api {get} user/apply/actives 获取用户参与的活动
      * @apiName getUserApplyActives
      * @apiGroup User

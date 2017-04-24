@@ -32,4 +32,13 @@ class Controller extends BaseController
     {
         Auth::loginUsingId(1);
     }
+
+    public function canPublish($model)
+    {
+        if ($model->user->id == Auth::id()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

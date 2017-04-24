@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Requests\StoreActiveRequest;
+use App\Http\Requests\StoreAnnouncementRequest;
 use App\Model\Active;
 use App\Model\ActiveApply;
 use Auth;
@@ -82,6 +83,7 @@ class ActiveController extends Controller
      * @apiSuccess {Date}   updated_at 更新时间
      * @apiSuccess {Date}   deleted_at 删除时间
      * @apiSuccess {String} condition 选择条件
+     * @apiSuccess {Number=0,1} can_publish 是否可以发布该活动公告，0：否，1：是
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -95,7 +97,8 @@ class ActiveController extends Controller
     public function getActive(Active $active)
     {
         $active->view()->increment('count');
-        return $this->ajaxResponse(0, '操作成功', compact('active'));
+        $can_publish = $this->canPublish($active);
+        return $this->ajaxResponse(0, '操作成功', compact('active', 'can_publish'));
     }
 
     /**
@@ -297,5 +300,48 @@ class ActiveController extends Controller
         }
 
         return $this->ajaxResponse(0, '上传成功', compact('image'));
+    }
+
+    /**
+     * @api {post} active/info/publish/{active_id} 活动创建者发布活动公告
+     * @apiName UserPublishInfo
+     * @apiGroup Active
+     *
+     * @apiParam {String} title 公告标题
+     * @apiParam {String} content 公告内容
+     *
+     * @apiSuccess {Number} id 公告id
+     * @apiSuccess {String} title 公告标题
+     * @apiSuccess {String} content 公告内容
+     * @apiSuccess {Number} announcement_id 课程外键id
+     * @apiSuccess {String} announcement_type 公告类型
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "发布成功",
+     *         "data": {
+     *         }
+     *     }
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 2,
+     *         "errmsg": "你没有权限发布该课程公告",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function publishAnnouncement(Active $active, StoreAnnouncementRequest $request)
+    {
+        if ($this->canPublish($active)) {
+            $announcement = $active->announcements()->create($request->only(['title','content']));
+        } else {
+            return $this->ajaxResponse(2, '您没有权限发布该活动公告');
+        }
+
+        return $this->ajaxResponse(0, '发布成功', compact('announcement'));
     }
 }

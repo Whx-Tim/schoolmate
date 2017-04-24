@@ -50,4 +50,14 @@ class Active extends Model
     {
         return $this->morphOne('App\Model\View', 'view');
     }
+
+    /**
+     * 获取活动审核状态
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function check()
+    {
+        return $this->morphOne('App\Model\Check', 'checkable');
+    }
 }

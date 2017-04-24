@@ -30,4 +30,15 @@ class Good extends Model
     {
         return $this->morphOne('App\Model\View', 'view');
     }
+
+
+    /**
+     * 获取商品的审核状态
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function check()
+    {
+        return $this->morphOne('App\Model\Check', 'checkable');
+    }
 }

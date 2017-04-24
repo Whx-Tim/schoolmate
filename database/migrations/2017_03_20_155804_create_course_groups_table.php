@@ -17,6 +17,7 @@ class CreateCourseGroupsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
             $table->unsignedInteger('course_id')->comment('课程id，外键');
+            $table->unsignedTinyInteger('status')->nullable()->default(0)->comment('申请状态');
             $table->softDeletes();
             $table->timestamps();
         });

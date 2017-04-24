@@ -60,4 +60,14 @@ class Course extends Model
     {
         return $this->hasMany(CourseFile::class);
     }
+
+    /**
+     * 获取课程的审核状态
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function check()
+    {
+        return $this->morphOne('App\Model\Check', 'checkable');
+    }
 }

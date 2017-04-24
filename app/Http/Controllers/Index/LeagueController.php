@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreLeagueRequest;
 use App\Model\League;
 use App\Model\LeagueGroup;
@@ -70,7 +71,8 @@ class LeagueController extends Controller
     public function getLeague(League $league)
     {
         $league->view()->increment('count');
-        return $this->ajaxResponse(0, '操作成功', compact('league'));
+        $can_publish = $this->canPublish($league);
+        return $this->ajaxResponse(0, '操作成功', compact('league', 'can_publish'));
     }
 
     /**
@@ -169,5 +171,48 @@ class LeagueController extends Controller
         }
 
         return $this->ajaxResponse(0, '参与成功');
+    }
+
+    /**
+     * @api {post} league/info/publish/{league_id} 发布社团公告
+     * @apiName publishLeagueAnnouncement
+     * @apiGroup League
+     *
+     * @apiParam {String} title 公告标题
+     * @apiParam {String} content 公告内容
+     *
+     * @apiSuccess {Number} id 公告id
+     * @apiSuccess {String} title 公告标题
+     * @apiSuccess {String} content 公告内容
+     * @apiSuccess {Number} announcement_id 课程外键id
+     * @apiSuccess {String} announcement_type 公告类型
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "发布成功",
+     *         "data": {
+     *         }
+     *     }
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 2,
+     *         "errmsg": "你没有权限发布该社团公告",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function publishAnnouncement(League $league, StoreAnnouncementRequest $request)
+    {
+        if ($league->user->id == Auth::id()) {
+            $announcement = $league->announcements()->create($request->except(['_token','_method']));
+        } else {
+            return $this->ajaxResponse(1,'您没有权限发布社团公告');
+        }
+
+        return $this->ajaxResponse(0, '发布成功', compact('announcement'));
     }
 }
