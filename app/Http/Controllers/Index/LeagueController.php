@@ -111,7 +111,7 @@ class LeagueController extends Controller
     }
 
     /**
-     * @api {post} league/update/{league_id} 创建社团
+     * @api {post} league/update/{league_id} 更新社团
      * @apiName updateLeague
      * @apiGroup League
      *

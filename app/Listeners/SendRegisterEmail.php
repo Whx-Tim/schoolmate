@@ -28,7 +28,7 @@ class SendRegisterEmail
      */
     public function handle(UserRegister $event)
     {
-        $code = bcrypt($event->user_id);
+        $code = md5($event->user_id);
         $email = $event->email;
         Cache::put($code, $event->user_id, 30);
         Mail::send('emails.register', compact('code'), function ($message) use ($email) {
