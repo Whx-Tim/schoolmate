@@ -179,6 +179,7 @@ class ActiveController extends Controller
             $data = $request->except(['_token', '_method']);
             $data['user_id'] = Auth::id();
             $active = Active::create($data);
+            $this->applyActive($active->id);
         } catch (\Exception $exception) {
             Log::info('活动保存失败:'.$exception);
             return $this->ajaxResponse(1, '保存失败', compact('exception'));
@@ -260,7 +261,7 @@ class ActiveController extends Controller
     }
 
     /**
-     * @api {post} active/upload/poster/{active_id} 活动上传图片
+     * @api {post} active/upload/poster 活动上传图片
      * @apiName activeUploadPoster
      * @apiGroup Active
      *
@@ -278,12 +279,11 @@ class ActiveController extends Controller
      *     }
      *
      */
-    public function uploadPoster(Request $request, Active $active)
+    public function uploadPoster(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required|image'
+            'image' => 'image'
         ], [
-            'image.required' => '接受文件失败',
             'image.image'    => '接受的文件不是图片'
         ]);
 
@@ -292,7 +292,7 @@ class ActiveController extends Controller
             $name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path('uploads/images/'), $name);
             $image = 'uploads/images/'.$name;
-            $active->update(['poster' => $image]);
+//            $active->update(['poster' => $image]);
         } catch (\Exception $exception) {
             Log::info('活动图片上传异常：'. $exception);
 

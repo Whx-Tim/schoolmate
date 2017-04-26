@@ -101,6 +101,7 @@ class LeagueController extends Controller
             $data = $request->except('_token','_method','id');
             $data['user_id'] = Auth::id();
             $league = League::create($data);
+            $this->applyLeague($league->id);
         } catch (\Exception $exception) {
             Log::info('社团创建异常:'. $exception);
 

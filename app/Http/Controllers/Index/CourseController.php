@@ -79,7 +79,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @api {get} active/applyCourseUsers/{course_id} 获取参与active_id活动的用户信息
+     * @api {get} course/applyCourseUsers/{course_id} 获取参与course_id课程的用户信息
      * @apiName getApplyCourseUsers
      * @apiGroup Course
      *
@@ -150,6 +150,7 @@ class CourseController extends Controller
             $request = $request->except(['_method', '_token']);
             $request['user_id'] = Auth::id();
             $course = Course::create($request);
+            $this->applyCourse($course->id);
             $invite_code = random_int(1000, 9999);
             Cache::put('course_invite_'.$invite_code, $course, 10);
         } catch (\Exception $e) {
@@ -299,6 +300,7 @@ class CourseController extends Controller
             $name = time().'_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/files/'), $name);
             $file_path = 'uploads/files/'.$name;
+            $course->files()->create(['path' => $file_path]);
         } catch (\Exception $exception) {
             Log::info('上传文件异常:' .$exception);
 

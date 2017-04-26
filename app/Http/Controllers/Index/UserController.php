@@ -72,7 +72,12 @@ class UserController extends Controller
      */
     public function getAuthUserId()
     {
-        return $this->ajaxResponse(0, '操作成功', ['id' => Auth::user()->id]);
+        if (Auth::check()) {
+            return $this->ajaxResponse(0, '操作成功', ['id' => Auth::user()->id]);
+        } else {
+            return $this->ajaxResponse(1, '请先登录');
+        }
+
     }
 
 
@@ -342,11 +347,40 @@ class UserController extends Controller
      *         }
      *     }
      */
-    public function getUserAppplyCourses()
+    public function getUserApplyCourses()
     {
         $courses = Auth::user()->applyCourses;
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
+    }
+
+    /**
+     * @api {get} user/apply/leagues 获取用户参与的社团
+     * @apiName getUserApplyLeagues
+     * @apiGroup User
+     *
+     * @apiSuccess {Number} id 社团id
+     * @apiSuccess {String} name 社团名称
+     * @apiSuccess {Number} amount 限制人数
+     * @apiSuccess {Text}   introduction 社团介绍
+     * @apiSuccess {Number} type 社团类型,1:摄影,2:技术,3:社交,4:管理,5:艺术,6:其他
+     * @apiSuccess {Number} user_id 用户id，外键
+     * @apiSuccess {Date} created_at 创建时间
+     *
+     * @apiSuccessExample Success-Response:
+     *      Http/1.1 200 OK
+     *      {
+     *          "errcode": 0,
+     *          "errmsg": "操作成功",
+     *          "data": {
+     *          }
+     *      }
+     */
+    public function getUserApplyLeagues()
+    {
+        $leagues = Auth::user()->applyLeagues;
+
+        return $this->ajaxResponse(0, '操作成功', compact('leagues'));
     }
 
     /**

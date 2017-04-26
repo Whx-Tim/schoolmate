@@ -27,11 +27,12 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
     Route::group(['middleware' => [], 'prefix' => 'active'], function () {
         Route::get('list', 'ActiveController@getActiveList');
         Route::get('detail/{active}', 'ActiveController@getActive');
+        Route::get('apply/{active}', 'ActiveController@applyActive');
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
         Route::post('info/publish/{active}', 'ActiveController@publishAnnouncement');
         Route::post('storeActive', 'ActiveController@storeActive');
         Route::post('update/{active}', 'ActiveController@updateActive');
-        Route::post('upload/poster/{active}', 'ActiveController@uploadPoster');
+        Route::post('upload/poster', 'ActiveController@uploadPoster');
     });
 
     Route::group(['middleware' => [], 'prefix' => 'user'], function () {
@@ -43,7 +44,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'],
         Route::get('leagues', 'UserController@getUserLeagues');
         Route::get('goods', 'UserController@getUserGoods');
         Route::get('apply/actives', 'UserController@getUserApplyActives');
-        Route::get('apply/courses', 'UserController@getUserAppplyCourses');
+        Route::get('apply/courses', 'UserController@getUserApplyCourses');
+        Route::get('apply/leagues', 'UserController@getUserApplyLeagues');
         Route::post('update', 'UserController@updateUserInfo');
 
         Route::group(['middleware' => []], function () {

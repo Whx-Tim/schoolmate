@@ -183,9 +183,17 @@ class InfoController extends Controller
      */
     public function getUserActiveAnnouncements()
     {
-        $announcements = Auth::user()->activeAnnouncements;
+        $actives = Auth::user()->applyActives;
+        $announcements_array = [];
+        foreach($actives as $active) {
+            $announcements = $active->announcements;
+            foreach ($announcements as $announcement) {
+                array_push($announcements_array, $announcement);
+            }
+        }
+//        $announcements = Auth::user()->activeAnnouncements;
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
     }
 
     /**
@@ -208,9 +216,20 @@ class InfoController extends Controller
      */
     public function getUserCourseAnnouncements()
     {
-        $announcements = Auth::user()->courseAnnouncements;
+        $courses = Auth::user()->applyCourses;
+//        dd($courses);
+        $announcements_array = [];
+        foreach ($courses as $course) {
+            $announcements = $course->announcements;
+//            dd($announcements);
+            foreach ($announcements as $announcement) {
+                array_push($announcements_array, $announcement);
+            }
+        }
+//        $announcements = Auth::user()->applyCourses()->announcements()->get();
+//        $announcements = Auth::user()->courseAnnouncements()->get();
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
     }
 
     /**
@@ -233,9 +252,17 @@ class InfoController extends Controller
      */
     public function getUserLeagueAnnouncements()
     {
-        $announcements = Auth::user()->leagueAnnouncements;
+        $leagues = Auth::user()->applyLeagues;
+        $announcements_array = [];
+        foreach ($leagues as $league) {
+            $announcements = $league->announcements;
+            foreach ($announcements as $announcement) {
+                array_push($announcements_array, $announcement);
+            }
+        }
+//        $announcements = Auth::user()->leagueAnnouncements;
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
     }
 
 
