@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'web', 'prefix' => 'api', 'namespace' => 'Index'], function () {
+Route::group(['middleware' => ['web','auth','activated'], 'prefix' => 'api', 'namespace' => 'Index'], function () {
     Route::group(['middleware' => [], 'prefix' => 'active'], function () {
         Route::get('list', 'ActiveController@getActiveList');
         Route::get('detail/{active}', 'ActiveController@getActive');

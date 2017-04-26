@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('number')->comment('课程号');
             $table->string('name', 50)->comment('课程名称');
             $table->string('teacher', 20)->comment('主讲教师');
+            $table->string('time')->nullable()->comment('上课时间');
             $table->tinyInteger('status')->default(0)->comment('课程状态');
             $table->unsignedInteger('user_id')->comment('用户id，外键');
             $table->softDeletes();
