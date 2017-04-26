@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'], function () {
-    Route::group(['middleware' => ['auth','activated'], 'prefix' => 'active'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'active'], function () {
         Route::get('list', 'ActiveController@getActiveList');
         Route::get('detail/{active}', 'ActiveController@getActive');
         Route::get('apply/{active}', 'ActiveController@applyActive');
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         });
     });
 
-    Route::group(['middleware' => ['auth','activated'], 'prefix' => 'course'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'course'], function () {
         Route::get('list', 'CourseController@getCourseList');
         Route::get('detail/{course}', 'CourseController@getCourseDetail');
         Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('initiate/sign/{course}', 'CourseController@initiateSign');
     });
 
-    Route::group(['middleware' => ['auth','activated'], 'prefix' => 'league'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'league'], function () {
         Route::get('list', 'LeagueController@getList');
         Route::get('detail/{league}', 'LeagueController@getLeague');
         Route::get('apply/{league}', 'LeagueController@applyLeague')->where('league', '[0-9]+');
@@ -80,7 +80,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('info/publish/{league}', 'LeagueController@publishAnnouncement');
     });
 
-    Route::group(['middleware' => ['auth','activated'], 'prefix' => 'info'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'info'], function () {
         Route::get('list', 'InfoController@getAllList');
         Route::get('partimeList', 'InfoController@getPartimeList');
         Route::get('partime/detail/{partime}', 'InfoController@getPartimeDetail');
@@ -91,7 +91,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('list/league', 'InfoController@getUserLeagueAnnouncements');
     });
 
-    Route::group(['middleware' => ['auth','activated'], 'prefix' => 'good'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'good'], function () {
         Route::get('list', 'GoodController@getGoodList');
         Route::get('detail/{good}', 'GoodController@getGood');
         Route::post('store', 'GoodController@storeGood');
