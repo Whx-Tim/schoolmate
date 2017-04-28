@@ -287,17 +287,19 @@ class ActiveController extends Controller
             'image.image'    => '接受的文件不是图片'
         ]);
 
-        try {
-            $file = $request->file('image');
-            $name = time().'_'.$file->getClientOriginalName();
-            $file->move(public_path('uploads/images/'), $name);
-            $image = 'uploads/images/'.$name;
-//            $active->update(['poster' => $image]);
-        } catch (\Exception $exception) {
-            Log::info('活动图片上传异常：'. $exception);
+        $image = $request->file('image')->store('uploads/images/');
 
-            return $this->ajaxResponse(1, '上传失败');
-        }
+//        try {
+//            $file = $request->file('image');
+//            $name = time().'_'.$file->getClientOriginalName();
+//            $file->move(public_path('uploads/images/'), $name);
+//            $image = 'uploads/images/'.$name;
+////            $active->update(['poster' => $image]);
+//        } catch (\Exception $exception) {
+//            Log::info('活动图片上传异常：'. $exception);
+//
+//            return $this->ajaxResponse(1, '上传失败');
+//        }
 
         return $this->ajaxResponse(0, '上传成功', compact('image'));
     }
