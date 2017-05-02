@@ -292,13 +292,14 @@ class ActiveController extends Controller
             'image.image'    => '接受的文件不是图片'
         ]);
 
-        $image = $request->file('image')->store('uploads/images/');
+//        $image = $request->file('image')->store('uploads/images/');
 
+        $file = $request->file('image');
+        $name = time().'_'.$file->getClientOriginalName();
+        $file->move(public_path('uploads/images/'), $name);
+        $image = 'uploads/images/'.$name;
 //        try {
-//            $file = $request->file('image');
-//            $name = time().'_'.$file->getClientOriginalName();
-//            $file->move(public_path('uploads/images/'), $name);
-//            $image = 'uploads/images/'.$name;
+//
 ////            $active->update(['poster' => $image]);
 //        } catch (\Exception $exception) {
 //            Log::info('活动图片上传异常：'. $exception);

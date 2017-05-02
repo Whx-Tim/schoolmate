@@ -249,7 +249,10 @@ class LeagueController extends Controller
             'image.images' => '上传的不是图片'
         ]);
 
-        $path = $request->file('image')->store('/uploads/images');
+        $file = $request->file('image');
+        $name = time().'_'.$file->getClientOriginalName();
+        $file->move(public_path('uploads/images/'), $name);
+        $path = 'uploads/images/'.$name;
 
         return $this->ajaxResponse(0, '上传成功', compact('path'));
     }
