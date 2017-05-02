@@ -15,4 +15,14 @@ class Comment extends Model
     {
         return $this->morphOne('App\Model\Check', 'checkable');
     }
+
+    /**
+     * 获取评论的公告信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function announcement()
+    {
+        return $this->morphTo();
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Http\Requests\StorePartimeRequest;
 use App\Model\Announcement;
 use App\Model\Partime;
+use App\Model\UserInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -91,9 +92,12 @@ class InfoController extends Controller
      */
     public function getAnnouncementList(Request $request)
     {
-        $announcement = $this->getListOrderByDesc(new Announcement(), $request);
+//        $user = UserInfo::where('adminset', 5)->first();
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcement'));
+        $announcements = Announcement::where('announcement_type','App\Model\User')->get();
+//        $announcement = $this->getListOrderByDesc(new Announcement(), $request);
+
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
     }
 
     /**
@@ -309,4 +313,31 @@ class InfoController extends Controller
 
         return $this->ajaxResponse(0, '发布成功');
     }
+
+    /**
+     * @api {get} info/comment/list/{announcement_id} 获取评论列表
+     * @apiName getInfoCommentList
+     * @apiGroup Info
+     *
+     * @apiSuccess {Number} id 评论id
+     * @apiSuccess {String} content 评论内容
+     * @apiSuccess {Number} user_id 发布评论的用户id
+     * @apiSuccess {Date}   created_at 创建时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function getCommentList(Announcement $announcement)
+    {
+        $comments = $announcement->comments;
+
+        return $this->ajaxResponse(0, '操作成功', compact('comments'));
+    }
+
 }

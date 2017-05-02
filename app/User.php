@@ -102,4 +102,14 @@ class User extends Authenticatable
         return $this->hasMany(Good::class);
     }
 
+    /**
+     * 系统管理员发布公告信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function announcements()
+    {
+        return $this->morphMany('App\Model\Announcement', 'announcement');
+    }
+
 }

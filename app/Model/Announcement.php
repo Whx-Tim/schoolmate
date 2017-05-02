@@ -32,4 +32,14 @@ class Announcement extends Model
     {
         return $this->morphOne('App\Model\Check', 'checkable');
     }
+
+    /**
+     * 获取公告的评论信息
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Model\Comment', 'comment');
+    }
 }

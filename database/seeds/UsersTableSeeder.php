@@ -11,6 +11,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\UserInfo::class, 40)->create();
+        factory(App\Model\UserInfo::class, 40)->create()->each(function ($user) {
+            $user->announcements()->create(['title' => '系统公告标题', 'content' => '系统公告内容']);
+        });
     }
 }
