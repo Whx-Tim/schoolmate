@@ -1,20 +1,20 @@
+$(function () {
+    $("[clickable]").on('click', function (ev) {
+        ev.preventDefault();
+        var target = ev.target;
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+        window.open($(target).attr('clickable'));
+    });
 
-require('./bootstrap');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
-    el: '#app'
+    $(".back-top").on('click', function () {
+        $('body').animate({scrollTop: 0}, 500);
+    });
+    
+    $(window).scroll(function () {
+        if ($(window).scrollTop() >= 400) {
+            $(".back-top").removeClass('hide');
+        } else {
+            $(".back-top").addClass('hide');
+        }
+    });
 });

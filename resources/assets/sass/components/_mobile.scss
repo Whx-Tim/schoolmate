@@ -1,0 +1,51 @@
+@media screen and (max-width: 640px) {
+  .Hero {
+    .Hero__banner {
+      height: 200px;
+    }
+  }
+  
+  .Nav {
+    .navbar-collapse {
+      background: #790e3f;
+    }
+  }
+
+  .Main {
+    .container {
+      .Left {
+        .panel--hanya {
+          float: left;
+          width: calc(100% / 2 - 20px);
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+
+  .Admin {
+    .Sidebar {
+      width: 100%;
+    }
+
+    .Container {
+      width: calc(100% - 30px);
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .Hero {
+    .Hero__banner {
+      height: 170px;
+    }
+  }
+
+  .Article__meta {
+    font-size: .9em;
+
+    ul {
+      padding: 0;
+    }
+  }
+}

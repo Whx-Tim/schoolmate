@@ -84,6 +84,7 @@ class ActiveController extends Controller
      * @apiSuccess {Date}   deleted_at 删除时间
      * @apiSuccess {String} condition 选择条件
      * @apiSuccess {Number=0,1} can_publish 是否可以发布该活动公告，0：否，1：是
+     * @apiSuccess {Boole}  applied 是否已参与
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -98,7 +99,11 @@ class ActiveController extends Controller
     {
         $active->view()->increment('count');
         $can_publish = $this->canPublish($active);
-        return $this->ajaxResponse(0, '操作成功', compact('active', 'can_publish'));
+        $applied = ActiveApply::where([
+            'active_id' => $active->id,
+            'user_id'   => Auth::id()
+        ])->first() ? true : false;
+        return $this->ajaxResponse(0, '操作成功', compact('active', 'can_publish','applied'));
     }
 
     /**

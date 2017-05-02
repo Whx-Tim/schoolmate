@@ -11,7 +11,9 @@ class LeaguesTablesSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\League::class, 20)->create();
+        factory(App\Model\League::class, 20)->create()->each(function ($league) {
+            $league->announcements()->create(['title' => '活动某某标题', 'content' => '标题随便内容']);
+        });
         factory(App\Model\LeagueGroup::class, 20)->create();
     }
 }

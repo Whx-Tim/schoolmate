@@ -28,6 +28,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
  */
 $factory->define(App\Model\UserInfo::class, function (Faker\Generator $faker) {
     return [
+        'wx_head_img'=> $faker->imageUrl(80,80),
         'name'       => $faker->name,
         'realname'   => '某某某',
         'student_id' => '2013150010',
@@ -51,7 +52,7 @@ $factory->define(App\Model\Active::class, function (Faker\Generator $faker) {
         'address' => $faker->address,
         'lng' => $faker->longitude,
         'lat' => $faker->latitude,
-        'poster' => $faker->imageUrl(),
+        'poster' => $faker->imageUrl(100,100),
         'images' => $faker->imageUrl(),
         'count'  => $faker->numberBetween(1,100),
         'phone'  => $faker->phoneNumber,
@@ -89,6 +90,7 @@ $factory->define(App\Model\CourseGroup::class, function (Faker\Generator $faker)
  */
 $factory->define(App\Model\League::class, function (Faker\Generator $faker) {
     return [
+        'poster' => $faker->imageUrl(100,100),
         'name' => '某某社团',
         'amount' => $faker->numberBetween(50,100),
         'introduction' => $faker->paragraph,
@@ -103,6 +105,9 @@ $factory->define(App\Model\LeagueGroup::class, function (Faker\Generator $faker)
     ];
 });
 
+/**
+ * 兼职信息数据工厂
+ */
 $factory->define(App\Model\Partime::class, function (Faker\Generator $faker) {
     return [
         'company_name' => '某某有限公司',
@@ -119,6 +124,19 @@ $factory->define(App\Model\Partime::class, function (Faker\Generator $faker) {
         'end_time'     => $faker->dateTime,
         'position'     => $faker->randomElement(['技术','市场','工程师','建筑师','助理','某某实习生']),
         'user_id'      => $faker->numberBetween(1,40)
+    ];
+});
+
+$factory->define(App\Model\Good::class, function (Faker\Generator $faker) {
+    return [
+        'shopNmae' => $faker->randomElement(['手机','电视机','手机壳','数据线','某某']),
+        'shoptype' => $faker->numberBetween(1,5),
+        'shopPrice' => $faker->numberBetween(1,100),
+        'shopNumber' => $faker->numberBetween(1,10),
+        'image'      => $faker->randomElements([$faker->imageUrl(100,100),$faker->imageUrl(100,100),$faker->imageUrl(100,100)],3),
+        'shopPicture' => $faker->imageUrl(100,100),
+        'shopDescription' => $faker->paragraphs,
+        'user_id'         => $faker->numberBetween(1,40)
     ];
 });
 

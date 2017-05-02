@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Index;
 
 use App\Http\Requests\StoreGoodRequest;
+use App\Http\Requests\StoreReceiptRequest;
 use App\Model\Good;
+use App\Model\Partime;
+use App\Model\Receipt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -41,7 +44,8 @@ class GoodController extends Controller
      */
     public function getGoodList(Request $request)
     {
-        $goods = $this->getListOrderByDesc(new Good(), $request);
+//        $goods = $this->getListOrderByDesc(new Good(), $request);
+        $goods = Good::where('shopNumber','>',0)->orderBy('created_at','desc')->paginate();
 
         return $this->ajaxResponse(0, '操作成功', compact('goods'));
     }
@@ -127,6 +131,41 @@ class GoodController extends Controller
         return $this->ajaxResponse(0, '发布成功', compact('good'));
     }
 
+    /**
+     * @api {post} good/receipt/store 添加收货地址
+     * @apiName StoreGoodReceipt
+     * @apiGroup Good
+     *
+     * @apiSuccess {String} consignee 收货人
+     * @apiSuccess {String} address 收货地址
+     * @apiSuccess {String} phone 收货人电话
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "发布成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function storeReceipt(StoreReceiptRequest $request)
+    {
+        $receipt = Receipt::create($request->except(['_token','_method']));
+
+        return $this->ajaxResponse(0, '保存成功', compact('receipt'));
+    }
+
+    public function buyGood(Good $good)
+    {
+        if ($good->shopNumber > 0) {
+            $good->decrement('shopNumber');
+        } else {
+            return $this->ajaxResponse(1, '商品已卖完');
+        }
+
+        return $this->ajaxResponse(0, '购买成功');
+    }
 
 
 }

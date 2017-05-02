@@ -57,6 +57,8 @@ class LeagueController extends Controller
      * @apiSuccess {Number} type 社团类型，1:摄影,2:技术,3:社交,4:管理,5:艺术,6:其他
      * @apiSuccess {Number} user_id 用户id，外键
      * @apiSuccess {Date} created_at 创建时间
+     * @apiSuccess {Number=0,1} can_publish 是否有发布的权限0：否，1：可
+     * @apiSuccess {Bool}   applied 是否参与社团
      *
      * @apiSuccessExample Success-Response:
      *      Http/1.1 200 OK
@@ -72,7 +74,11 @@ class LeagueController extends Controller
     {
         $league->view()->increment('count');
         $can_publish = $this->canPublish($league);
-        return $this->ajaxResponse(0, '操作成功', compact('league', 'can_publish'));
+        $applied = LeagueGroup::where([
+            'league_id' => $league->id,
+            'user_id'   => Auth::id()
+        ]) ? true : false;
+        return $this->ajaxResponse(0, '操作成功', compact('league', 'can_publish', 'applied'));
     }
 
     /**
@@ -215,5 +221,21 @@ class LeagueController extends Controller
         }
 
         return $this->ajaxResponse(0, '发布成功', compact('announcement'));
+    }
+
+    /**
+     * @api
+     */
+    public function uploadPoster(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'images'
+        ], [
+            'image.images' => '上传的不是图片'
+        ]);
+
+        $path = $request->file('image')->store('/uploads/images');
+
+        return $this->ajaxResponse(0, '上传成功', compact('path'));
     }
 }

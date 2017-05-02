@@ -61,6 +61,7 @@ class CourseController extends Controller
      * @apiSuccess {Date}   updated_at 更新时间
      * @apiSuccess {Date}   deleted_at 删除时间
      * @apiSuccess {Number=0,1} can_publish 是否可以发送课程公告 0：不可以，1：可以
+     * @apiSuccess {Bool}   applied 是否已参与
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -75,7 +76,11 @@ class CourseController extends Controller
     {
         $course->view()->increment('count');
         $can_publish = $this->canPublish($course);
-        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish'));
+        $applied = CourseGroup::where([
+            'course_id' => $course->id,
+            'user_id'   => Auth::id()
+        ]) ? true : false;
+        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied'));
     }
 
     /**

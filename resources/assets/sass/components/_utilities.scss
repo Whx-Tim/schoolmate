@@ -1,0 +1,146 @@
+.Utilities {
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+
+  .back-top {
+    top: 0;
+    font-size: 2.88em;
+  }
+
+  .unit {
+    cursor: pointer;
+    z-index: 10000;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    width: 60px;
+    height: 60px;
+    background: #eee;
+    border-radius: 3px;
+    text-align: center;
+    color: #555;
+    overflow: hidden;
+    @include ts();
+
+    i {
+      @include ts();
+    }
+
+    span {
+      display: block;
+      width: 60px;
+      height: 60px;
+      color: #fff;
+      font-size: .7em;
+      position: absolute;
+      bottom: 0;
+      line-height: 88px;
+      font-weight: 600;
+      left: 0;
+      pointer-events: none;
+    }
+
+    &.hide {
+      -webkit-transform: scale3d(0,0,0);
+      -moz-transform: scale3d(0,0,0);
+      transform: scale3d(0,0,0);
+      display: block !important;
+    }
+
+    @for $i from 2 through 5 {
+      &:nth-of-type(#{$i}) {
+        bottom: #{(($i - 2) * 68) + 15}px;
+      }
+    }
+
+    &:not(:first-child) {
+      font-size: 1.5em;
+
+      > i {
+        top: 5px;
+        position: relative;
+      }
+    }
+
+    &.unit--slide {
+      &:after {
+        content: attr(slide-text);
+        @include tY(39px);
+        @include ts();
+        display: block;
+        width: 38px;
+        height: 38px;
+        color: #fff;
+        font-size: .7em;
+        position: absolute;
+        bottom: -2px;
+        line-height: 17px;
+        opacity: 0;
+        font-weight: 600;
+        pointer-events: none;
+      }
+
+      &:hover {
+        i {
+          @include tY(-39px);
+          opacity: 0;
+        }
+
+        &:after {
+          @include tY(0px);
+          opacity: 1;
+        }
+      }
+    }
+
+    &.unit--fancy {
+      overflow: visible !important;
+
+      .unit__aux {
+        opacity: 0;
+        position: relative;
+        right: calc(100% + 160px);
+        bottom: 60px;
+        pointer-events: none;
+        @include ts(all ease-in-out .35s);
+        @include tY(120px);
+
+        img {
+          max-width: 160px;
+          padding: 5px;
+          border-radius: 6px;
+          background: #fff;
+        }
+      }
+
+      &:hover {
+        .unit__aux {
+          opacity: 1 !important;
+          @include tY(0px);
+        }
+      }
+    }
+  }
+
+  .weibo {
+    background: $weibo-color;
+    color: #eee;
+  }
+  
+  .wechat {
+    background: $wechat-color;
+    color: #fff;
+  }
+  
+  .qq {
+    background: $qq-color;
+    color: #eee;
+  }
+}
+
+@media (max-width: 500px) {
+  .Utilities {
+    display: none;
+  }
+}

@@ -11,7 +11,9 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\Course::class, 20)->create();
+        factory(App\Model\Course::class, 20)->create()->each(function ($course) {
+            $course->announcements()->create(['title' => '活动某某标题', 'content' => '标题随便内容']);
+        });
         factory(App\Model\CourseGroup::class, 20)->create();
     }
 }

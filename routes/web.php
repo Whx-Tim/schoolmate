@@ -97,4 +97,61 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('store', 'GoodController@storeGood');
 
     });
+
+    Route::group([
+        'middleware' => ['web'],
+        'prefix'     => 'message'
+    ], function () {
+        Route::get('message/list/{send_to}', 'MessageController@getList');
+        Route::post('message/store', 'MessageController@store');
+    });
+});
+
+Route::group([
+    'middleware' => ['web', 'auth'],
+    'prefix'     => 'admin',
+    'namespace'  => 'Admin'
+], function  () {
+    Route::get('/', 'IndexController@show');
+    Route::group([
+        'prefix' => 'active'
+    ], function () {
+        Route::get('/', 'ActiveController@show');
+    });
+
+    Route::group([
+        'prefix' => 'course'
+    ], function () {
+
+    });
+
+    Route::group([
+        'prefix' => 'league'
+    ], function () {
+
+    });
+
+    Route::group([
+        'prefix' => 'good'
+    ], function () {
+
+    });
+
+    Route::group([
+        'prefix' => 'user'
+    ], function () {
+
+    });
+
+    Route::group([
+        'prefix' => 'announcement'
+    ], function () {
+
+    });
+
+    Route::group([
+        'prefix' => 'statistics'
+    ], function () {
+
+    });
 });

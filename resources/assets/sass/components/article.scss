@@ -1,0 +1,47 @@
+.Article {
+  padding: 1.5em 1em;
+
+  .Article__title {
+    text-align: center;
+    padding: 0 1em .5em;
+    font-weight: bold;
+    font-size: 2em;
+    color: $link-color;
+  }
+
+  .Article__meta {
+    [author] {
+      display: inline-block;
+      line-height: 50px;
+      vertical-align: middle;
+    }
+
+    [stat] {
+      line-height: 51px;
+      float: right;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0 .8em;
+      
+      li {
+        display: inline-block;
+        margin: 0 .5em;
+        color: #888;
+      }
+    }
+  }
+
+  .Article__body {
+    margin: .8em 0;
+    font-size: 16px;
+    line-height: 1.8em;
+    overflow: hidden;
+    clear: both;
+
+    iframe, img, video {
+      max-width: 95%;
+    }
+  }
+}

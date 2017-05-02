@@ -1,0 +1,113 @@
+.Footer {
+  text-align: center;
+  padding: 60px 50px;
+  background: $secondary-background;
+  color: $font-color;
+
+  a {
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+}
+
+.culture {
+  text-align: center;
+  margin: 2.5em 0;
+  clear: both;
+
+  img {
+    height: 90px;
+  }
+
+  ul {
+    text-align: left;
+    list-style: none;
+
+    li {
+      line-height: 35px;
+    }
+  }
+
+  &:after {
+    content: '';
+    padding-bottom: 7%;
+    display: block;
+  }
+}
+
+.contact {
+  padding: .5em 0;
+  margin-top: -28px;
+
+  .details {
+    color: #888;
+    
+    span {
+      margin: 0 .6em;
+    }
+  }
+
+  .social {
+    > div {
+      display: inline-block;
+      margin: 1em .8em;
+    }
+    
+    .qq {
+      color: $qq-color;
+    }
+    
+    .wechat {
+      color: $wechat-color;
+    }
+  }
+}
+
+.copyright {
+  clear: both;
+  p {
+    font-size: 1.2em;
+  }
+}
+
+.icp {
+  padding: 1.5em;
+  
+  span {
+    color: $link-color;
+    font-weight: 200;
+  }
+}
+
+.friend-links {
+  margin: 1.5em 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: .5em .6em;
+      display: inline-block;
+
+      a {
+        font-weight: 500;
+
+        &:before {
+          content: '# ';
+        }
+
+        &:after {
+          content: '';
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-right: 1px dashed rgba(0,0,0,0.5);
+        }
+      }
+    }
+  }
+}

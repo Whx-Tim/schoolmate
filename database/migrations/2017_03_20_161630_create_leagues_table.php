@@ -15,6 +15,7 @@ class CreateLeaguesTable extends Migration
     {
         Schema::create('leagues', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('poster')->comment('社团海报');
             $table->string('name', 100)->comment('社团名称');
             $table->unsignedInteger('amount')->comment('限制人数');
             $table->text('introduction')->comment('社团介绍');

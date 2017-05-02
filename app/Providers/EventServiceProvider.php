@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegister' => [
             'App\Listeners\SendRegisterEmail',
         ],
+        'App\Events\UserGetMessageList' => [
+            'App\Listeners\readAllMessage',
+        ]
     ];
 
     /**
