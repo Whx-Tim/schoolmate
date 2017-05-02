@@ -156,7 +156,7 @@ class ActiveController extends Controller
      * @apiParam {String} name 活动名称
      * @apiParam {String} time 活动时间
      * @apiParam {String} address 活动地址
-     * @apiParam {String} lnt 经度
+     * @apiParam {String} lng 经度
      * @apiParam {String} lat 纬度
      * @apiParam {String} poster 活动海报url
      * @apiParam {String} [images] 活动图片url
@@ -201,7 +201,7 @@ class ActiveController extends Controller
      * @apiParam {String} name 活动名称
      * @apiParam {String} time 活动时间
      * @apiParam {String} address 活动地址
-     * @apiParam {String} lnt 经度
+     * @apiParam {String} lng 经度
      * @apiParam {String} lat 纬度
      * @apiParam {String} poster 活动海报url
      * @apiParam {String} [images] 活动图片url

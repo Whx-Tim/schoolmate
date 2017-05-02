@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseFile extends Model
 {
-    protected $fillable = ['path'];
+    protected $guarded  = ['_token', '_method'];
 
     public function course()
     {

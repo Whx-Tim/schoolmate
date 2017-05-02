@@ -274,6 +274,32 @@ class CourseController extends Controller
     }
 
     /**
+     * @api {get} course/file/{course_id} 获取课程资源列表
+     * @apiName getCourseFile
+     * @apiGroup Course
+     *
+     * @apiSuccess {Number} id 文件id
+     * @apiSuccess {String} name 文件名称
+     * @apiSuccess {String} path 文件路径
+     * @apiSuccess {Date}   created_at 创建时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "操作成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function fileList(Course $course)
+    {
+        $files = $course->files;
+
+        return $this->ajaxResponse(0, '操作成功', compact('files'));
+    }
+
+    /**
      * @api {post} course/upload/{course_id} 上传文件
      * @apiName uploadFile
      * @apiGroup Course
@@ -305,7 +331,7 @@ class CourseController extends Controller
             $name = time().'_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/files/'), $name);
             $file_path = 'uploads/files/'.$name;
-            $course->files()->create(['path' => $file_path]);
+            $course->files()->create(['path' => $file_path,'name' => $file->getClientOriginalName()]);
         } catch (\Exception $exception) {
             Log::info('上传文件异常:' .$exception);
 

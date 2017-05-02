@@ -63,6 +63,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
         Route::get('apply/{course}', 'CourseController@applyCourse')->where('course', '[0-9]+');
         Route::get('invite/{code}', 'CourseController@inviteCodeGetCourse');
+        Route::get('file/list/{course}', 'CourseController@fileList');
         Route::post('store', 'CourseController@storeCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
         Route::post('info/publish/{course}', 'CourseController@publishAnnouncement');
@@ -90,6 +91,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('list/active', 'InfoController@getUserActiveAnnouncements');
         Route::get('list/course', 'InfoController@getUserCourseAnnouncements');
         Route::get('list/league', 'InfoController@getUserLeagueAnnouncements');
+        Route::post('partime/store', 'InfoController@storePartime');
     });
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'good'], function () {
