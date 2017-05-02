@@ -224,7 +224,22 @@ class LeagueController extends Controller
     }
 
     /**
-     * @api
+     * @api {post} league/upload 社团上传照片
+     * @apiName uploadLeaguePoster
+     * @apiGroup League
+     *
+     * @apiParam {File} image 图片文件
+     *
+     * @apiSuccess {String} path 图片路径
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "上传成功",
+     *         "data": {
+     *         }
+     *     }
      */
     public function uploadPoster(Request $request)
     {

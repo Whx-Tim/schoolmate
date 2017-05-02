@@ -75,6 +75,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('list', 'LeagueController@getList');
         Route::get('detail/{league}', 'LeagueController@getLeague');
         Route::get('apply/{league}', 'LeagueController@applyLeague')->where('league', '[0-9]+');
+        Route::post('upload','LeagueController@uploadPoster');
         Route::post('store', 'LeagueController@storeLeague');
         Route::post('update/{league}', 'LeagueController@updateLeague');
         Route::post('info/publish/{league}', 'LeagueController@publishAnnouncement');
