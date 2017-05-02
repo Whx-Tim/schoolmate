@@ -129,13 +129,13 @@ $factory->define(App\Model\Partime::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Model\Good::class, function (Faker\Generator $faker) {
     return [
-        'shopNmae' => $faker->randomElement(['手机','电视机','手机壳','数据线','某某']),
-        'shoptype' => $faker->numberBetween(1,5),
+        'shopName' => $faker->randomElement(['手机','电视机','手机壳','数据线','某某']),
+        'shopType' => $faker->numberBetween(1,5),
         'shopPrice' => $faker->numberBetween(1,100),
         'shopNumber' => $faker->numberBetween(1,10),
-        'image'      => $faker->randomElements([$faker->imageUrl(100,100),$faker->imageUrl(100,100),$faker->imageUrl(100,100)],3),
+        'image'      => $faker->imageUrl(100,100),
         'shopPicture' => $faker->imageUrl(100,100),
-        'shopDescription' => $faker->paragraphs,
+        'shopDescription' => $faker->paragraph,
         'user_id'         => $faker->numberBetween(1,40)
     ];
 });
