@@ -136,7 +136,7 @@ class InfoController extends Controller
      */
     public function getPartimeDetail(Partime $partime)
     {
-        $partime->view()->increment();
+        $partime->view()->increment('count');
 
         return $this->ajaxResponse(0, '操作成功', compact('partime'));
     }

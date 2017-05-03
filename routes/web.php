@@ -116,10 +116,17 @@ Route::group([
     'namespace'  => 'Admin'
 ], function  () {
     Route::get('/', 'IndexController@show');
+    Route::post('upload', 'IndexController@upload');
     Route::group([
         'prefix' => 'active'
     ], function () {
         Route::get('/', 'ActiveController@show');
+        Route::get('detail/{active}', 'ActiveController@detail');
+        Route::get('edit/{active}', 'ActiveController@edit');
+        Route::get('delete/{active}', 'ActiveController@delete');
+        Route::get('store', 'ActiveController@showStore');
+        Route::post('store', 'ActiveController@store');
+        Route::post('edit/{active}', 'ActiveController@update');
     });
 
     Route::group([

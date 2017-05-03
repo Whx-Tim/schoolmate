@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $userInfo = $user->info;
 
-        return $this->ajaxResponse(0, '操作成功', compact('userInfo'));
+        return $this->ajaxResponse(0, '操作成功', compact('userInfo','user'));
     }
 
     /**

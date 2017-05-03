@@ -27,6 +27,11 @@ class ActiveController extends Controller
         return view('admin.active.edit', compact('active'));
     }
 
+    public function showStore()
+    {
+        return view('admin.active.add');
+    }
+
     public function store(StoreActiveRequest $request)
     {
         $active = Active::create($request->except(['_token', '_method']));

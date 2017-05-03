@@ -31,10 +31,15 @@
                 @foreach($actives as $active)
                     <tr>
                         <td>{{ $active->id }}</td>
-                        <td>{{ $active->name }}</td>
+                        <td><a href="{{ $active->detailUrl() }}">{{ $active->name }}</a></td>
                         <td>{{ $active->time }}</td>
                         <td>{{ $active->phone }}</td>
                         <td>{{ $active->status }}</td>
+                        <td>{{ $active->person }}</td>
+                        <td>
+                            <a href="{{ $active->editUrl() }}" operation="edit"><i class="fa fa-pencil fa-2x"></i></a>
+                            <a href="{{ $active->deleteUrl() }}" operation="delete"><i class="fa fa-close fa-2x"></i></a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\User;
 use App\ExtendModel as Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Active extends Model
 {
@@ -59,5 +60,40 @@ class Active extends Model
     public function check()
     {
         return $this->morphOne('App\Model\Check', 'checkable');
+    }
+
+    /**
+     * 获取活动详情链接
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function detailUrl()
+    {
+        return url('admin/active/detail/'. $this->id);
+    }
+
+    /**
+     * 获取活动编辑链接
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function editUrl()
+    {
+        return url('admin/active/edit/'. $this->id);
+    }
+
+    /**
+     * 获取活动删除链接
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function deleteUrl()
+    {
+        return url('admin/active/delete/'. $this->id);
+    }
+
+    public function homeUrl()
+    {
+        return url('admin/active');
     }
 }
