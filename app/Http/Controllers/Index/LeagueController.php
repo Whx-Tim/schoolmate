@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class LeagueController extends Controller
 {
     /**
-     * @api {Get} /league/list 获取社团列表
+     * @api {Get} league/list 获取社团列表
      * @apiName LeagueGetList
      * @apiGroup League
      *

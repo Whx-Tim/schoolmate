@@ -55,8 +55,8 @@
                 <input type="hidden" name="poster" value="">
                 <input type="hidden" name="lng" value="">
                 <input type="hidden" name="lat" value="">
-                <input type="hidden" name="user_id" value="">
-                <a href="{{ url('admin/active/store') }}" class="btn btn-block btn-primary" id="update-btn">更新</a>
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                <a href="{{ url('admin/active/store') }}" class="btn btn-block btn-primary" id="add-btn">添加</a>
             </form>
         </div>
     </div>

@@ -67,7 +67,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('store', 'CourseController@storeCourse');
         Route::post('update/{course}', 'CourseController@updateCourse');
         Route::post('info/publish/{course}', 'CourseController@publishAnnouncement');
-        Route::post('upload', 'CourseController@fileUpload');
+        Route::post('upload/{course}', 'CourseController@fileUpload');
         Route::post('sign/{course}', 'CourseController@courseSign');
         Route::post('initiate/sign/{course}', 'CourseController@initiateSign');
     });
@@ -91,7 +91,10 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('list/active', 'InfoController@getUserActiveAnnouncements');
         Route::get('list/course', 'InfoController@getUserCourseAnnouncements');
         Route::get('list/league', 'InfoController@getUserLeagueAnnouncements');
+        Route::get('announcement/detail/{announcement}', 'InfoController@getAnnouncement');
+        Route::get('comment/list/{announcement}', 'InfoController@getCommentList');
         Route::post('partime/store', 'InfoController@storePartime');
+        Route::post('comment/store/{announcement}', 'InfoController@storeComment');
     });
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'good'], function () {
@@ -132,19 +135,37 @@ Route::group([
     Route::group([
         'prefix' => 'course'
     ], function () {
-
+        Route::get('/', 'CourseController@show');
+        Route::get('store', 'CourseController@add');
+        Route::get('edit/{course}', 'CourseController@edit');
+        Route::get('detail/{course}', 'CourseController@detail');
+        Route::get('delete/{course}', 'CourseController@delete');
+        Route::post('store', 'CourseController@store');
+        Route::post('edit/{course}', 'CourseController@update');
     });
 
     Route::group([
         'prefix' => 'league'
     ], function () {
-
+        Route::get('/', 'LeagueController@show');
+        Route::get('store', 'LeagueController@add');
+        Route::get('edit/{league}', 'LeagueController@edit');
+        Route::get('detail/{league}', 'LeagueController@detail');
+        Route::get('delete/{league}', 'LeagueController@delete');
+        Route::post('store', 'LeagueController@store');
+        Route::post('edit/{league}', 'LeagueController@update');
     });
 
     Route::group([
         'prefix' => 'good'
     ], function () {
-
+        Route::get('/', 'GoodController@show');
+        Route::get('store', 'GoodController@add');
+        Route::get('edit/{good}', 'GoodController@edit');
+        Route::get('detail/{good}', 'GoodController@detail');
+        Route::get('delete/{good}', 'GoodController@delete');
+        Route::post('store', 'GoodController@store');
+        Route::post('edit/{good}', 'GoodController@update');
     });
 
     Route::group([
@@ -156,7 +177,13 @@ Route::group([
     Route::group([
         'prefix' => 'announcement'
     ], function () {
-
+        Route::get('/', 'AnnouncementController@show');
+        Route::get('store', 'AnnouncementController@add');
+        Route::get('edit/{announcement}', 'AnnouncementController@edit');
+        Route::get('detail/{announcement}', 'AnnouncementController@detail');
+        Route::get('delete/{announcement}', 'AnnouncementController@delete');
+        Route::post('edit/{announcement}', 'AnnouncementController@update');
+        Route::post('store', 'AnnouncementController@store');
     });
 
     Route::group([

@@ -70,4 +70,27 @@ class Course extends Model
     {
         return $this->morphOne('App\Model\Check', 'checkable');
     }
+
+
+    public function editUrl()
+    {
+        return url('admin/course/edit/'. $this->id);
+    }
+
+    public function homeUrl()
+    {
+        return url('admin/course');
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/course/detail/'. $this->id);
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/course/delete/'. $this->id);
+    }
+
+
 }

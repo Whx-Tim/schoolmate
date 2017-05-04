@@ -2,11 +2,13 @@
 
 namespace App\Model;
 
-use App\ExtendModel as Model;
+use Illuminate\Database\Eloquent\Model;
 
 class Announcement extends Model
 {
     protected $condition_array = ['created_at', 'updated_at'];
+
+    protected $dates = [];
 
     public function announcement()
     {
@@ -41,5 +43,51 @@ class Announcement extends Model
     public function comments()
     {
         return $this->morphMany('App\Model\Comment', 'comment');
+    }
+
+    public function homeUrl()
+    {
+        return url('admin/announcement');
+    }
+
+    public function editUrl()
+    {
+        return url('admin/announcement/edit/'. $this->id);
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/announcement/delete/'. $this->id);
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/announcement/detail/'. $this->id);
+    }
+
+    public function typeToString()
+    {
+        foreach (explode('\\',$this->announcement_type) as $item) {
+            $type = $item;
+        }
+        switch ($type) {
+            case 'User':
+                return "系统公告";
+            case 'Course':
+                return '课程公告';
+            case 'Active':
+                return '活动公告';
+            case 'League':
+                return '社团公告';
+        }
+    }
+
+    public function viewIncrement()
+    {
+        if ($this->view) {
+            $this->view()->increment('count');
+        } else {
+            $this->view()->create(['count' => 0]);
+        }
     }
 }

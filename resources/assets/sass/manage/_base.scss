@@ -128,6 +128,18 @@
   }
 }
 
+.required {
+  position: relative;
+
+  &:after {
+    content: '*';
+    position: absolute;
+    color: red;
+    top: 0;
+    right: -10px;
+  }
+}
+
 .shaky {
   @include am(shake ease-in-out .7s backwards);
 }

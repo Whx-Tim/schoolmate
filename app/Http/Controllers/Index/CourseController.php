@@ -79,7 +79,7 @@ class CourseController extends Controller
         $applied = CourseGroup::where([
             'course_id' => $course->id,
             'user_id'   => Auth::id()
-        ]) ? true : false;
+        ])->first() ? true : false;
         return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied'));
     }
 
@@ -168,7 +168,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @api {get} course/apply/{course_id}
+     * @api {get} course/apply/{course_id} 参与课程
      * @apiName applyCourse
      * @apiGroup Course
      *
@@ -274,7 +274,7 @@ class CourseController extends Controller
     }
 
     /**
-     * @api {get} course/file/{course_id} 获取课程资源列表
+     * @api {get} course/file/list/{course_id} 获取课程资源列表
      * @apiName getCourseFile
      * @apiGroup Course
      *
@@ -292,9 +292,9 @@ class CourseController extends Controller
      *         }
      *     }
      */
-    public function fileList(Course $course)
+    public function fileList(Course $course,Request $request)
     {
-        $files = $course->files;
+        $files = $course->files()->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('files'));
     }
@@ -325,13 +325,13 @@ class CourseController extends Controller
             'file.required' => '请上传文件',
             'file.file'     => '上传的不是文件'
         ]);
-
+        $file = $request->file('file');
+        $name = time().'_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/files/'), $name);
+        $file_path = 'uploads/files/'.$name;
+        $course->files()->create(['path' => $file_path,'name' => $file->getClientOriginalName()]);
         try {
-            $file = $request->file('file');
-            $name = time().'_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/files/'), $name);
-            $file_path = 'uploads/files/'.$name;
-            $course->files()->create(['path' => $file_path,'name' => $file->getClientOriginalName()]);
+
         } catch (\Exception $exception) {
             Log::info('上传文件异常:' .$exception);
 

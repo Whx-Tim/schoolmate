@@ -6,6 +6,7 @@ use App\Http\Requests\StorePartimeRequest;
 use App\Model\Announcement;
 use App\Model\Partime;
 use App\Model\UserInfo;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -94,7 +95,16 @@ class InfoController extends Controller
     {
 //        $user = UserInfo::where('adminset', 5)->first();
 
-        $announcements = Announcement::where('announcement_type','App\Model\User')->get();
+        $announcements = Announcement::with('view')->where('announcement_type','App\User')->paginate($request->get('per_page'));
+        $announcements_json = $announcements->toArray();
+        $announcements_json['data'] = $announcements->each(function ($announcement) {
+            $announcement->comment_count = $announcement->comments()->count();
+        });
+        $announcements = $announcements_json;
+
+//        foreach ($announcements->data as $announcement) {
+//            $announcement->comments()->count();
+//        }
 //        $announcement = $this->getListOrderByDesc(new Announcement(), $request);
 
         return $this->ajaxResponse(0, '操作成功', compact('announcements'));
@@ -163,8 +173,8 @@ class InfoController extends Controller
     public function getAnnouncement(Announcement $announcement)
     {
         $announcement->view()->increment('count');
-        $view = $announcement->view;
-        return $this->ajaxResponse(0, '操作成功', compact('announcement', 'view'));
+//        $view = $announcement->view;
+        return $this->ajaxResponse(0, '操作成功', compact('announcement'));
     }
 
     /**
@@ -185,19 +195,23 @@ class InfoController extends Controller
      *         }
      *     }
      */
-    public function getUserActiveAnnouncements()
+    public function getUserActiveAnnouncements(Request $request)
     {
-        $actives = Auth::user()->applyActives;
-        $announcements_array = [];
-        foreach($actives as $active) {
-            $announcements = $active->announcements;
-            foreach ($announcements as $announcement) {
-                array_push($announcements_array, $announcement);
-            }
-        }
+        $actives = Auth::user()->applyActives()->paginate($request->get('per_page'));
+        $announcements = $actives->toArray();
+        $announcements['data'] = $actives->map(function ($active) {
+            return $active->announcements;
+        })->flatten();
+//        $announcements_array = [];
+//        foreach($actives as $active) {
+//            $announcements = $active->announcements;
+//            foreach ($announcements as $announcement) {
+//                array_push($announcements_array, $announcement);
+//            }
+//        }
 //        $announcements = Auth::user()->activeAnnouncements;
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
     }
 
     /**
@@ -218,22 +232,26 @@ class InfoController extends Controller
      *         }
      *     }
      */
-    public function getUserCourseAnnouncements()
+    public function getUserCourseAnnouncements(Request $request)
     {
-        $courses = Auth::user()->applyCourses;
+        $courses = Auth::user()->applyCourses()->paginate($request->get('per_page'));
+        $announcements = $courses->toArray();
+        $announcements['data'] = $courses->map(function ($course) {
+            return $course->announcements;
+        })->flatten();
 //        dd($courses);
-        $announcements_array = [];
-        foreach ($courses as $course) {
-            $announcements = $course->announcements;
-//            dd($announcements);
-            foreach ($announcements as $announcement) {
-                array_push($announcements_array, $announcement);
-            }
-        }
+//        $announcements_array = [];
+//        foreach ($courses as $course) {
+//            $announcements = $course->announcements;
+////            dd($announcements);
+//            foreach ($announcements as $announcement) {
+//                array_push($announcements_array, $announcement);
+//            }
+//        }
 //        $announcements = Auth::user()->applyCourses()->announcements()->get();
 //        $announcements = Auth::user()->courseAnnouncements()->get();
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
     }
 
     /**
@@ -257,16 +275,20 @@ class InfoController extends Controller
     public function getUserLeagueAnnouncements()
     {
         $leagues = Auth::user()->applyLeagues;
-        $announcements_array = [];
-        foreach ($leagues as $league) {
-            $announcements = $league->announcements;
-            foreach ($announcements as $announcement) {
-                array_push($announcements_array, $announcement);
-            }
-        }
+        $announcements = $leagues->toArray();
+        $announcements['data'] = $leagues->map(function ($league) {
+            return $league->announcements;
+        })->flatten();
+//        $announcements_array = [];
+//        foreach ($leagues as $league) {
+//            $announcements = $league->announcements;
+//            foreach ($announcements as $announcement) {
+//                array_push($announcements_array, $announcement);
+//            }
+//        }
 //        $announcements = Auth::user()->leagueAnnouncements;
 
-        return $this->ajaxResponse(0, '操作成功', compact('announcements_array'));
+        return $this->ajaxResponse(0, '操作成功', compact('announcements'));
     }
 
 
@@ -304,7 +326,9 @@ class InfoController extends Controller
         try {
             $data = $request->except(['_token','_method']);
             $data['user_id'] = Auth::id();
-            Partime::create($data);
+            $partime = Partime::create($data);
+            $partime->check()->create([]);
+
         } catch (\Exception $exception) {
             Log::info('发布兼职信息异常：'. $exception);
 
@@ -338,6 +362,20 @@ class InfoController extends Controller
         $comments = $announcement->comments;
 
         return $this->ajaxResponse(0, '操作成功', compact('comments'));
+    }
+
+    public function storeComment(Request $request, Announcement $announcement)
+    {
+        $this->validate($request, [
+            'content' => 'required'
+        ], [
+            'content.required' => '请不要发送空消息'
+        ]);
+        $data = $request->only('content');
+        $data['user_id'] = $request->user()->id;
+        $comment = $announcement->comments()->create($data);
+
+        return $this->ajaxResponse(0, '发布成功', compact('comment'));
     }
 
 }

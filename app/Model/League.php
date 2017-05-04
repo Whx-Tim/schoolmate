@@ -60,4 +60,32 @@ class League extends Model
     {
         return $this->morphOne('App\Model\Check', 'checkable');
     }
+
+    public function editUrl()
+    {
+        return url('admin/league/edit/'. $this->id);
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/league/detail/'. $this->id);
+    }
+
+    public function homeUrl()
+    {
+        return url('admin/league');
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/league/delete/'. $this->id);
+    }
+
+    public function userName()
+    {
+        $user = User::select('username')->find($this->user_id);
+
+        return $user->username;
+    }
+
 }

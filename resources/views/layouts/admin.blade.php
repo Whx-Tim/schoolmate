@@ -29,6 +29,7 @@
 <script src="{{ url('js/plugins/summernote.min.js') }}"></script>
 <script src="{{ url('js/plugins/toastr.min.js') }}"></script>
 <script src="{{ url('js/plugins.js') }}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2aLkRxKYccsqt8NlvVsgURX99OIUbabz"></script>
 <script type="text/javascript">
         toastr.options = {
             "closeButton": true,
@@ -124,7 +125,16 @@
                         }
                     },
                     error: function (error) {
-                        swal('操作异常','','error');
+                        if (error.status == 422) {
+                            var data = JSON.parse(error.responseText);
+                            var message;
+                            for (var x in data) {
+                                message = data[x][0];
+                            }
+                            swal('添加失败', message, 'error');
+                        } else {
+                            swal('操作异常','','error');
+                        }
                     }
                 })
             })
@@ -159,7 +169,17 @@
                         }
                     },
                     error: function (error) {
-                        swal('操作异常','','error');
+                        if (error.status == 422) {
+                            var data = JSON.parse(error.responseText);
+                            var message;
+                            for (var x in data) {
+                                message = data[x][0];
+                            }
+                            swal('添加失败', message, 'error');
+                        } else {
+                            swal('操作异常','','error');
+                        }
+
                     }
                 })
             })
@@ -174,13 +194,16 @@
             maxFiles: 1,
             maxFileSize: 3,
             acceptedFiles: "image/*",
+            addRemoveLinks: true,
             dictDefaultMessage: '拖拽或者点击上传图片',
+            dictCancelUpload: '取消',
+            dictRemoveFile: '取消',
             init: function () {
                 this.on("success", function (file) {
                     if (file.status = 'success') {
                         var path = JSON.parse(file.xhr.responseText).data.path;
                         $('input[name=poster]').val(path);
-                        $('#dropzone').prev('img').attr('src',path);
+                        $('#dropzone').prev('img').attr('src','{{ url('/') }}/'+path);
                     } else {
                         swal('上传失败','','error');
                     }

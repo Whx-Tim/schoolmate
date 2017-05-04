@@ -63,7 +63,7 @@
 @endsection
 
 @push('admin.scripts')
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2aLkRxKYccsqt8NlvVsgURX99OIUbabz"></script>
+
 <script>
 
 

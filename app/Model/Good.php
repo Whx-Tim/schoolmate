@@ -41,4 +41,24 @@ class Good extends Model
     {
         return $this->morphOne('App\Model\Check', 'checkable');
     }
+
+    public function homeUrl()
+    {
+        return url('admin/good');
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/good/detail/'. $this->id);
+    }
+
+    public function editUrl()
+    {
+        return url('admin/good/edit/'. $this->id);
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/good/delete/'. $this->id);
+    }
 }

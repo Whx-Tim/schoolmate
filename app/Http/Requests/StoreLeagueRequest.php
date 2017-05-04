@@ -18,6 +18,7 @@ class StoreLeagueRequest extends FormRequest
             'amount' => 'required',
             'introduction' => 'required',
             'type'         => 'required',
+            'poster'       => 'required'
         ];
     }
 
@@ -27,7 +28,8 @@ class StoreLeagueRequest extends FormRequest
             'name.required' => '请输入社团名称',
             'amount.required' => '请输入社团限制人数',
             'introduction.required' => '请输入社团的介绍',
-            'type.required'         => '请选择社团的类型'
+            'type.required'         => '请选择社团的类型',
+            'poster.required'       => '请上传社团封面图片'
         ];
     }
 }

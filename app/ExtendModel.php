@@ -25,4 +25,25 @@ class ExtendModel extends Model
 
         return static::orderBy($condition, 'desc')->paginate($perPage);
     }
+
+    public function statusToString()
+    {
+        switch ($this->status) {
+            case 0:
+                return '未审核';
+            case 1:
+                return '已审核';
+            case 2:
+                return '已关闭';
+        }
+    }
+
+    public function viewIncrement()
+    {
+        if ($this->view) {
+            $this->view()->increment('count');
+        } else {
+            $this->view()->create(['count' => 0]);
+        }
+    }
 }

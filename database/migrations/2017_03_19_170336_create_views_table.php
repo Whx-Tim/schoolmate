@@ -15,7 +15,7 @@ class CreateViewsTable extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('count')->comment('访问量');
+            $table->unsignedInteger('count')->nullable()->default(0)->comment('访问量');
             $table->morphs('view');
             $table->timestamps();
         });
