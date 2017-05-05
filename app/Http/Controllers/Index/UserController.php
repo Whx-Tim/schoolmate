@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Events\UserRegister;
 use App\Http\Requests\UserRegisterRequest;
 use App\Model\Active;
+use App\Model\UserInfo;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -138,8 +139,8 @@ class UserController extends Controller
      */
     public function updateUserInfo(Request $request)
     {
-        $user = Auth::user();
-        $user->info()->update($request->except(['_token','_method']));
+        UserInfo::where('user_id',Auth::id())->update($request->except(['_token','_method']));
+//        $user->info()->update($request->except(['_token','_method']));
 //        dd($request->except(['_token','_method']));
 //
 //        try {
