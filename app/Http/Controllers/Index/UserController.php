@@ -151,7 +151,7 @@ class UserController extends Controller
 //            return $this->ajaxResponse(1, '更新异常');
 //        }
 
-        return $this->ajaxResponse(0, '更新成功');
+        return $this->ajaxResponse(0, '更新成功', ['test' => $request->except(['_token','_method'])]);
     }
 
     /**
