@@ -203,7 +203,8 @@
                     if (file.status = 'success') {
                         var path = JSON.parse(file.xhr.responseText).data.path;
                         $('input[name=poster]').val(path);
-                        $('#dropzone').prev('img').attr('src','{{ url('/') }}/'+path);
+                        $('input[name=shopPicture]').val(path);
+                        $('#dropzone').prev('img').attr('src',path);
                     } else {
                         swal('上传失败','','error');
                     }

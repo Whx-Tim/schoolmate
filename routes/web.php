@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'], function () {
     Route::group(['middleware' => ['auth'], 'prefix' => 'active'], function () {
         Route::get('list', 'ActiveController@getActiveList');
-        Route::get('detail/{active}', 'ActiveController@getActive');
+        Route::get('detail/{active_view}', 'ActiveController@getActive');
         Route::get('apply/{active}', 'ActiveController@applyActive');
         Route::get('getApplyActiveUsers/{active}', 'ActiveController@getApplyUsers');
         Route::post('info/publish/{active}', 'ActiveController@publishAnnouncement');
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'course'], function () {
         Route::get('list', 'CourseController@getCourseList');
-        Route::get('detail/{course}', 'CourseController@getCourseDetail');
+        Route::get('detail/{course_view}', 'CourseController@getCourseDetail');
         Route::get('applyCourseUsers/{course}', 'CourseController@getApplyUsers');
         Route::get('apply/{course}', 'CourseController@applyCourse')->where('course', '[0-9]+');
         Route::get('invite/{code}', 'CourseController@inviteCodeGetCourse');
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'league'], function () {
         Route::get('list', 'LeagueController@getList');
-        Route::get('detail/{league}', 'LeagueController@getLeague');
+        Route::get('detail/{league_view}', 'LeagueController@getLeague');
         Route::get('apply/{league}', 'LeagueController@applyLeague')->where('league', '[0-9]+');
         Route::post('upload','LeagueController@uploadPoster');
         Route::post('store', 'LeagueController@storeLeague');
@@ -85,13 +85,13 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
     Route::group(['middleware' => ['auth'], 'prefix' => 'info'], function () {
         Route::get('list', 'InfoController@getAllList');
         Route::get('partimeList', 'InfoController@getPartimeList');
-        Route::get('partime/detail/{partime}', 'InfoController@getPartimeDetail');
+        Route::get('partime/detail/{partime_view}', 'InfoController@getPartimeDetail');
         Route::get('announcementList', 'InfoController@getAnnouncementList');
         Route::get('userActiveList', 'InfoController@getUserActiveAnnouncements');
         Route::get('list/active', 'InfoController@getUserActiveAnnouncements');
         Route::get('list/course', 'InfoController@getUserCourseAnnouncements');
         Route::get('list/league', 'InfoController@getUserLeagueAnnouncements');
-        Route::get('announcement/detail/{announcement}', 'InfoController@getAnnouncement');
+        Route::get('announcement/detail/{announcement_view}', 'InfoController@getAnnouncement');
         Route::get('comment/list/{announcement}', 'InfoController@getCommentList');
         Route::post('partime/store', 'InfoController@storePartime');
         Route::post('comment/store/{announcement}', 'InfoController@storeComment');
@@ -124,7 +124,7 @@ Route::group([
         'prefix' => 'active'
     ], function () {
         Route::get('/', 'ActiveController@show');
-        Route::get('detail/{active}', 'ActiveController@detail');
+        Route::get('detail/{active_view}', 'ActiveController@detail');
         Route::get('edit/{active}', 'ActiveController@edit');
         Route::get('delete/{active}', 'ActiveController@delete');
         Route::get('store', 'ActiveController@showStore');
@@ -138,7 +138,7 @@ Route::group([
         Route::get('/', 'CourseController@show');
         Route::get('store', 'CourseController@add');
         Route::get('edit/{course}', 'CourseController@edit');
-        Route::get('detail/{course}', 'CourseController@detail');
+        Route::get('detail/{course_view}', 'CourseController@detail');
         Route::get('delete/{course}', 'CourseController@delete');
         Route::post('store', 'CourseController@store');
         Route::post('edit/{course}', 'CourseController@update');
@@ -150,7 +150,7 @@ Route::group([
         Route::get('/', 'LeagueController@show');
         Route::get('store', 'LeagueController@add');
         Route::get('edit/{league}', 'LeagueController@edit');
-        Route::get('detail/{league}', 'LeagueController@detail');
+        Route::get('detail/{league_view}', 'LeagueController@detail');
         Route::get('delete/{league}', 'LeagueController@delete');
         Route::post('store', 'LeagueController@store');
         Route::post('edit/{league}', 'LeagueController@update');
@@ -162,7 +162,7 @@ Route::group([
         Route::get('/', 'GoodController@show');
         Route::get('store', 'GoodController@add');
         Route::get('edit/{good}', 'GoodController@edit');
-        Route::get('detail/{good}', 'GoodController@detail');
+        Route::get('detail/{good_view}', 'GoodController@detail');
         Route::get('delete/{good}', 'GoodController@delete');
         Route::post('store', 'GoodController@store');
         Route::post('edit/{good}', 'GoodController@update');
@@ -180,7 +180,7 @@ Route::group([
         Route::get('/', 'AnnouncementController@show');
         Route::get('store', 'AnnouncementController@add');
         Route::get('edit/{announcement}', 'AnnouncementController@edit');
-        Route::get('detail/{announcement}', 'AnnouncementController@detail');
+        Route::get('detail/{announcement_view}', 'AnnouncementController@detail');
         Route::get('delete/{announcement}', 'AnnouncementController@delete');
         Route::post('edit/{announcement}', 'AnnouncementController@update');
         Route::post('store', 'AnnouncementController@store');

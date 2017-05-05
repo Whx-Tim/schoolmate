@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ViewPage;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Model\Announcement;
 use Auth;
@@ -31,7 +32,7 @@ class AnnouncementController extends Controller
 
     public function detail(Announcement $announcement)
     {
-        $announcement->viewIncrement();
+//        event(new ViewPage($announcement));
 
         return view('admin.announcement.detail', compact('announcement'));
     }

@@ -77,7 +77,7 @@ class LeagueController extends Controller
         $applied = LeagueGroup::where([
             'league_id' => $league->id,
             'user_id'   => Auth::id()
-        ]) ? true : false;
+        ])->first() ? true : false;
         return $this->ajaxResponse(0, '操作成功', compact('league', 'can_publish', 'applied'));
     }
 
@@ -252,7 +252,7 @@ class LeagueController extends Controller
         $file = $request->file('image');
         $name = time().'_'.$file->getClientOriginalName();
         $file->move(public_path('uploads/images/'), $name);
-        $path = 'uploads/images/'.$name;
+        $path = '/uploads/images/'.$name;
 
         return $this->ajaxResponse(0, '上传成功', compact('path'));
     }

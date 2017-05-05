@@ -18,7 +18,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserGetMessageList' => [
             'App\Listeners\readAllMessage',
-        ]
+        ],
+        'App\Events\ViewPage' => [
+            'App\Listeners\ViewIncrement'
+        ],
     ];
 
     /**

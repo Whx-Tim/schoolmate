@@ -135,8 +135,9 @@ class UserController extends Controller
      */
     public function updateUserInfo(Request $request)
     {
+        User::where('id',Auth::id())->update($request->except(['_token','_method','id']));
         try {
-            User::where('id',Auth::id())->update($request->except(['_token','_method','_id']));
+
         } catch (\Exception $e) {
             Log::info('更新用户信息异常： '. $e);
 
@@ -543,6 +544,42 @@ class UserController extends Controller
         Auth::logout();
 
         return $this->ajaxResponse(0, '注销成功');
+    }
+
+    /**
+     * @api {post} user/upload/avatar 更新用户头像
+     * @apiName updateUserAvatar
+     * @apiGroup User
+     *
+     * @apiParam {File} image 用户头像图片
+     *
+     * @apiSuccess {String} path 头像路径
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "上传成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function uploadAvatar(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'required|image'
+        ], [
+            'image.required' => '上传文件不可为空',
+            'image.image'    => '上传的必须是图片'
+        ]);
+
+        $file = $request->file('image');
+        $name = time().'_'.str_random(5).'_'.$file->getClientOriginalName();
+        $file->move(public_path('uploads/images'), $name);
+        $path = '/uploads/images/'.$name;
+        Auth::user()->info()->update(['wx_head_img' => $path]);
+
+        return $this->ajaxResponse(0, '上传成功', compact('path'));
     }
 
 }

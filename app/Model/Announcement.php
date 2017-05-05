@@ -81,13 +81,4 @@ class Announcement extends Model
                 return '社团公告';
         }
     }
-
-    public function viewIncrement()
-    {
-        if ($this->view) {
-            $this->view()->increment('count');
-        } else {
-            $this->view()->create(['count' => 0]);
-        }
-    }
 }

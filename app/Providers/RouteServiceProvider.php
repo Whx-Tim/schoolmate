@@ -2,11 +2,24 @@
 
 namespace App\Providers;
 
+use App\Events\ViewPage;
+use App\Model\Active;
+use App\Model\Announcement;
+use App\Model\Course;
+use App\Model\Good;
+use App\Model\League;
+use App\Model\Partime;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * @var int 路由自定义解析缓存时间
+     */
+    protected $cache_time = 10;
+
     /**
      * This namespace is applied to your controller routes.
      *
@@ -24,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        $this->bindDetailView();
         parent::boot();
     }
 
@@ -69,5 +82,62 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    protected function bindDetailView()
+    {
+        Route::bind('announcement_view', function ($value) {
+            $announcement = Cache::remember('announcement_'.$value, $this->cache_time, function () use ($value) {
+                return Announcement::find($value);
+            });
+            event(new ViewPage($announcement));
+
+            return $announcement;
+        });
+
+        Route::bind('active_view', function ($value) {
+            $active = Cache::remember('active_'.$value, $this->cache_time, function () use ($value) {
+                return Active::find($value);
+            });
+            event(new ViewPage($active));
+
+            return $active;
+        });
+
+        Route::bind('course_view', function ($value) {
+            $course = Cache::remember('course_'.$value, $this->cache_time, function () use ($value) {
+                return Course::find($value);
+            });
+            event(new ViewPage($course));
+
+            return $course;
+        });
+
+        Route::bind('league_view', function ($value) {
+            $league = Cache::remember('league_'.$value, $this->cache_time, function () use ($value) {
+                return League::find($value);
+            });
+            event(new ViewPage($league));
+
+            return $league;
+        });
+
+        Route::bind('good_view', function ($value) {
+            $good = Cache::remember('good_'.$value, $this->cache_time, function () use ($value) {
+                return Good::find($value);
+            });
+            event(new ViewPage($good));
+
+            return $good;
+        });
+
+        Route::bind('partime_view', function ($value) {
+            $partime = Cache::remember('partime_'.$value, $this->cache_time, function () use ($value) {
+                return Partime::find($value);
+            });
+            event(new ViewPage($partime));
+
+            return $partime;
+        });
     }
 }

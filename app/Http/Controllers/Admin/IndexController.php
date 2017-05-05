@@ -25,7 +25,7 @@ class IndexController extends Controller
         $file = $request->file('file');
         $name = time().'_'.str_random(5).'_'.$file->getClientOriginalName();
         $file->move(public_path('uploads/images/'), $name);
-        $path = 'uploads/images/'.$name;
+        $path = '/uploads/images/'.$name;
 
         return $this->ajaxResponse(0, '上传成功', compact('path'));
     }

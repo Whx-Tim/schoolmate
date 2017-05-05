@@ -328,7 +328,7 @@ class CourseController extends Controller
         $file = $request->file('file');
         $name = time().'_' . $file->getClientOriginalName();
         $file->move(public_path('uploads/files/'), $name);
-        $file_path = 'uploads/files/'.$name;
+        $file_path = '/uploads/files/'.$name;
         $course->files()->create(['path' => $file_path,'name' => $file->getClientOriginalName()]);
         try {
 

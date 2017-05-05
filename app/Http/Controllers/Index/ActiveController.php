@@ -297,7 +297,7 @@ class ActiveController extends Controller
         $file = $request->file('image');
         $name = time().'_'.$file->getClientOriginalName();
         $file->move(public_path('uploads/images/'), $name);
-        $image = 'uploads/images/'.$name;
+        $image = '/uploads/images/'.$name;
 //        try {
 //
 ////            $active->update(['poster' => $image]);
