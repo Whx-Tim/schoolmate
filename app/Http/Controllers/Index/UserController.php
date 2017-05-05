@@ -136,11 +136,7 @@ class UserController extends Controller
     public function updateUserInfo(Request $request)
     {
         $user = Auth::user();
-        if ($user->info) {
-            $user->info()->update($request->except(['_token','_method','id']));
-        } else {
-            $user->info()->insert($request->except(['_token','_method']));
-        }
+        $user->info()->update($request->except(['_token','_method','id']));
 
         try {
 
