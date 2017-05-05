@@ -30,7 +30,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(41);
     }
 
     public function canPublish($model)
