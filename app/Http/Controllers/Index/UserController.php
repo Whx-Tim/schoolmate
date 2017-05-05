@@ -140,6 +140,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->info()->update($request->except(['_token','_method']));
+        dd($request->except(['_token','_method']));
 //
 //        try {
 //
