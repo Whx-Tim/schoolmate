@@ -426,6 +426,7 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
             'email'    => $request->input('email')
         ]);
+        $user->info()->create([]);
         event(new UserRegister($user->id,$user->email));
 
         return $this->ajaxResponse(0 , '注册成功，请赶紧激活您的邮箱吧~~', compact('user'));
