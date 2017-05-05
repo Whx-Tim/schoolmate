@@ -117,7 +117,9 @@ class UserController extends Controller
      */
     public function getAuthUserInfo()
     {
-        return $this->ajaxResponse(0, '操作成功', ['user' => Auth::user()->info]);
+        $user = Auth::user();
+        $user->info;
+        return $this->ajaxResponse(0, '操作成功', compact('user'));
     }
 
 
