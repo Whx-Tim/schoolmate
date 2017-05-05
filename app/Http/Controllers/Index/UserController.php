@@ -139,15 +139,15 @@ class UserController extends Controller
     public function updateUserInfo(Request $request)
     {
         $user = Auth::user();
-        $user->info()->update($request->except(['_token','_method','id']));
-
-        try {
-
-        } catch (\Exception $e) {
-            Log::info('更新用户信息异常： '. $e);
-
-            return $this->ajaxResponse(1, '更新异常');
-        }
+        $user->info()->update($request->except(['_token','_method']));
+//
+//        try {
+//
+//        } catch (\Exception $e) {
+//            Log::info('更新用户信息异常： '. $e);
+//
+//            return $this->ajaxResponse(1, '更新异常');
+//        }
 
         return $this->ajaxResponse(0, '更新成功');
     }
