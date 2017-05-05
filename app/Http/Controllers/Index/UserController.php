@@ -49,9 +49,10 @@ class UserController extends Controller
      */
     public function getUserInfo(User $user)
     {
-        $userInfo = $user->info;
+//        $userInfo = $user->info;
+        $user->info;
 
-        return $this->ajaxResponse(0, '操作成功', compact('userInfo','user'));
+        return $this->ajaxResponse(0, '操作成功', compact('user'));
     }
 
     /**
@@ -123,6 +124,8 @@ class UserController extends Controller
      * @api {post} user/update 更新当前用户信息
      * @apiName updateAuthUserInfo
      * @apiGroup User
+     *
+     * @apiParam {String} grade 年级
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
