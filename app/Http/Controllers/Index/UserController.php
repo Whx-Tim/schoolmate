@@ -526,7 +526,7 @@ class UserController extends Controller
             if ($user) {
                 event(new UserRegister($user->id, $user->email));
 
-                return $this->ajaxResponse(0, '登录成功，请激活您的账号');
+                return $this->ajaxResponse(0, '登录成功，请激活您的账号', compact('user'));
             }
             return $this->ajaxResponse(2, '该账号还未注册');
         }
