@@ -346,7 +346,7 @@ class ActiveController extends Controller
     {
         if ($this->canPublish($active)) {
             $announcement = $active->announcements()->create($request->only(['title','content']));
-            $announcement->check()->create();
+            $announcement->check()->create([]);
         } else {
             return $this->ajaxResponse(2, '您没有权限发布该活动公告');
         }

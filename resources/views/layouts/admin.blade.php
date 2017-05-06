@@ -30,7 +30,21 @@
 <script src="{{ url('js/plugins/toastr.min.js') }}"></script>
 <script src="{{ url('js/plugins.js') }}"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2aLkRxKYccsqt8NlvVsgURX99OIUbabz"></script>
+<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 <script type="text/javascript">
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('5a573c7b51d3fbfc6713', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+        alert(data.message);
+    });
+
         toastr.options = {
             "closeButton": true,
             "debug": false,

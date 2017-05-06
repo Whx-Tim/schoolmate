@@ -128,6 +128,7 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'EasyWeChat\Foundation\Application' instanceof \EasyWeChat\Foundation\Application,
         ],
         \Illuminate\Contracts\Container\Container::make('') => [
             '' == '@',
@@ -248,6 +249,7 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'EasyWeChat\Foundation\Application' instanceof \EasyWeChat\Foundation\Application,
         ],
         \App::make('') => [
             '' == '@',
@@ -368,6 +370,7 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'EasyWeChat\Foundation\Application' instanceof \EasyWeChat\Foundation\Application,
         ],
         \app('') => [
             '' == '@',
@@ -488,6 +491,7 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'EasyWeChat\Foundation\Application' instanceof \EasyWeChat\Foundation\Application,
         ],
     ];
 }
