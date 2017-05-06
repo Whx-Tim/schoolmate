@@ -175,7 +175,7 @@ Route::group([
         Route::get('/', 'UserController@show');
         Route::get('edit/{user}', 'UserController@edit');
         Route::get('detail/{user}', 'UserController@detail');
-        Route::get('delete/{user}', 'UserContro')
+        Route::get('delete/{user}', 'UserController@delete');
     });
 
     Route::group([
