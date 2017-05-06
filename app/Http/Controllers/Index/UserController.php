@@ -190,9 +190,9 @@ class UserController extends Controller
      *         }
      *     }
      */
-    public function getUserActives()
+    public function getUserActives(Request $request)
     {
-        $actives = Auth::user()->actives;
+        $actives = Auth::user()->actives()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('actives'));
     }
@@ -222,9 +222,9 @@ class UserController extends Controller
      *
      *
      */
-    public function getUserCourses()
+    public function getUserCourses(Request $request)
     {
-        $courses = Auth::user()->courses;
+        $courses = Auth::user()->courses()->orderBy('created_at', 'desc')->pageinate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
@@ -254,9 +254,9 @@ class UserController extends Controller
      *         }
      *     }
      */
-    public function getUserGoods()
+    public function getUserGoods(Request $request)
     {
-        $goods = Auth::user()->goods;
+        $goods = Auth::user()->goods()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('goods'));
     }
@@ -283,9 +283,9 @@ class UserController extends Controller
      *          }
      *      }
      */
-    public function getUserLeagues()
+    public function getUserLeagues(Request $request)
     {
-        $leagues = Auth::user()->leagues;
+        $leagues = Auth::user()->leagues()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('leagues'));
     }
@@ -327,9 +327,9 @@ class UserController extends Controller
      *
      *
      */
-    public function getUserApplyActives()
+    public function getUserApplyActives(Request $request)
     {
-        $actives = Auth::user()->applyActives;
+        $actives = Auth::user()->applyActives()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('actives'));
     }
@@ -357,9 +357,14 @@ class UserController extends Controller
      *         }
      *     }
      */
-    public function getUserApplyCourses()
+    public function getUserApplyCourses(Request $request)
     {
-        $courses = Auth::user()->applyCourses;
+        $courses = Auth::user()->applyCourses()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
+        $data = $courses->toArray();
+        $data['data'] = $courses->each(function ($course) {
+            $course->hasSign = Cache::has('course_map_'.$course->id) ? true : false;
+        });
+        $courses = $data;
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
@@ -386,9 +391,9 @@ class UserController extends Controller
      *          }
      *      }
      */
-    public function getUserApplyLeagues()
+    public function getUserApplyLeagues(Request $request)
     {
-        $leagues = Auth::user()->applyLeagues;
+        $leagues = Auth::user()->applyLeagues()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('leagues'));
     }

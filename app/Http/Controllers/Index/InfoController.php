@@ -357,12 +357,15 @@ class InfoController extends Controller
      *         }
      *     }
      */
-    public function getCommentList(Announcement $announcement)
+    public function getCommentList(Announcement $announcement,Request $request)
     {
-        $comments = $announcement->comments->each(function ($comment) {
+        $comments = $announcement->comments()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
+        $data = $comments->toArray();
+        $data['data'] = $comments->each(function ($comment) {
             $comment->username = $comment->user->username;
             $comment->head_img = $comment->user->info->wx_head_img;
         });
+        $comments = $data;
 
         return $this->ajaxResponse(0, '操作成功', compact('comments'));
     }

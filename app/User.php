@@ -112,4 +112,32 @@ class User extends Authenticatable
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
 
+    public function editUrl()
+    {
+        return url('admin/user/edit/'.$this->id);
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/user/delete/'. $this->id);
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/user/detail/'. $this->id);
+    }
+
+    public function activeToString()
+    {
+        switch ($this->is_active) {
+            case 0:
+                return '未激活';
+            case 1:
+                return '已激活';
+            default:
+                return '未知状态';
+        }
+    }
+
+
 }

@@ -80,7 +80,8 @@ class CourseController extends Controller
             'course_id' => $course->id,
             'user_id'   => Auth::id()
         ])->first() ? true : false;
-        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied'));
+        $hasSign = Cache::has('course_map_'.$course->id) ? true : false;
+        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied', 'hasSign'));
     }
 
     /**
