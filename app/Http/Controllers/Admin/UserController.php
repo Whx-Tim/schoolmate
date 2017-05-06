@@ -31,14 +31,14 @@ class UserController extends Controller
         return view('admin.user.add');
     }
 
-    public function store()
-    {
-
+    public function delete(User $user) {
+        $user->info()->delete();
+        return $user->delete() ? $this->ajaxResponse(0, '删除成功') : $this->ajaxResponse(1, '删除失败');
     }
 
     public function update(Request $request, User $user)
     {
-
+        $user->update($request->only(['']))
     }
 
 }

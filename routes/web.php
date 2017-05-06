@@ -172,7 +172,10 @@ Route::group([
     Route::group([
         'prefix' => 'user'
     ], function () {
-
+        Route::get('/', 'UserController@show');
+        Route::get('edit/{user}', 'UserController@edit');
+        Route::get('detail/{user}', 'UserController@detail');
+        Route::get('delete/{user}', 'UserContro')
     });
 
     Route::group([

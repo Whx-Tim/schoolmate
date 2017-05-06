@@ -204,6 +204,7 @@
                         var path = JSON.parse(file.xhr.responseText).data.path;
                         $('input[name=poster]').val(path);
                         $('input[name=shopPicture]').val(path);
+                        $('input[name=wx_head_img]').val(path);
                         $('#dropzone').prev('img').attr('src',path);
                     } else {
                         swal('上传失败','','error');

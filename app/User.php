@@ -152,5 +152,29 @@ class User extends Authenticatable
         }
     }
 
+    public function genderToString()
+    {
+        switch ($this->info->gender) {
+            case 0:
+                return '未知性别';
+            case 1:
+                return '男';
+            case 2:
+                return '女';
+        }
+    }
+
+    public function is_certified()
+    {
+        switch ($this->info->is_certified) {
+            case 0:
+                return '未认证';
+            case 1:
+                return '已认证';
+            default:
+                return '未知';
+        }
+    }
+
 
 }
