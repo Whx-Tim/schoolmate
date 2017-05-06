@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WechatMessage;
+use App\Model\WechatMessage;
 use Illuminate\Http\Request;
 
 class WechatController extends Controller
