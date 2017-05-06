@@ -244,9 +244,9 @@ class LeagueController extends Controller
     public function uploadPoster(Request $request)
     {
         $this->validate($request, [
-            'image' => 'images'
+            'image' => 'image'
         ], [
-            'image.images' => '上传的不是图片'
+            'image.image' => '上传的不是图片'
         ]);
 
         $file = $request->file('image');
