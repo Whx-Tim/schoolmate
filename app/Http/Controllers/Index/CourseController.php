@@ -370,7 +370,7 @@ class CourseController extends Controller
            'lat.required' => '请发送纬度'
        ]);
 
-       Cache::put('course_map_'.$id, $request->only(['lng', 'lat']), 5);
+       Cache::put('course_map_'.$id, $request->only(['lng', 'lat']), 1);
 
        return $this->ajaxResponse(0, '发起成功');
     }
