@@ -30,7 +30,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(1);
 //        if (!Auth::check()) {
 //            return response('请登录系统',403);
 //        }

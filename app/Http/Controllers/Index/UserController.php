@@ -224,7 +224,7 @@ class UserController extends Controller
      */
     public function getUserCourses(Request $request)
     {
-        $courses = Auth::user()->courses()->orderBy('created_at', 'desc')->pageinate($request->get('per_page'));
+        $courses = Auth::user()->courses()->orderBy('created_at', 'desc')->paginate($request->get('per_page'));
 
         return $this->ajaxResponse(0, '操作成功', compact('courses'));
     }
