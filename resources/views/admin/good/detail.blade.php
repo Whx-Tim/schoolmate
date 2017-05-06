@@ -16,7 +16,7 @@
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品类型</div><div class="col-md-10">{{ $good->shopType }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品价格</div><div class="col-md-10">{{ $good->shopPrice }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品数量</div><div class="col-md-10">{{ $good->shopNumber }}</div></div></li>
-                <li class="list-group-item"><div class="row"><div class="col-md-2">浏览量</div><div class="col-md-10">{{ $good->view->count }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">浏览量</div><div class="col-md-10">{{ $good->view->count or 0 }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">状态</div><div class="col-md-10">{{ $good->statusToString() }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建者用户</div><div class="col-md-10">{{ $good->user->username }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $good->created_at }}</div></div></li>

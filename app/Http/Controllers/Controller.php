@@ -31,6 +31,9 @@ class Controller extends BaseController
     public function __construct()
     {
 //        Auth::loginUsingId(41);
+//        if (!Auth::check()) {
+//            return response('请登录系统',403);
+//        }
     }
 
     public function canPublish($model)

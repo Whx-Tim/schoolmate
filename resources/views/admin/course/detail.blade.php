@@ -15,6 +15,7 @@
                 <li class="list-group-item"><div class="row"><div class="col-md-2">课程名称</div><div class="col-md-10">{{ $course->name }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">主讲教师</div><div class="col-md-10">{{ $course->teacher }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">课程状态</div><div class="col-md-10">{{ $course->statusToString() }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">浏览量</div><div class="col-md-10">{{ $course->view->count or 0 }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $course->created_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">更新时间</div><div class="col-md-10">{{ $course->updated_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">删除时间</div><div class="col-md-10">{{ $course->deleted_at }}</div></div></li>

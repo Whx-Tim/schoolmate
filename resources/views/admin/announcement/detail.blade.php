@@ -13,7 +13,7 @@
             <ul class="list-group">
                 <li class="list-group-item"><div class="row"><div class="col-md-2">标题</div><div class="col-md-10">{{ $announcement->title }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">类型</div><div class="col-md-10">{{ $announcement->typeToString() }}</div></div></li>
-                <li class="list-group-item"><div class="row"><div class="col-md-2">访问量</div><div class="col-md-10">{{ $announcement->view->count }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">访问量</div><div class="col-md-10">{{ $announcement->view->count or 0}}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">评论量</div><div class="col-md-10">{{ $announcement->comments()->count() }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $announcement->created_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">更新时间</div><div class="col-md-10">{{ $announcement->updated_at }}</div></div></li>

@@ -20,6 +20,7 @@
                 <li class="list-group-item"><div class="row"><div class="col-md-2">联系人电话</div><div class="col-md-10">{{ $active->phone }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">活动状态</div><div class="col-md-10">{{ $active->status }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">人数限制</div><div class="col-md-10">{{ $active->person }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">浏览量</div><div class="col-md-10">{{ $active->view->count or 0 }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $active->created_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">更新时间</div><div class="col-md-10">{{ $active->updated_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">删除时间</div><div class="col-md-10">{{ $active->deleted_at }}</div></div></li>

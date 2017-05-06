@@ -47,7 +47,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('apply/courses', 'UserController@getUserApplyCourses');
         Route::get('apply/leagues', 'UserController@getUserApplyLeagues');
         Route::post('update', 'UserController@updateUserInfo');
-
+        Route::post('upload/avatar', 'UserController@uploadAvatar');
         Route::group(['middleware' => []], function () {
             Route::get('fire/{code}', 'UserController@fireUser');
             Route::get('sendActivationCode', 'UserController@sendActivationCode');
