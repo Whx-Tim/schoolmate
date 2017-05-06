@@ -359,7 +359,10 @@ class InfoController extends Controller
      */
     public function getCommentList(Announcement $announcement)
     {
-        $comments = $announcement->comments;
+        $comments = $announcement->comments->each(function ($comment) {
+            $comment->username = $comment->user->username;
+            $comment->head_img = $comment->user->info->wx_head_img;
+        });
 
         return $this->ajaxResponse(0, '操作成功', compact('comments'));
     }
