@@ -38,7 +38,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->only(['']))
+        $user->update($request->only(['email', 'is_active']));
+        $user->info()->update($request->except(['email', 'is_active', '_token', '_method']));
+
+        return $this->ajaxResponse(0, '更新成功');
     }
 
 }

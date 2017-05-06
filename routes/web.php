@@ -176,6 +176,7 @@ Route::group([
         Route::get('edit/{user}', 'UserController@edit');
         Route::get('detail/{user}', 'UserController@detail');
         Route::get('delete/{user}', 'UserController@delete');
+        Route::post('edit/{user}', 'UserController@update');
     });
 
     Route::group([
@@ -196,3 +197,5 @@ Route::group([
 
     });
 });
+
+Route::any('wechat/server', 'WechatController@server');
