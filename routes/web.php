@@ -198,4 +198,4 @@ Route::group([
     });
 });
 
-Route::any('wechat/server', 'WechatController@server');
+Route::any('api/wechat/server', 'WechatController@server');
