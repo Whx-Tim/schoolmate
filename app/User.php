@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Model\Active;
+use App\Model\Comment;
 use App\Model\Course;
 use App\Model\Good;
 use App\Model\League;
@@ -112,6 +113,12 @@ class User extends Authenticatable
         return $this->morphMany('App\Model\Announcement', 'announcement');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
     public function editUrl()
     {
         return url('admin/user/edit/'.$this->id);
@@ -126,6 +133,12 @@ class User extends Authenticatable
     {
         return url('admin/user/detail/'. $this->id);
     }
+
+    public function homeUrl()
+    {
+        return url('admin/user');
+    }
+
 
     public function activeToString()
     {
