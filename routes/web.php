@@ -35,7 +35,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('upload/poster', 'ActiveController@uploadPoster');
     });
 
-    Route::group(['middleware' => [], 'prefix' => 'user'], function () {
+    Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
         Route::get('info/{user}', 'UserController@getUserInfo');
         Route::get('auth/id', 'UserController@getAuthUserId');
         Route::get('auth/info', 'UserController@getAuthUserInfo');
@@ -48,13 +48,14 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('apply/leagues', 'UserController@getUserApplyLeagues');
         Route::post('update', 'UserController@updateUserInfo');
         Route::post('upload/avatar', 'UserController@uploadAvatar');
-        Route::group(['middleware' => []], function () {
-            Route::get('fire/{code}', 'UserController@fireUser');
-            Route::get('sendActivationCode', 'UserController@sendActivationCode');
-            Route::get('logout', 'UserController@logout');
-            Route::post('login', 'UserController@login');
-            Route::post('register', 'UserController@register');
-        });
+    });
+
+    Route::group(['middleware' => [], 'prefix' => 'user'], function () {
+        Route::get('fire/{code}', 'UserController@fireUser');
+        Route::get('sendActivationCode', 'UserController@sendActivationCode');
+        Route::get('logout', 'UserController@logout');
+        Route::post('login', 'UserController@login');
+        Route::post('register', 'UserController@register');
     });
 
     Route::group(['middleware' => ['auth'], 'prefix' => 'course'], function () {
