@@ -109,8 +109,8 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         'middleware' => ['web'],
         'prefix'     => 'message'
     ], function () {
-        Route::get('message/list/{send_to}', 'MessageController@getList');
-        Route::post('message/store', 'MessageController@store');
+        Route::get('list/{send_to}', 'MessageController@getList');
+        Route::post('store', 'MessageController@store');
     });
 });
 
@@ -199,3 +199,5 @@ Route::group([
 });
 
 Route::any('api/wechat/server', 'WechatController@server');
+
+Route::any('api/test','Index\ActiveController@callbackTest');

@@ -41,7 +41,10 @@
     });
 
     var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
+    channel.bind('message-event-1-2', function(data) {
+        alert(data.message);
+    });
+    channel.bind('message-event-1', function(data) {
         alert(data.message);
     });
 

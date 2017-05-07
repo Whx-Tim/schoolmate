@@ -30,7 +30,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-//        Auth::loginUsingId(1);
+        Auth::loginUsingId(1);
 //        if (!Auth::check()) {
 //            return response('请登录系统',403);
 //        }
@@ -43,5 +43,22 @@ class Controller extends BaseController
         } else {
             return 0;
         }
+    }
+
+    public function initPusher()
+    {
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new \Pusher(
+            '5a573c7b51d3fbfc6713',
+            '3958d7b81c95d79ba89d',
+            '336180',
+            $options
+        );
+
+        return $pusher;
     }
 }

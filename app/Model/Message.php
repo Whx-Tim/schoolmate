@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\ExtendModel as Model;
+use App\User;
 
 class Message extends Model
 {
@@ -19,5 +20,15 @@ class Message extends Model
             ['send_from', $send_to],
             ['send_to', $send_from]
         ])->orderBy('created_at', 'desc')->get();
+    }
+
+    public function from_user()
+    {
+        return $this->belongsTo(User::class, 'send_from');
+    }
+
+    public function to_user()
+    {
+        return $this->belongsTo(User::class, 'send_to');
     }
 }

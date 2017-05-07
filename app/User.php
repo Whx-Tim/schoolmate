@@ -7,6 +7,7 @@ use App\Model\Comment;
 use App\Model\Course;
 use App\Model\Good;
 use App\Model\League;
+use App\Model\Message;
 use App\Model\UserInfo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -176,5 +177,13 @@ class User extends Authenticatable
         }
     }
 
+    public function from_messages()
+    {
+        return $this->hasMany(Message::class, 'send_from');
+    }
 
+    public function to_messages()
+    {
+        return $this->hasMany(Message::class, 'to_from');
+    }
 }

@@ -15,6 +15,8 @@ class ActiveController extends Controller
         $count = Active::count();
 
 
+
+
         return view('admin.active.list', compact('actives', 'count'));
     }
 

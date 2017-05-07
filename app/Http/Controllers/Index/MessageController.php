@@ -70,7 +70,15 @@ class MessageController extends Controller
         $data = $request->except(['_token', '_method']);
         $data['send_from'] = Auth::id();
         $message = Message::create($data);
-
+        $pusher = $this->initPusher();
+        $pusher->trigger('message-channel', 'message-event-', $data);
         return $this->ajaxResponse(0, '发送成功', compact('message'));
+    }
+
+    public function userList()
+    {
+        $user = Auth::user();
+        $users = $user->from_messages();
+
     }
 }

@@ -353,4 +353,27 @@ class ActiveController extends Controller
 
         return $this->ajaxResponse(0, '发布成功', compact('announcement'));
     }
+
+    public function callbackTest(Request $request)
+    {
+        $code = $request->input('code');
+
+        $data = $this->send_post('http://wx.lewitech.cn/wechat/oauth/userinfo', compact('code'));
+        dd($data);
+    }
+
+    public function send_post($url, $data)
+    {
+        $postData = http_build_query($data);
+        $options  = [
+            'http' => [
+                'method'  => 'POST',
+                'header'  => 'Content-type:application/x-www-form-urlencoded',
+                'content' => $postData,
+                'timeout' => 15*60
+            ]
+        ];
+        $context = stream_context_create($options);
+        return file_get_contents($url, false, $context);
+    }
 }
