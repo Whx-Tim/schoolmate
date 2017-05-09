@@ -176,6 +176,7 @@ $factory->define(\App\Model\Comment::class, function (Faker\Generator $faker) {
         'content' => $faker->paragraph,
         'comment_id' => $faker->numberBetween(1,20),
         'comment_type' => 'App\Model\Announcement',
+        'user_id'    => $faker->numberBetween(1,40),
         'created_at' => $faker->dateTimeBetween('-30 days')
     ];
 });

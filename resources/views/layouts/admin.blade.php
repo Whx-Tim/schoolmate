@@ -3,6 +3,9 @@
 @section('title')@yield('admin.title') - 后台管理@stop
 
 @section('base.content')
+    @if(Auth::check())
+        @include('layouts.partials.admin-navbar')
+    @endif
     <div class="Admin">
         @if(Auth::check())
             @include('layouts.partials.admin-sidebar')

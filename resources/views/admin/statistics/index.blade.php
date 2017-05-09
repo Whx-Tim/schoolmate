@@ -272,8 +272,8 @@
                 type: 'value',
                 name: '活动发布量',
                 min: 0,
-                max: {{ $actives }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_active, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $actives/15 }}
             }
         ],
         series: [
@@ -324,8 +324,8 @@
                 type: 'value',
                 name: '信息发布量',
                 min: 0,
-                max: {{ $infos }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_info, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $infos/15 }}
             }
         ],
         series: [
@@ -376,8 +376,8 @@
                 type: 'value',
                 name: '课程发布量',
                 min: 0,
-                max: {{ $courses }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_course, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $courses/15 }}
             }
         ],
         series: [
@@ -428,8 +428,8 @@
                 type: 'value',
                 name: '社团发布量',
                 min: 0,
-                max: {{ $leagues }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_league, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $leagues/15 }}
             }
         ],
         series: [
@@ -480,8 +480,8 @@
                 type: 'value',
                 name: '公告发布量',
                 min: 0,
-                max: {{ $announcements }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_announcement, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $announcements/15 }}
             }
         ],
         series: [
@@ -532,8 +532,8 @@
                 type: 'value',
                 name: '商品发布量',
                 min: 0,
-                max: {{ $goods }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_good, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $goods/15 }}
             }
         ],
         series: [
@@ -584,8 +584,8 @@
                 type: 'value',
                 name: '消息发布量',
                 min: 0,
-                max: {{ $messages }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_message, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $messages/15 }}
             }
         ],
         series: [
@@ -636,8 +636,8 @@
                 type: 'value',
                 name: '评论发布量',
                 min: 0,
-                max: {{ $comments }},
-                interval: 10
+                max: {{ last(array_sort($prev_month_comment, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $comments/15 }}
             }
         ],
         series: [
@@ -688,8 +688,8 @@
                 type: 'value',
                 name: '活动发布量',
                 min: 0,
-                max: {{ $actives }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_active, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $actives/15 }}
             }
         ],
         series: [
@@ -735,8 +735,8 @@
                 type: 'value',
                 name: '信息发布量',
                 min: 0,
-                max: {{ $infos }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_info, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $infos/15 }}
             }
         ],
         series: [
@@ -782,8 +782,8 @@
                 type: 'value',
                 name: '课程发布量',
                 min: 0,
-                max: {{ $courses }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_course, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $courses/15 }}
             }
         ],
         series: [
@@ -829,8 +829,8 @@
                 type: 'value',
                 name: '社团发布量',
                 min: 0,
-                max: {{ $leagues }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_league, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $leagues/15 }}
             }
         ],
         series: [
@@ -876,8 +876,8 @@
                 type: 'value',
                 name: '商品发布量',
                 min: 0,
-                max: {{ $goods }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_good, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $goods/15 }}
             }
         ],
         series: [
@@ -923,8 +923,8 @@
                 type: 'value',
                 name: '消息发布量',
                 min: 0,
-                max: {{ $messages }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_message, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $messages/15 }}
             }
         ],
         series: [
@@ -970,8 +970,8 @@
                 type: 'value',
                 name: '评论发布量',
                 min: 0,
-                max: {{ $comments }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_comment, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $comments/15 }}
             }
         ],
         series: [
@@ -1017,8 +1017,8 @@
                 type: 'value',
                 name: '公告发布量',
                 min: 0,
-                max: {{ $announcements }},
-                interval: 10
+                max: {{ last(array_sort($prev_day_announcement, function ($value) {return $value['count'];}))['count'] }},
+                interval: {{ $announcements/15 }}
             }
         ],
         series: [

@@ -11,5 +11,6 @@
         <li><a href="{{ url('admin/statistics') }}" class="{{ request()->is('admin/statistics*') ? 'selected' : '' }}"><i class="fa fa-bar-chart icon-btn"></i>&nbsp;数据统计</a></li>
         <li><a href="{{ url('admin/data') }}" class="{{ request()->is('admin/data*') ? 'selected' : '' }}"><i class="fa fa-hand-o-right icon-btn"></i>&nbsp;数据工厂</a></li>
         <li><a href="{{ url('admin/setting') }}" class="{{ request()->is('admin/setting*') ? 'selected' : '' }}"><i class="fa fa-cog icon-btn"></i>&nbsp;系统设置</a></li>
+        <li><a href="{{ url('admin/logout') }}" class=""><i class="fa fa-sign-out icon-btn"></i>&nbsp;注销</a></li>
     </ul>
 </aside>

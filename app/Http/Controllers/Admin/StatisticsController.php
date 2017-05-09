@@ -147,6 +147,7 @@ class StatisticsController extends Controller
                 'index' => Carbon::now()->subMonths($i)->month
             ];
         }
+
         return view('admin.statistics.index', compact(
             'day_actives',
             'month_actives',

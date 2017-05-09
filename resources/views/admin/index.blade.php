@@ -66,7 +66,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ['{{ $prev_day[1]['index'] }}','{{ $prev_day[2]['index'] }}','{{ $prev_day[3]['index'] }}','{{ $prev_day[4]['index'] }}','{{ $prev_day[5]['index'] }}','{{ $prev_day[6]['index'] }}','{{ $prev_day[7]['index'] }}','今日'],
+                data: ['{{ $prev_day[1]['index'] }}','{{ $prev_day[2]['index'] }}','{{ $prev_day[3]['index'] }}','{{ $prev_day[4]['index'] }}','{{ $prev_day[5]['index'] }}','{{ $prev_day[6]['index'] }}','{{ $prev_day[7]['index'] }}','{{ $prev_day[8]['index'] }}'],
                 axisPointer: {
                     type: 'shadow'
                 }
@@ -77,7 +77,7 @@
                 type: 'value',
                 name: '用户量',
                 min: 0,
-                max: {{ $users }},
+                max: {{ last(array_sort($prev_day, function ($value) {return $value['count'];}))['count'] }},
                 interval: 10
             }
         ],
@@ -85,7 +85,7 @@
             {
                 name:'用户注册量',
                 type:'line',
-                data:[{{ $prev_day[1]['count'] }},{{ $prev_day[2]['count'] }},{{ $prev_day[3]['count'] }},{{ $prev_day[4]['count'] }},{{ $prev_day[5]['count'] }},{{ $prev_day[6]['count'] }},{{ $prev_day[7]['count'] }},{{ $day_users }}]
+                data:[{{ $prev_day[1]['count'] }},{{ $prev_day[2]['count'] }},{{ $prev_day[3]['count'] }},{{ $prev_day[4]['count'] }},{{ $prev_day[5]['count'] }},{{ $prev_day[6]['count'] }},{{ $prev_day[7]['count'] }},{{ $prev_day[8]['count'] }}]
             }
 //            {
 //                name:'降水量',
@@ -124,7 +124,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: [@foreach($prev_month as $month)'{{ $month['index'] }}',@endforeach'本月'],
+                data: [@foreach($prev_month as $month)'{{ $month['index'] }}',@endforeach],
                 axisPointer: {
                     type: 'shadow'
                 }
@@ -135,7 +135,7 @@
                 type: 'value',
                 name: '用户量',
                 min: 0,
-                max: {{ $users }},
+                max: {{ last(array_sort($prev_month, function ($value) {return $value['count'];}))['count'] }},
                 interval: 10
             }
         ],
@@ -143,12 +143,12 @@
             {
                 name:'用户注册量',
                 type:'bar',
-                data:[@foreach($prev_month as $month){{ $month['count'] }},@endforeach{{ $month_users }}]
+                data:[@foreach($prev_month as $month){{ $month['count'] }},@endforeach]
             },
             {
                 name:'用户注册量',
                 type:'line',
-                data:[@foreach($prev_month as $month){{ $month['count'] }},@endforeach{{ $month_users }}]
+                data:[@foreach($prev_month as $month){{ $month['count'] }},@endforeach]
             }
         ]
     };

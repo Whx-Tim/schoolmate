@@ -28,20 +28,22 @@
                 </thead>
                 <tbody>
                 @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td><a href="{{ $user->detailUrl() }}">{{ $user->username }}</a></td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->activeToString() }}</td>
-                        <td>{{ $user->info->name }}</td>
-                        <td>{{ $user->info->grade }}</td>
-                        <td>{{ $user->info->gender }}</td>
-                        <td>{{ $user->created_at->toDateString() }}</td>
-                        <td>
-                            <a href="{{ $user->editUrl() }}" operation="edit"><i class="fa fa-pencil fa-2x"></i></a>
-                            <a href="{{ $user->deleteUrl() }}" operation="delete"><i class="fa fa-close fa-2x"></i></a>
-                        </td>
-                    </tr>
+                    @unless($user->info->adminset == 5)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td><a href="{{ $user->detailUrl() }}">{{ $user->username }}</a></td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->activeToString() }}</td>
+                            <td>{{ $user->info->name or '' }}</td>
+                            <td>{{ $user->info->grade or '' }}</td>
+                            <td>{{ $user->info->gender or '' }}</td>
+                            <td>{{ $user->created_at->toDateString() }}</td>
+                            <td>
+                                <a href="{{ $user->editUrl() }}" operation="edit"><i class="fa fa-pencil fa-2x"></i></a>
+                                <a href="{{ $user->deleteUrl() }}" operation="delete"><i class="fa fa-close fa-2x"></i></a>
+                            </td>
+                        </tr>
+                    @endunless
                 @endforeach
                 </tbody>
             </table>

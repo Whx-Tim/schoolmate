@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label>活动封面图片</label>
+            <label>用户头像</label>
             <img src="{{ $user->info->wx_head_img }}" alt="" style="width: 100%;">
             <div id="dropzone" class="dropzone"></div>
         </div>

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function show()
     {
-        $users = User::orderBy('created_at','desc')->paginate();
+        $users = User::orderBy('created_at','desc')->with('info')->paginate();
         $count = $users->total();
 
         return view('admin.user.list', compact('users', 'count'));

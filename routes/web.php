@@ -49,10 +49,9 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('update', 'UserController@updateUserInfo');
         Route::post('upload/avatar', 'UserController@uploadAvatar');
     });
-
-    Route::group(['middleware' => [], 'prefix' => 'user'], function () {
-        Route::get('fire/{code}', 'UserController@fireUser');
-        Route::get('sendActivationCode', 'UserController@sendActivationCode');
+    Route::get('user/fire/{code}', 'UserController@fireUser');
+    Route::get('user/sendActivationCode', 'UserController@sendActivationCode');
+    Route::group(['middleware' => ['wechat.oauth'], 'prefix' => 'user'], function () {
         Route::get('logout', 'UserController@logout');
         Route::post('login', 'UserController@login');
         Route::post('register', 'UserController@register');
@@ -234,12 +233,16 @@ Route::group([
     Route::group([
         'prefix' => 'setting'
     ], function () {
+        Route::get('/', 'SettingController@index');
+        Route::post('/reset', 'SettingController@resetPassword');
 
     });
 });
 
 Route::get('admin/login', 'Admin\IndexController@showLogin')->name('login');
 Route::post('admin/login', 'Admin\IndexController@login');
+Route::get('admin/logout', 'Admin\SettingController@logout');
+
 
 Route::any('api/wechat/server', 'WechatController@server');
 

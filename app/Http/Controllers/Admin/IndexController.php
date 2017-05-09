@@ -17,13 +17,13 @@ class IndexController extends Controller
         $day_users = User::whereDay('created_at',Carbon::now()->day)->count();
         $month_users = User::whereMonth('created_at', Carbon::now()->month)->count();
         $users = User::count();
-        for ($i=1; $i <= 7;$i++) {
+        for ($i=0; $i <= 7;$i++) {
             $prev_day[8-$i] = [
                 'count' => User::whereDay('created_at',Carbon::now()->subDays($i)->day)->count(),
                 'index' => Carbon::now()->subDays($i)->day
             ];
         }
-        for ($i=1; $i <12;$i++) {
+        for ($i=11; $i >=0;$i--) {
             $prev_month[$i] = [
                 'count' => User::whereMonth('created_at',Carbon::now()->subMonths($i)->month)->count(),
                 'index' => Carbon::now()->subMonths($i)->month

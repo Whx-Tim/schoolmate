@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Overtrue\LaravelWechat\Middleware\OAuthAuthenticate;
 
 class Kernel extends HttpKernel
 {
@@ -58,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'activated' => \App\Http\Middleware\CheckUserActiveStatue::class,
         'admin' => \App\Http\Middleware\CheckUserAdminset::class,
+        'wechat.oauth' => \Overtrue\LaravelWechat\Middleware\OAuthAuthenticate::class,
     ];
 }
