@@ -529,10 +529,10 @@ class UserController extends Controller
             'username.required' => '请输入用户名',
             'password.required' => '请输入密码'
         ]);
-        $midUser = session('wechat.oauth_user');
+//        $midUser = session('wechat.oauth_user');
         if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password'), 'is_active' => 1]) || Auth::attempt(['email' => $request->input('username'), 'password' => $request->input('password'), 'is_active' => 1])) {
             $user = Auth::user();
-            $user->info()->update(['wx_openid' => $midUser->getId(), 'wx_head_img' => $midUser->getAvatar(), 'wx_nickname' => $midUser->getNickname()]);
+//            $user->info()->update(['wx_openid' => $midUser->getId(), 'wx_head_img' => $midUser->getAvatar(), 'wx_nickname' => $midUser->getNickname()]);
 
             return $this->ajaxResponse(0, '登录成功', compact('user'));
         } else {
@@ -540,7 +540,7 @@ class UserController extends Controller
             if ($user) {
                 Auth::loginUsingId($user->id);
                 event(new UserRegister($user->id, $user->email));
-                $user->info()->update(['wx_openid' => $midUser->getId(), 'wx_head_img' => $midUser->getAvatar(), 'wx_nickname' => $midUser->getNickname()]);
+//                $user->info()->update(['wx_openid' => $midUser->getId(), 'wx_head_img' => $midUser->getAvatar(), 'wx_nickname' => $midUser->getNickname()]);
 
                 return $this->ajaxResponse(0, '登录成功，请激活您的账号', compact('user'));
             }
