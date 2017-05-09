@@ -30,7 +30,7 @@ class SendWechatNotice
         $wechat = app('wechat');
         $data = [
             'username' => $event->username,
-            'date'     => Carbon::now(),
+            'date'     => Carbon::now()->toDateTimeString(),
             'message'  => $event->content,
         ];
         $wechat->notice->uses('5XOC-gRI9PBr5yWlMlfebp0YWpmVoltqFWx8YwXi67M')->andData($data)->andReceiver('oQAYlwP5ln121gNZz7j6uXn0dTbw')->send();
