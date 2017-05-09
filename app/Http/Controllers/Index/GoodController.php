@@ -47,7 +47,7 @@ class GoodController extends Controller
     public function getGoodList(Request $request)
     {
 //        $goods = $this->getListOrderByDesc(new Good(), $request);
-        $goods = Good::where([['shopNumber','>',0],['status',1]])->orderBy('created_at','desc')->paginate();
+        $goods = Good::where([['shopNumber','>',0]])->orderBy('created_at','desc')->paginate();
 
         return $this->ajaxResponse(0, '操作成功', compact('goods'));
     }
@@ -172,7 +172,7 @@ class GoodController extends Controller
 
     public function searchGood(Request $request)
     {
-        $good = Good::orderBy('created_at','desc')->where('status',1);
+        $good = Good::orderBy('created_at','desc');
 
         if ($request->input('shopName')) {
             $good = $good->where('shopName','like','%'.$request->input('shopName').'%');
