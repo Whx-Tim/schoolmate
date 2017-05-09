@@ -17,7 +17,7 @@
                     <li role="presentation"><a href="#league" aria-controls="league" role="tab">社团数据统计</a></li>
                     <li role="presentation"><a href="#announcement" aria-controls="announcement" role="tab">公告数据统计</a></li>
                     <li role="presentation"><a href="#good" aria-controls="good" role="tab">商品数据统计</a></li>
-                    <li role="presentation"><a href="#view" aria-controls="view" role="tab">访问量统计</a></li>
+                    <li role="presentation"><a href="#info" aria-controls="info" role="tab">信息数据统计</a></li>
                     <li role="presentation"><a href="#message" aria-controls="message" role="tab">消息数据统计</a></li>
                     <li role="presentation"><a href="#comment" aria-controls="comment" role="tab">评论数据统计</a></li>
                 </ul>
@@ -202,6 +202,31 @@
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane fade" id="info">
+                        <div class="row">
+                            <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter">{{ $day_infos }}</p><span>今日发布量</span></div><div class="overview-icon"><i class="fa fa-info-circle"></i></div></div></div></div>
+                            <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter">{{ $month_infos }}</p><span>本月发布量</span></div><div class="overview-icon"><i class="fa fa-info-circle"></i></div></div></div></div>
+                            <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter">{{ $infos }}</p><span>总发布量</span></div><div class="overview-icon"><i class="fa fa-info-circle"></i></div></div></div></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-title">
+                                        <h4 class="text-center">信息日发布统计图</h4>
+                                    </div>
+                                    <div class="panel-body" id="info-day" style="height: 600px;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-primary">
+                                    <div class="panel-title">
+                                        <h4 class="text-center">信息月发布统计图</h4>
+                                    </div>
+                                    <div class="panel-body" id="info-month" style="height: 600px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -261,6 +286,58 @@
                 name:'活动发布量',
                 type:'line',
                 data:[@foreach($prev_month_active as $month){{ $month['count'] }},@endforeach]
+            }
+        ]
+    };
+    var optionInfoMonth = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['信息发布量']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: [@foreach($prev_month_info as $month)'{{ $month['index'] }}',@endforeach],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '信息发布量',
+                min: 0,
+                max: {{ $infos }},
+                interval: 10
+            }
+        ],
+        series: [
+            {
+                name:'信息发布量',
+                type:'bar',
+                data:[@foreach($prev_month_info as $month){{ $month['count'] }},@endforeach]
+            },
+            {
+                name:'信息发布量',
+                type:'line',
+                data:[@foreach($prev_month_info as $month){{ $month['count'] }},@endforeach]
             }
         ]
     };
@@ -623,6 +700,53 @@
             }
         ]
     };
+    var optionInfoDay = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        legend: {
+            data:['信息发布量']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: [@foreach($prev_day_info as $day)'{{ $day['index'] }}',@endforeach],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '信息发布量',
+                min: 0,
+                max: {{ $infos }},
+                interval: 10
+            }
+        ],
+        series: [
+            {
+                name:'信息发布量',
+                type:'bar',
+                data:[@foreach($prev_day_info as $day){{ $day['count'] }},@endforeach]
+            }
+        ]
+    };
     var optionCourseDay = {
         tooltip: {
             trigger: 'axis',
@@ -968,6 +1092,15 @@
         var myChartCommentDay = echarts.init(document.getElementById('comment-day'));
         myChartCommentMonth.setOption(optionCommentMonth);
         myChartCommentDay.setOption(optionCommentDay);
+    });
+
+    $('a[href="#info"]').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        var myChartInfoMonth = echarts.init(document.getElementById('info-month'));
+        var myChartInfoDay = echarts.init(document.getElementById('info-day'));
+        myChartInfoMonth.setOption(optionInfoMonth);
+        myChartInfoDay.setOption(optionInfoDay);
     });
 </script>
 @endpush

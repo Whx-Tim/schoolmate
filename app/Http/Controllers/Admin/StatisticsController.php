@@ -9,6 +9,7 @@ use App\Model\Course;
 use App\Model\Good;
 use App\Model\League;
 use App\Model\Message;
+use App\Model\Partime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -130,6 +131,22 @@ class StatisticsController extends Controller
                 'index' => Carbon::now()->subMonths($i)->month
             ];
         }
+
+        $day_infos = Partime::whereDay('created_at',Carbon::now()->day)->count();
+        $month_infos = Partime::whereMonth('created_at', Carbon::now()->month)->count();
+        $infos = Partime::count();
+        for ($i=7; $i >= 0;$i--) {
+            $prev_day_info[$i] = [
+                'count' => Partime::whereDay('created_at',Carbon::now()->subDays($i)->day)->count(),
+                'index' => Carbon::now()->subDays($i)->day
+            ];
+        }
+        for ($i=11; $i >= 0;$i--) {
+            $prev_month_info[$i] = [
+                'count' => Partime::whereMonth('created_at',Carbon::now()->subMonths($i)->month)->count(),
+                'index' => Carbon::now()->subMonths($i)->month
+            ];
+        }
         return view('admin.statistics.index', compact(
             'day_actives',
             'month_actives',
@@ -165,7 +182,12 @@ class StatisticsController extends Controller
             'month_comments',
             'comments',
             'prev_day_comment',
-            'prev_month_comment'
+            'prev_month_comment',
+            'day_infos',
+            'month_infos',
+            'infos',
+            'prev_day_info',
+            'prev_month_info'
         ));
     }
 }

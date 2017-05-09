@@ -2,7 +2,7 @@
 
 @section('admin.title', '信息管理')
 
-@section('braedcrumb')
+@section('breadcrumb')
     <li class="active">信息管理</li>
 @endsection
 

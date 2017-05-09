@@ -29,7 +29,8 @@ class CourseController extends Controller
 
     public function detail(Course $course)
     {
-        return view('admin.course.detail', compact('course'));
+        $applyCount = $course->users()->count();
+        return view('admin.course.detail', compact('course','applyCount'));
     }
 
     public function delete(Course $course)

@@ -19,7 +19,7 @@
                             <label>用户数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/user') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
@@ -37,7 +37,7 @@
                             <label>活动数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/active') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
@@ -55,7 +55,7 @@
                             <label>课程数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/course') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
@@ -73,7 +73,7 @@
                             <label>社团数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/league') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
@@ -91,7 +91,7 @@
                             <label>商品数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/good') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
@@ -109,8 +109,44 @@
                             <label>公告数</label>
                             <input type="number" class="form-control" name="amount">
                         </div>
-                        <div class="col-md-8 col-md-offset-2">
+                        <div class="col-md-12">
                             <a href="{{ url('admin/data/announcement') }}" class="btn btn-primary btn-block generate-btn">生成</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">信息数据工厂</h4>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label>信息数</label>
+                            <input type="number" class="form-control" name="amount">
+                        </div>
+                        <div class="col-md-12">
+                            <a href="{{ url('admin/data/info') }}" class="btn btn-primary btn-block generate-btn">生成</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">评论数据工厂</h4>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label>评论数</label>
+                            <input type="number" class="form-control" name="amount">
+                        </div>
+                        <div class="col-md-12">
+                            <a href="{{ url('admin/data/comment') }}" class="btn btn-primary btn-block generate-btn">生成</a>
                         </div>
                     </form>
                 </div>

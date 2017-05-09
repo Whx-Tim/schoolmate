@@ -26,7 +26,7 @@
                 <li class="list-group-item"><div class="row"><div class="col-md-2">访问量</div><div class="col-md-10">{{ $info->view->count }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $info->created_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建用户</div><div class="col-md-10">{{ $info->user->username }}</div></div></li>
-                <li class="list-group-item"><div class="row"><div class="col-md-2">招聘描述</div><div class="col-md-12">{{ $info->description }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">招聘描述</div><div class="col-md-12">{!! $info->description !!}</div></div></li>
             </ul>
         </div>
     </div>

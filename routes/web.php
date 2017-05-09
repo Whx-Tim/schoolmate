@@ -215,6 +215,8 @@ Route::group([
         Route::post('course', 'DataController@courseFactory');
         Route::post('announcement', 'DataController@announcementFactory');
         Route::post('good', 'DataController@goodFactory');
+        Route::post('comment', 'DataController@commentFactory');
+        Route::post('info', 'DataController@infoFactory');
     });
 
     Route::group([

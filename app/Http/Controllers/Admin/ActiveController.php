@@ -14,15 +14,13 @@ class ActiveController extends Controller
         $actives = Active::paginate();
         $count = Active::count();
 
-
-
-
         return view('admin.active.list', compact('actives', 'count'));
     }
 
     public function detail(Active $active)
     {
-        return view('admin.active.detail', compact('active'));
+        $applyCount = $active->users()->count();
+        return view('admin.active.detail', compact('active','applyCount'));
     }
 
     public function edit(Active $active)

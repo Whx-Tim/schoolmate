@@ -168,10 +168,13 @@ $factory->define(App\Model\Announcement::class, function (Faker\Generator $faker
     ];
 });
 
+/**
+ * 评论数据工厂
+ */
 $factory->define(\App\Model\Comment::class, function (Faker\Generator $faker) {
     return [
         'content' => $faker->paragraph,
-        'comment_id' => $faker->numberBetween(1,40),
+        'comment_id' => $faker->numberBetween(1,20),
         'comment_type' => 'App\Model\Announcement',
         'created_at' => $faker->dateTimeBetween('-30 days')
     ];

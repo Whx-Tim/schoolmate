@@ -22,7 +22,7 @@
                 <li class="list-group-item"><div class="row"><div class="col-md-2">创建时间</div><div class="col-md-10">{{ $good->created_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">更新时间</div><div class="col-md-10">{{ $good->updated_at }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">删除时间</div><div class="col-md-10">{{ $good->deleted_at }}</div></div></li>
-                <li class="list-group-item"><div class="row"><div class="col-md-2">商品描述</div><div class="col-md-12">{{ $good->shopDescription }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">商品描述</div><div class="col-md-12">{!! $good->shopDescription !!}</div></div></li>
             </ul>
         </div>
     </div>

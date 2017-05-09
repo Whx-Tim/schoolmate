@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\Created;
 use App\Events\UserRegister;
 use App\Http\Requests\UserRegisterRequest;
 use App\Model\Active;
@@ -434,8 +435,9 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password')),
             'email'    => $request->input('email')
         ]);
-        $user->info()->create(['realname' => $request->input('realname'), 'student_id' => $request->input('student_id')]);
+        $user->info()->create(['realname' => $request->input('realname'), 'student_id' => $request->input('student_id'),'wx_head_img' => 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1494314553&di=856fe2b0e055c3557a6527b28812e4f4&src=http://news.mydrivers.com/Img/20110518/04481549.png']);
         event(new UserRegister($user->id,$user->email));
+        event(new Created('新用户注册！'));
 
         return $this->ajaxResponse(0 , '注册成功，请赶紧激活您的邮箱吧~~', compact('user'));
     }
@@ -459,7 +461,9 @@ class UserController extends Controller
     {
         if (Cache::has($code)) {
             $id = Cache::pull($code);
-            User::where('id', $id)->update(['is_active' => 1]);
+            $user = User::find($id);
+            $user->update(['is_active' => 1]);
+            event(new Created($user->username.'激活了账号'));
             return $this->ajaxResponse(0, '激活成功');
         } else {
             return $this->ajaxResponse(1, '激活码已过期');

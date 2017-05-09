@@ -29,7 +29,8 @@ class LeagueController extends Controller
 
     public function detail(League $league)
     {
-        return view('admin.league.detail', compact('league'));
+        $applyCount = $league->users()->count();
+        return view('admin.league.detail', compact('league','applyCount'));
     }
 
     public function store(StoreLeagueRequest $request)

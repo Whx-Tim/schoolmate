@@ -7,11 +7,13 @@ use App\Http\Requests\FactoryAmountRequest;
 use App\Model\Active;
 use App\Model\ActiveApply;
 use App\Model\Announcement;
+use App\Model\Comment;
 use App\Model\Course;
 use App\Model\CourseGroup;
 use App\Model\Good;
 use App\Model\League;
 use App\Model\LeagueGroup;
+use App\Model\Partime;
 use App\Model\UserInfo;
 use App\User;
 use Illuminate\Http\Request;
@@ -73,5 +75,21 @@ class DataController extends Controller
         Announcement::insert(factory(Announcement::class)->times($amount)->make()->toArray());
 
         return $this->ajaxResponse(0, '已生成'.$amount.'条公告数据');
+    }
+
+    public function commentFactory(FactoryAmountRequest $request)
+    {
+        $amount = $request->input('amount');
+        Comment::insert(factory(Comment::class)->times($amount)->make()->toArray());
+
+        return $this->ajaxResponse(0, '已生成'.$amount.'条随机评论');
+    }
+
+    public function infoFactory(FactoryAmountRequest $request)
+    {
+        $amount = $request->input('amount');
+        Partime::insert(factory(Partime::class)->times($amount)->make()->toArray());
+
+        return $this->ajaxResponse(0, '已生成'.$amount.'条随机信息');
     }
 }
