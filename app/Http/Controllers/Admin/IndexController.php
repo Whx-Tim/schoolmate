@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\View;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,13 @@ class IndexController extends Controller
                 'index' => Carbon::now()->subMonths($i)->month
             ];
         }
-        return view('admin.index', compact('day_users', 'month_users', 'users' ,'prev_day','prev_month'));
+        $view_active = View::where('view_type','App\Model\Active')->sum('count');
+        $view_course = View::where('view_type','App\Model\Course')->sum('count');
+        $view_league = View::where('view_type','App\Model\League')->sum('count');
+        $view_announcement = View::where('view_type','App\Model\Announcement')->sum('count');
+        $view_info = View::where('view_type','App\Model\Partime')->sum('count');
+        $views = View::sum('count');
+        return view('admin.index', compact('day_users', 'month_users', 'users' ,'prev_day','prev_month','view_active','view_course','view_league','view_announcement','view_info','views'));
     }
 
     public function upload(Request $request)

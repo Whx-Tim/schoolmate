@@ -9,6 +9,7 @@ use App\Model\CourseSign;
 use App\Model\Good;
 use App\Model\League;
 use App\Model\Message;
+use App\Model\Partime;
 use App\Model\UserInfo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,6 +69,11 @@ class User extends Authenticatable
     public function info()
     {
         return $this->hasOne(UserInfo::class);
+    }
+
+    public function partimes()
+    {
+        return $this->hasMany(Partime::class);
     }
 
     /**

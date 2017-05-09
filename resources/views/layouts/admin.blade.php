@@ -246,6 +246,12 @@
         var users = parseInt($('#users').html());
         var day_users = parseInt($('#day_users').html());
         var month_users = parseInt($('#month_users').html());
+        var view_active = parseInt($('#view_active').html());
+        var view_course = parseInt($('#view_course').html());
+        var view_league = parseInt($('#view_league').html());
+        var view_info = parseInt($('#view_info').html());
+        var view_announcement = parseInt($('#view_announcement').html());
+        var views = parseInt($('#views').html());
         var count = 0;
         var counter = setInterval(function () {
             if (count <= active)$('#active').html(count);
@@ -263,8 +269,20 @@
             if (count <= users)$('#users').html(count);
             if (count <= day_users)$('#day_users').html(count);
             if (count <= month_users)$('#month_users').html(count);
+            if (count <= view_active)$('#view_active').html(count);
+            if (count <= view_course)$('#view_course').html(count);
+            if (count <= view_league)$('#view_league').html(count);
+            if (count <= view_announcement)$('#view_announcement').html(count);
+            if (count <= view_info)$('#view_info').html(count);
+            if (count <= views)$('#views').html(count);
 
-            if (count <= active || count <= apply_active || count <= league|| count <= apply_league|| count <= course|| count <= apply_course|| count <= comment|| count <= message|| count <= good || count <= active_info || count <= course_info || count <= league_info || count <= users || count <= day_users || count <= month_users) {
+            if (count <= active || count <= apply_active || count <= league|| count <= apply_league|| count <= course|| count <= apply_course|| count <= comment|| count <= message|| count <= good || count <= active_info || count <= course_info || count <= league_info || count <= users || count <= day_users || count <= month_users
+                || count <= view_active
+            || count <= view_course
+            || count <= view_league
+            || count <= view_announcement
+            || count <= view_info
+            || count <= views) {
                 ++count;
             } else {
                 clearInterval(counter);

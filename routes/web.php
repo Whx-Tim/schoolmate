@@ -218,6 +218,18 @@ Route::group([
     });
 
     Route::group([
+        'prefix' => 'info'
+    ], function () {
+        Route::get('/', 'InfoController@index');
+        Route::get('store', 'InfoController@add');
+        Route::get('edit/{partime}', 'InfoController@edit');
+        Route::get('detail/{partime_view}', 'InfoController@detail');
+        Route::get('delete/{partime}', 'InfoController@delete');
+        Route::post('edit/{partime}', 'InfoController@update');
+        Route::post('store', 'InfoController@store');
+    });
+
+    Route::group([
         'prefix' => 'setting'
     ], function () {
 

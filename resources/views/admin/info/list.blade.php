@@ -32,7 +32,8 @@
                         <td><a href="{{ $info->detailUrl() }}">{{ $info->company_name }}</a></td>
                         <td>{{ $info->phone }}</td>
                         <td>{{ $info->email }}</td>
-                        <td>{{ $info->end_time->toDateString() }}</td>
+                        {{--<td>{{ $info->end_time->toDateString() }}</td>--}}
+                        <td>{{ \Carbon\Carbon::parse($info->end_time)->toDateString() }}</td>
                         <td>{{ $info->created_at->toDateString() }}</td>
                         <td>
                             <a href="{{ $info->editUrl() }}" operation="edit"><i class="fa fa-pencil fa-2x"></i></a>

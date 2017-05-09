@@ -4,9 +4,15 @@
 
 @section('admin.content')
     <div class="row">
-        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="day_users">{{ $day_users }}</p><span>今日新用户</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
-        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="month_users">{{ $month_users }}</p><span>本月新用户</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
-        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="users">{{ $users }}</p><span>总用户量</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="day_users">{{ $day_users }}</p><span>今日新用户</span></div><div class="overview-icon"><i class="fa fa-user"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="month_users">{{ $month_users }}</p><span>本月新用户</span></div><div class="overview-icon"><i class="fa fa-user"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="users">{{ $users }}</p><span>总用户量</span></div><div class="overview-icon"><i class="fa fa-user"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="view_active">{{ $view_active }}</p><span>活动总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="view_course">{{ $view_course }}</p><span>课程总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="view_league">{{ $view_league }}</p><span>社团总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="view_announcement">{{ $view_announcement }}</p><span>公告总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="view_info">{{ $view_info }}</p><span>信息总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
+        <div class="col-md-4"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="views">{{ $views }}</p><span>总访问量</span></div><div class="overview-icon"><i class="fa fa-eye"></i></div></div></div></div>
         <div class="col-md-12" >
             <div class="panel panel-primary">
                 <div class="panel-title">

@@ -41,4 +41,24 @@ class Partime extends Model
         return $this->morphOne('App\Model\Check', 'checkable');
     }
 
+    public function homeUrl()
+    {
+        return url('admin/info');
+    }
+
+    public function editUrl()
+    {
+        return url('admin/info/edit/'.$this->id);
+    }
+
+    public function detailUrl()
+    {
+        return url('admin/info/detail/'.$this->id);
+    }
+
+    public function deleteUrl()
+    {
+        return url('admin/info/delete/'.$this->id);
+    }
+
 }

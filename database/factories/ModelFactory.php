@@ -37,8 +37,8 @@ $factory->define(App\Model\UserInfo::class, function (Faker\Generator $faker) {
         'grade'      => $faker->numberBetween(1983, 2017),
         'gender'     => $faker->numberBetween(1, 2),
         'phone'      => '13418866733',
-        'lng'        => $faker->randomFloat(null,113.935674,113.951736),
-        'lat'        => $faker->randomFloat(null,22.532003,22.545789),
+        'lng'        => $faker->randomFloat(8,113.935674,113.951736),
+        'lat'        => $faker->randomFloat(8,22.532003,22.545789),
         'user_id'    => function() {
             return factory(App\User::class)->create()->id;
         },
@@ -54,8 +54,8 @@ $factory->define(App\Model\Active::class, function (Faker\Generator $faker) {
         'name' => '某某某活动',
         'time' => $faker->date(),
         'address' => $faker->address,
-        'lng' => $faker->randomFloat(null,113.935674,113.951736),
-        'lat' => $faker->randomFloat(null,22.532003,22.545789),
+        'lng' => $faker->randomFloat(8,113.935674,113.951736),
+        'lat' => $faker->randomFloat(8,22.532003,22.545789),
         'poster' => $faker->imageUrl(100,100),
         'images' => $faker->imageUrl(),
         'count'  => $faker->numberBetween(1,100),

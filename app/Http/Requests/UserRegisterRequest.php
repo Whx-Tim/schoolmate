@@ -6,6 +6,10 @@ use App\Http\Requests\AuthCheckRequest as FormRequest;
 
 class UserRegisterRequest extends FormRequest
 {
+    public function authorize()
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
