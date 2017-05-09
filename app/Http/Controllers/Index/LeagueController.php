@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\Created;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreLeagueRequest;
 use App\Model\League;
@@ -107,6 +108,7 @@ class LeagueController extends Controller
         $data['user_id'] = Auth::id();
         $league = League::create($data);
         $this->applyLeague($league->id);
+        event(new Created(Auth::user()->username.'创建了社团'));
         try {
 
         } catch (\Exception $exception) {
@@ -256,5 +258,26 @@ class LeagueController extends Controller
         $path = '/uploads/images/'.$name;
 
         return $this->ajaxResponse(0, '上传成功', compact('path'));
+    }
+
+    /**
+     * @api {get} league/apply/users/{league_id} 获取社团成员信息
+     * @apiName getLeagueApplyUsers
+     * @apiGroup League
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "加载成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function applyLeagueUsers(League $league)
+    {
+        $users = $league->users()->with('info')->get();
+
+        return $this->ajaxResponse(0, '加载成功', compact('users'));
     }
 }

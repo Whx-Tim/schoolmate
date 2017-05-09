@@ -31,6 +31,7 @@
 <script src="{{ url('js/plugins.js') }}"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2aLkRxKYccsqt8NlvVsgURX99OIUbabz"></script>
 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+
 <script type="text/javascript">
 
     Pusher.logToConsole = true;
@@ -40,20 +41,20 @@
         encrypted: true
     });
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('message-event-1-2', function(data) {
-        alert(data.message);
-    });
-    channel.bind('message-event-1', function(data) {
-        alert(data.message);
+    var channel = pusher.subscribe('admin-channel');
+    channel.bind('message-event', function(data) {
+        toastr.success(data.message);
     });
 
-        toastr.options = {
+
+
+
+    toastr.options = {
             "closeButton": true,
             "debug": false,
             "newestOnTop": false,
             "progressBar": true,
-            "positionClass": "toast-top-full-width",
+            "positionClass": "toast-top-right",
             "preventDuplicates": true,
             "onclick": null,
             "showDuration": "300",
@@ -229,6 +230,46 @@
                 })
             }
         });
+
+        var active = parseInt($('#active').html());
+        var apply_active = parseInt($('#apply_active').html());
+        var league = parseInt($('#league').html());
+        var apply_league = parseInt($('#apply_league').html());
+        var course = parseInt($('#course').html());
+        var apply_course = parseInt($('#apply_course').html());
+        var comment = parseInt($('#comment').html());
+        var message = parseInt($('#message').html());
+        var good = parseInt($('#good').html());
+        var active_info = parseInt($('#active_info').html());
+        var course_info = parseInt($('#course_info').html());
+        var league_info = parseInt($('#league_info').html());
+        var users = parseInt($('#users').html());
+        var day_users = parseInt($('#day_users').html());
+        var month_users = parseInt($('#month_users').html());
+        var count = 0;
+        var counter = setInterval(function () {
+            if (count <= active)$('#active').html(count);
+            if (count <= apply_active)$('#apply_active').html(count);
+            if (count <= league)$('#league').html(count);
+            if (count <= apply_league)$('#apply_league').html(count);
+            if (count <= course)$('#course').html(count);
+            if (count <= apply_course)$('#apply_course').html(count);
+            if (count <= comment)$('#comment').html(count);
+            if (count <= message)$('#message').html(count);
+            if (count <= good)$('#good').html(count);
+            if (count <= active_info)$('#active_info').html(count);
+            if (count <= course_info)$('#course_info').html(count);
+            if (count <= league_info)$('#league_info').html(count);
+            if (count <= users)$('#users').html(count);
+            if (count <= day_users)$('#day_users').html(count);
+            if (count <= month_users)$('#month_users').html(count);
+
+            if (count <= active || count <= apply_active || count <= league|| count <= apply_league|| count <= course|| count <= apply_course|| count <= comment|| count <= message|| count <= good || count <= active_info || count <= course_info || count <= league_info || count <= users || count <= day_users || count <= month_users) {
+                ++count;
+            } else {
+                clearInterval(counter);
+            }
+        },15);
 
 </script>
 @stack('admin.scripts')

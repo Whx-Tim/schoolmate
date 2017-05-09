@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Index;
 use App\Events\UserGetMessageList;
 use App\Http\Requests\StoreMessageRequest;
 use App\Model\Message;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,9 +37,11 @@ class MessageController extends Controller
     public function getList($send_to)
     {
         $messages = Message::getList(Auth::id(), $send_to);
+        $form_user = Auth::user()->info;
+        $to_user   = User::find($send_to)->info ? : false;
         event(new UserGetMessageList($send_to));
 
-        return $this->ajaxResponse(0, '操作成功', compact('messages'));
+        return $this->ajaxResponse(0, '操作成功', compact('messages', 'form_user', 'to_user'));
     }
 
     /**
@@ -71,14 +74,59 @@ class MessageController extends Controller
         $data['send_from'] = Auth::id();
         $message = Message::create($data);
         $pusher = $this->initPusher();
-        $pusher->trigger('message-channel', 'message-event-', $data);
+        $content = $message->content;
+
+        $pusher->trigger('message-channel', 'message-event-'.$request->input('send_to').'-'.Auth::id(), compact('content'));
+        $pusher->trigger('message-channel', 'message-event-'.$request->input('send_to'), ['user_id' => Auth::id()]);
         return $this->ajaxResponse(0, '发送成功', compact('message'));
     }
 
+    /**
+     * @api {get} message/user/list 获取聊天用户列表
+     * @apiName getUserList
+     * @apiGroup Message
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "加载成功",
+     *         "data": {
+     *         }
+     *     }
+     */
     public function userList()
     {
-        $user = Auth::user();
-        $users = $user->from_messages();
+        $messages = Message::select('send_to','send_from')->where('send_from',Auth::id())->with('to_user.info')->distinct()->get();
+        $messages = $messages->each(function ($message) {
+            $message->readed = Message::where([
+                'send_from' => $message->send_to,
+                'send_to'   => $message->send_from,
+                'readed'    => 0
+            ])->count();
+        });
 
+        return $this->ajaxResponse(0, '加载成功', compact('messages'));
+    }
+
+    /**
+     * @api {get} message/out/{send_to} 退出聊天
+     * @apiName outChat
+     * @apiGroup Message
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "退出成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function outChat($send_to)
+    {
+        event(new UserGetMessageList($send_to));
+
+        return $this->ajaxResponse(0, '退出成功');
     }
 }

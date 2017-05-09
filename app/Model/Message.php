@@ -19,7 +19,7 @@ class Message extends Model
         ])->orWhere([
             ['send_from', $send_to],
             ['send_to', $send_from]
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('created_at', 'desc')->paginate();
     }
 
     public function from_user()

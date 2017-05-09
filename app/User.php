@@ -5,6 +5,7 @@ namespace App;
 use App\Model\Active;
 use App\Model\Comment;
 use App\Model\Course;
+use App\Model\CourseSign;
 use App\Model\Good;
 use App\Model\League;
 use App\Model\Message;
@@ -185,5 +186,10 @@ class User extends Authenticatable
     public function to_messages()
     {
         return $this->hasMany(Message::class, 'to_from');
+    }
+
+    public function signs()
+    {
+        return $this->hasMany(CourseSign::class);
     }
 }

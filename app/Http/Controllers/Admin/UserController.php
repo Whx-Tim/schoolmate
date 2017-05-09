@@ -23,7 +23,30 @@ class UserController extends Controller
 
     public function detail(User $user)
     {
-        return view('admin.user.detail', compact('user'));
+        $actives = $user->actives()->count();
+        $apply_actives = $user->applyActives()->count();
+        $courses = $user->courses()->count();
+        $apply_courses = $user->applyCourses()->count();
+        $leagues = $user->leagues()->count();
+        $apply_leagues = $user->applyLeagues()->count();
+        $comments = $user->comments()->count();
+        $messages = $user->from_messages()->count();
+        $goods    = $user->goods()->count();
+        $active_infos = 0;
+        $course_infos = 0;
+        $league_infos = 0;
+        $user->courses()->withCount('announcements')->get()->each(function ($course) use (&$course_infos) {
+            $course_infos += $course->announcements_count;
+        });
+        $user->leagues()->withCount('announcements')->get()->each(function ($league) use (&$league_infos) {
+            $league_infos += $league->announcements_count;
+        });
+        $user->actives()->withCount('announcements')->get()->each(function ($active) use (&$active_infos) {
+            $active_infos += $active->announcements_count;
+        });
+
+
+        return view('admin.user.detail', compact('user','actives','apply_actives','courses','apply_courses','leagues','apply_leagues','comments','messages','goods','active_infos','course_infos','league_infos'));
     }
 
     public function add()
@@ -39,7 +62,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->only(['email', 'is_active']));
-        $user->info()->update($request->except(['email', 'is_active', '_token', '_method']));
+        $user->info()->update($request->except(['username','email', 'is_active', '_token', '_method']));
 
         return $this->ajaxResponse(0, '更新成功');
     }

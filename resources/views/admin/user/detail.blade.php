@@ -9,6 +9,20 @@
 
 @section('admin.content')
     <div class="row">
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="active">{{ $actives }}</p><span>发布的活动数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="apply_active">{{ $apply_actives }}</p><span>参与的活动数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="league">{{ $leagues }}</p><span>发布的社团数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="apply_league">{{ $apply_leagues }}</p><span>参加的社团数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="course">{{ $courses }}</p><span>创建的课程数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="apply_course">{{ $apply_courses }}</p><span>参与的课程数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="comment">{{ $comments }}</p><span>发布的评论数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="message">{{ $messages }}</p><span>发布的消息数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="good">{{ $goods }}</p><span>发布的商品数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="active_info">{{ $active_infos }}</p><span>发布的活动公告数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="course_info">{{ $course_infos }}</p><span>发布的课程公告数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+        <div class="col-md-3"><div class="Overview Panel"><div class="Content overview-content"><div class="overview-title"><p class="counter" id="league_info">{{ $league_infos }}</p><span>发布的社团公告数</span></div><div class="overview-icon"><i class="fa fa-envira"></i></div></div></div></div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <ul class="list-group">
                 <li class="list-group-item"><div class="row"><div class="col-md-2">用户名</div><div class="col-md-10">{{ $user->username }}</div></div></li>

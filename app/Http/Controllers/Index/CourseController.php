@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\Created;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreCourseRequest;
 use App\Model\Course;
 use App\Model\CourseGroup;
+use App\Model\CourseSign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +83,13 @@ class CourseController extends Controller
             'user_id'   => Auth::id()
         ])->first() ? true : false;
         $hasSign = Cache::has('course_map_'.$course->id) ? true : false;
-        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied', 'hasSign'));
+        $is_sign = CourseSign::where([
+            'course_id' => $course->id,
+            'user_id'   => Auth::id(),
+            'status'    => 1
+        ])->first() ? true : false;
+//        Cache::forget('course_map_'.$course->id);
+        return $this->ajaxResponse(0, '操作成功', compact('course', 'can_publish', 'applied', 'hasSign', 'is_sign'));
     }
 
     /**
@@ -159,6 +167,7 @@ class CourseController extends Controller
             $this->applyCourse($course->id);
             $invite_code = random_int(1000, 9999);
             Cache::put('course_invite_'.$invite_code, $course, 10);
+            event(new Created(Auth::user()->username.'创建了课程'));
         } catch (\Exception $e) {
             Log::info('创建课程异常：'.$e);
 
@@ -188,6 +197,8 @@ class CourseController extends Controller
             $data['user_id'] = Auth::id();
             $data['course_id'] = $course;
             CourseGroup::create($data);
+            $course = Course::find($course);
+            $course->signs()->create(['user_id' => Auth::id()]);
         } catch (\Exception $e) {
             Log::info('参与课程异常：'. $e);
 
@@ -370,7 +381,9 @@ class CourseController extends Controller
            'lat.required' => '请发送纬度'
        ]);
 
-       Cache::put('course_map_'.$id, $request->only(['lng', 'lat']), 1);
+       Cache::put('course_map_'.$id, $request->only(['lng', 'lat']), 2);
+       $course = Course::find($id);
+       $course->signs()->update(['status' => 0]);
 
        return $this->ajaxResponse(0, '发起成功');
     }
@@ -425,11 +438,34 @@ class CourseController extends Controller
             if ($distance > 20) {
                 return $this->ajaxResponse(2, '签到距离大于20米，签到失败');
             } else {
+                $course = Course::find($id);
+                $course->signs()->where('user_id',Auth::id())->update(['status' => 1]);
                 return $this->ajaxResponse(0, '签到成功');
             }
         } else {
             return $this->ajaxResponse(1, '签到已过期');
         }
+    }
+
+    /**
+     * @api {get} course/sign/list/{course_id} 获取已经签到的用户列表
+     * @apiName getSignUserList
+     * @apiGroup Course
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "errcode": 0,
+     *         "errmsg": "加载成功",
+     *         "data": {
+     *         }
+     *     }
+     */
+    public function signList(Course $course)
+    {
+        $users = $course->signs()->where('status',1)->with('user.info')->get();
+
+        return $this->ajaxResponse(0, '加载成功', compact('users'));
     }
 
     protected function getDistance($lng1, $lat1, $lng2, $lat2)

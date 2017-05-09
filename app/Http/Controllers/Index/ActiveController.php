@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\Created;
 use App\Http\Requests\StoreActiveRequest;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Model\Active;
@@ -185,6 +186,7 @@ class ActiveController extends Controller
             $data['user_id'] = Auth::id();
             $active = Active::create($data);
             $this->applyActive($active->id);
+            event(new Created(Auth::user()->username.'创建了活动'));
         } catch (\Exception $exception) {
             Log::info('活动保存失败:'.$exception);
             return $this->ajaxResponse(1, '保存失败', compact('exception'));

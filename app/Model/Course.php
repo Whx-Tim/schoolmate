@@ -71,6 +71,11 @@ class Course extends Model
         return $this->morphOne('App\Model\Check', 'checkable');
     }
 
+    public function signs()
+    {
+        return $this->hasMany(CourseSign::class);
+    }
+
 
     public function editUrl()
     {

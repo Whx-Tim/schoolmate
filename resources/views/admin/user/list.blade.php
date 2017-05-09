@@ -30,7 +30,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->username }}</td>
+                        <td><a href="{{ $user->detailUrl() }}">{{ $user->username }}</a></td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->activeToString() }}</td>
                         <td>{{ $user->info->name }}</td>

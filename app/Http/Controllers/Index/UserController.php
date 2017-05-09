@@ -531,8 +531,8 @@ class UserController extends Controller
             return $this->ajaxResponse(0, '登录成功', compact('user'));
         } else {
             $user = User::where('username', $request->input('username'))->orWhere('email', $request->input('username'))->first();
-            Auth::loginUsingId($user->id);
             if ($user) {
+                Auth::loginUsingId($user->id);
                 event(new UserRegister($user->id, $user->email));
 
                 return $this->ajaxResponse(0, '登录成功，请激活您的账号', compact('user'));

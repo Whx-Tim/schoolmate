@@ -77,6 +77,7 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::get('list', 'LeagueController@getList');
         Route::get('detail/{league_view}', 'LeagueController@getLeague');
         Route::get('apply/{league}', 'LeagueController@applyLeague')->where('league', '[0-9]+');
+        Route::get('apply/users/{league}', 'LeagueController@applyLeagueUsers');
         Route::post('upload','LeagueController@uploadPoster');
         Route::post('store', 'LeagueController@storeLeague');
         Route::post('update/{league}', 'LeagueController@updateLeague');
@@ -101,8 +102,12 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
     Route::group(['middleware' => ['auth'], 'prefix' => 'good'], function () {
         Route::get('list', 'GoodController@getGoodList');
         Route::get('detail/{good}', 'GoodController@getGood');
+        Route::get('delete/{good}', 'GoodController@delete');
+        Route::get('down/{good}', 'GoodController@down');
+        Route::get('up/{good}', 'GoodController@up');
+        Route::get('my', 'GoodController@myGoods');
+        Route::post('search', 'GoodController@searchGood');
         Route::post('store', 'GoodController@storeGood');
-
     });
 
     Route::group([
@@ -110,12 +115,15 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         'prefix'     => 'message'
     ], function () {
         Route::get('list/{send_to}', 'MessageController@getList');
+        Route::get('user/list', 'MessageController@userList');
+        Route::get('out/{send_to}', 'MessageController@outChat');
         Route::post('store', 'MessageController@store');
+
     });
 });
 
 Route::group([
-    'middleware' => ['web', 'auth'],
+    'middleware' => ['web', 'admin', 'auth'],
     'prefix'     => 'admin',
     'namespace'  => 'Admin'
 ], function  () {
@@ -194,9 +202,30 @@ Route::group([
     Route::group([
         'prefix' => 'statistics'
     ], function () {
+        Route::get('/', 'StatisticsController@index');
+    });
+
+    Route::group([
+        'prefix' => 'data'
+    ], function () {
+        Route::get('/', 'DataController@index');
+        Route::post('user', 'DataController@userFactory');
+        Route::post('league', 'DataController@leagueFactory');
+        Route::post('active', 'DataController@activeFactory');
+        Route::post('course', 'DataController@courseFactory');
+        Route::post('announcement', 'DataController@announcementFactory');
+        Route::post('good', 'DataController@goodFactory');
+    });
+
+    Route::group([
+        'prefix' => 'setting'
+    ], function () {
 
     });
 });
+
+Route::get('admin/login', 'Admin\IndexController@showLogin')->name('login');
+Route::post('admin/login', 'Admin\IndexController@login');
 
 Route::any('api/wechat/server', 'WechatController@server');
 

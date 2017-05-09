@@ -28,21 +28,25 @@
                 <div class="form-group">
                     <label>商品类型</label>
                     <select name="shopType" class="form-control">
-                        <option value="1" >1</option>
-                        <option value="2" >2</option>
-                        <option value="3" >3</option>
-                        <option value="4" >4</option>
-                        <option value="5" >5</option>
-                        <option value="6" >6</option>
-                        <option value="7" >7</option>
+                        <option value="1" >衣服</option>
+                        <option value="2" >商品</option>
+                        <option value="3" >医药</option>
+                        <option value="4" >水果</option>
+                        <option value="5" >零食</option>
+                        <option value="6" >家具</option>
+                        <option value="7" >书籍</option>
+                        <option value="8" >瓷器</option>
+                        <option value="9" >电器</option>
+                        <option value="10" >其他</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>状态</label>
                     <select name="status" class="form-control">
                         <option value="0" >未审核</option>
-                        <option value="1" >已审核</option>
-                        <option value="2" >已关闭</option>
+                        <option value="1" >已上架</option>
+                        <option value="2" >已下架</option>
+                        <option value="3" >已关闭</option>
                     </select>
                 </div>
                 <div class="form-group">

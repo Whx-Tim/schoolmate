@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ViewPage' => [
             'App\Listeners\ViewIncrement'
         ],
+        'App\Events\Created' => [
+            'App\Listeners\PushMessageToAdmin'
+        ]
     ];
 
     /**

@@ -28,21 +28,25 @@
                 <div class="form-group">
                     <label>商品类型</label>
                     <select name="shopType" class="form-control">
-                        <option value="1" {{ $good->shopType==1 ? 'selected':'' }}>1</option>
-                        <option value="2" {{ $good->shopType==2 ? 'selected':'' }}>2</option>
-                        <option value="3" {{ $good->shopType==3 ? 'selected':'' }}>3</option>
-                        <option value="4" {{ $good->shopType==4 ? 'selected':'' }}>4</option>
-                        <option value="5" {{ $good->shopType==5 ? 'selected':'' }}>5</option>
-                        <option value="6" {{ $good->shopType==6 ? 'selected':'' }}>6</option>
-                        <option value="7" {{ $good->shopType==7 ? 'selected':'' }}>7</option>
+                        <option value="1" {{ $good->shopType==1 ? 'selected':'' }}>衣服</option>
+                        <option value="2" {{ $good->shopType==2 ? 'selected':'' }}>商品</option>
+                        <option value="3" {{ $good->shopType==3 ? 'selected':'' }}>医药</option>
+                        <option value="4" {{ $good->shopType==4 ? 'selected':'' }}>水果</option>
+                        <option value="5" {{ $good->shopType==5 ? 'selected':'' }}>零食</option>
+                        <option value="6" {{ $good->shopType==6 ? 'selected':'' }}>家具</option>
+                        <option value="7" {{ $good->shopType==7 ? 'selected':'' }}>书籍</option>
+                        <option value="8" {{ $good->shopType==8 ? 'selected':'' }}>瓷器</option>
+                        <option value="9" {{ $good->shopType==9 ? 'selected':'' }}>电器</option>
+                        <option value="10" {{ $good->shopType==10 ? 'selected':'' }}>其他</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>状态</label>
                     <select name="status" class="form-control">
                         <option value="0" {{ $good->status==0 ? 'selected' : '' }}>未审核</option>
-                        <option value="1" {{ $good->status==1 ? 'selected' : '' }}>已审核</option>
-                        <option value="2" {{ $good->status==2 ? 'selected' : '' }}>已关闭</option>
+                        <option value="1" {{ $good->status==1 ? 'selected' : '' }}>已上架</option>
+                        <option value="2" {{ $good->status==2 ? 'selected' : '' }}>已下架</option>
+                        <option value="3" {{ $good->status==3 ? 'selected' : '' }}>已关闭</option>
                     </select>
                 </div>
                 <div class="form-group">

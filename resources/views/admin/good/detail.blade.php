@@ -13,7 +13,7 @@
             <ul class="list-group">
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品图片</div><div class="col-md-10"><img src="{{ $good->shopPicture }}" alt=""></div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品名称</div><div class="col-md-10">{{ $good->shopName }}</div></div></li>
-                <li class="list-group-item"><div class="row"><div class="col-md-2">商品类型</div><div class="col-md-10">{{ $good->shopType }}</div></div></li>
+                <li class="list-group-item"><div class="row"><div class="col-md-2">商品类型</div><div class="col-md-10">{{ $good->typeToString() }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品价格</div><div class="col-md-10">{{ $good->shopPrice }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">商品数量</div><div class="col-md-10">{{ $good->shopNumber }}</div></div></li>
                 <li class="list-group-item"><div class="row"><div class="col-md-2">浏览量</div><div class="col-md-10">{{ $good->view->count or 0 }}</div></div></li>

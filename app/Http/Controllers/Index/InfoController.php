@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\Created;
 use App\Http\Requests\StorePartimeRequest;
 use App\Model\Announcement;
 use App\Model\Partime;
@@ -146,7 +147,7 @@ class InfoController extends Controller
      */
     public function getPartimeDetail(Partime $partime)
     {
-        $partime->view()->increment('count');
+//        $partime->view()->increment('count');
 
         return $this->ajaxResponse(0, '操作成功', compact('partime'));
     }
@@ -172,7 +173,7 @@ class InfoController extends Controller
      */
     public function getAnnouncement(Announcement $announcement)
     {
-        $announcement->view()->increment('count');
+//        $announcement->view()->increment('count');
 //        $view = $announcement->view;
         return $this->ajaxResponse(0, '操作成功', compact('announcement'));
     }
@@ -328,7 +329,7 @@ class InfoController extends Controller
             $data['user_id'] = Auth::id();
             $partime = Partime::create($data);
             $partime->check()->create([]);
-
+            event(new Created(Auth::user()->username.'发布了兼职信息'));
         } catch (\Exception $exception) {
             Log::info('发布兼职信息异常：'. $exception);
 

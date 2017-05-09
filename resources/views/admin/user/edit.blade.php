@@ -3,7 +3,7 @@
 @section('admin.title', '编辑用户')
 
 @section('breadcrumb')
-    <li><a href="{{ $user->homeUrl() }}"></a>用户管理</li>
+    <li><a href="{{ $user->homeUrl() }}">用户管理</a></li>
     <li class="active">编辑用户</li>
 @endsection
 
@@ -20,19 +20,22 @@
                 <label>用户名</label><input type="text" name="username" class="form-control" value="{{ $user->username }}" readonly>
             </div>
             <div class="form-group">
-                <label>真实姓名</label><input type="text" name="username" class="form-control" value="{{ $user->info->realname }}">
+                <label>真实姓名</label><input type="text" name="realname" class="form-control" value="{{ $user->info->realname }}">
             </div>
             <div class="form-group">
-                <label>邮箱</label><input type="text" name="username" class="form-control" value="{{ $user->email }}">
+                <label>昵称</label><input type="text" name="name" class="form-control" value="{{ $user->info->name }}">
             </div>
             <div class="form-group">
-                <label>学号</label><input type="text" name="username" class="form-control" value="{{ $user->info->student_id }}">
+                <label>邮箱</label><input type="text" name="email" class="form-control" value="{{ $user->email }}">
             </div>
             <div class="form-group">
-                <label>学院</label><input type="text" name="username" class="form-control" value="{{ $user->info->college }}">
+                <label>学号</label><input type="text" name="student_id" class="form-control" value="{{ $user->info->student_id }}">
             </div>
             <div class="form-group">
-                <label>入学年份</label><input type="text" name="username" class="form-control" value="{{ $user->info->grade }}">
+                <label>学院</label><input type="text" name="college" class="form-control" value="{{ $user->info->college }}">
+            </div>
+            <div class="form-group">
+                <label>入学年份</label><input type="text" name="grade" class="form-control" value="{{ $user->info->grade }}">
             </div>
             <div class="form-group">
                 <label>性别</label>
@@ -42,10 +45,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>联系电话</label><input type="text" name="username" class="form-control" value="{{ $user->info->phone }}">
+                <label>联系电话</label><input type="text" name="phone" class="form-control" value="{{ $user->info->phone }}">
             </div>
             <div class="form-group">
-                <label>生日</label><input type="text" name="username" class="form-control" value="{{ $user->info->birthday }}">
+                <label>生日</label><input type="text" name="birthday" class="form-control" value="{{ $user->info->birthday }}">
             </div>
             <div class="form-group">
                 <label>激活状态</label>
@@ -61,7 +64,7 @@
                     <option value="1" {{ $user->info->is_certified==1 ? 'selected' : '' }}>已认证</option>
                 </select>
             </div>
-            <input type="hidden" name="wx_head_img" value="">
+            <input type="hidden" name="wx_head_img" value="{{ $user->info->wx_head_img }}">
             <a href="{{ $user->editUrl() }}" class="btn btn-block btn-primary" id="update-btn">更新</a>
         </form>
     </div>

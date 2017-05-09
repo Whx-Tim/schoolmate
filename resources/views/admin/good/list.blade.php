@@ -33,7 +33,7 @@
                         <td>{{ $good->id }}</td>
                         <td><img src="{{ $good->shopPicture }}" style="width: 80px;height: 80px"></td>
                         <td><a href="{{ $good->detailUrl() }}">{{ $good->shopName }}</a></td>
-                        <td>{{ $good->shopType }}</td>
+                        <td>{{ $good->typeToString() }}</td>
                         <td>{{ $good->shopPrice }}</td>
                         <td>{{ $good->shopNumber }}</td>
                         <td>{{ $good->statusToString() }}</td>
