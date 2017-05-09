@@ -126,10 +126,11 @@ class CourseController extends Controller
      */
     public function getApplyUsers(Course $course)
     {
-        $users = $course->users;
-        $users = $users->map(function ($item, $key) {
-            return $item->info;
-        });
+//        $users = $course->users;
+//        $users = $users->map(function ($item, $key) {
+//            return $item->info;
+//        });
+        $users = $course->users()->with('info')->get();
 
         return $this->ajaxResponse(0, '操作成功', compact('users'));
     }

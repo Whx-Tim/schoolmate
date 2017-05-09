@@ -141,10 +141,11 @@ class ActiveController extends Controller
      */
     public function getApplyUsers(Active $active)
     {
-        $users = $active->users;
-        $users = $users->map(function ($item, $key) {
-            return $item->info;
-        });
+//        $users = $active->users;
+//        $users = $users->map(function ($item, $key) {
+//            return $item->info;
+//        });
+        $users = $active->users()->with('info')->get();
 
         return $this->ajaxResponse(0, '操作成功', compact('users'));
     }
