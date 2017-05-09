@@ -47,7 +47,7 @@
             <div class="Auth__box">
                 <div class="Auth__logo">
                     <a href="/">
-                        <img src="/logo.png" alt="logo">
+                        <img src="{{ url('admin/logo.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="Auth__title">
