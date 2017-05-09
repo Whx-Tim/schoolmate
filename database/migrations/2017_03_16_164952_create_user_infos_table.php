@@ -26,8 +26,8 @@ class CreateUserInfosTable extends Migration
             $table->string('wx_head_img')->nullable()->comment('微信头像路径');
             $table->string('wx_nickname')->nullable()->comment('微信昵称');
             $table->string('birthday', 10)->nullable()->comment('生日');
-            $table->float('lng',16,12)->nullable()->comment('经度');
-            $table->float('lat',16,12)->nullable()->comment('纬度');
+            $table->string('lng')->nullable()->comment('经度');
+            $table->string('lat')->nullable()->comment('纬度');
             $table->unsignedInteger('user_id')->comment('用户外键');
             $table->unsignedTinyInteger('is_certified')->default(0)->comment('认证状态');
             $table->unsignedTinyInteger('adminset')->default(0)->comment('管理员标识');
