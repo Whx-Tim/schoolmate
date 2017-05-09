@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Created' => [
             'App\Listeners\PushMessageToAdmin'
+        ],
+        'App\Events\ApplyOperation' => [
+            'App\Listeners\SendWechatNotice'
         ]
     ];
 

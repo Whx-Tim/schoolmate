@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\ApplyOperation;
 use App\Events\Created;
 use App\Http\Requests\StoreActiveRequest;
 use App\Http\Requests\StoreAnnouncementRequest;
@@ -259,6 +260,7 @@ class ActiveController extends Controller
                 'user_id' => Auth::id(),
                 'active_id' => $active
             ]);
+            event(new ApplyOperation(Auth::user()->username, '用户参与了你的活动'));
         } catch (\Exception $exception) {
             Log::info('参与活动异常：'.$exception);
 

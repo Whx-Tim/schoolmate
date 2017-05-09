@@ -49,9 +49,10 @@ Route::group(['middleware' => ['web'], 'prefix' => 'api', 'namespace' => 'Index'
         Route::post('update', 'UserController@updateUserInfo');
         Route::post('upload/avatar', 'UserController@uploadAvatar');
     });
-    Route::get('user/fire/{code}', 'UserController@fireUser');
-    Route::get('user/sendActivationCode', 'UserController@sendActivationCode');
-    Route::group(['middleware' => ['wechat.oauth'], 'prefix' => 'user'], function () {
+
+    Route::group(['middleware' => [], 'prefix' => 'user'], function () {
+        Route::get('fire/{code}', 'UserController@fireUser');
+        Route::get('sendActivationCode', 'UserController@sendActivationCode');
         Route::get('logout', 'UserController@logout');
         Route::post('login', 'UserController@login');
         Route::post('register', 'UserController@register');
