@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\ApplyOperation;
 use App\Events\Created;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreCourseRequest;
@@ -200,6 +201,7 @@ class CourseController extends Controller
             CourseGroup::create($data);
             $course = Course::find($course);
             $course->signs()->create(['user_id' => Auth::id()]);
+            event(new ApplyOperation(Auth::user()->username, '用户参与了你的课程'));
         } catch (\Exception $e) {
             Log::info('参与课程异常：'. $e);
 

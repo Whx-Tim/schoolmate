@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Events\ApplyOperation;
 use App\Events\Created;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\StoreLeagueRequest;
@@ -174,6 +175,7 @@ class LeagueController extends Controller
                 'user_id' => Auth::id(),
                 'league_id' => $league
             ]);
+            event(new ApplyOperation(Auth::user()->username, '用户参与了你的社团'));
         } catch (\Exception $exception) {
             Log::info('参与社团异常:'. $exception);
 
